@@ -4,6 +4,7 @@
 Главный принцип: неверное значение не должно получать уверенность выше порога проверки.
 Поэтому неоднозначность (несколько разных значений рядом с якорем, якорь задан, но не найден,
 слабый формат без якоря) снижает уверенность, а варианты сохраняются для этапа LLM."""
+import bisect
 import re
 from collections.abc import Iterator
 from dataclasses import dataclass
@@ -24,6 +25,8 @@ CONFIDENCE_KEYWORD_MISSED = 0.5
 CONFIDENCE_AMBIGUOUS = 0.4
 CONFIDENCE_TAIL = 0.65
 CONFIDENCE_TAIL_NEXT_LINE = 0.6
+# в остатке строки есть дата: вероятно, там несколько значений («г. Казань «07» января 2025 г.»)
+CONFIDENCE_TAIL_WITH_DATE = 0.5
 
 # лимиты: защищают от сверхлинейного времени на больших и враждебных текстах
 WINDOW_CHARS = 200
@@ -39,6 +42,16 @@ MAX_ALTERNATIVES = 10
 MAX_RAW_CHARS = 500
 # пользовательский regex без якоря ищется только в начале документа: ограничение времени RE2
 USER_REGEX_SCAN_CHARS = 300_000
+# значение не берётся внутри более «сильного» формата: год из «12 марта 1970 года», цифры телефона,
+# e-mail («ivanov644@mail.ru») и ИНН (только рядом со словом «ИНН»: 10 цифр без разделителей бывают и суммой)
+_EXCLUDED_INSIDE = {DataType.AMOUNT: (DataType.DATE, DataType.PHONE, DataType.EMAIL, DataType.INN)}
+_INN_LABEL = re.compile(r"ИНН", re.IGNORECASE)
+INN_LABEL_LOOKBEHIND_CHARS = 20
+EXCLUSION_CONTEXT_CHARS = 40
+# «МГУ им. М. В. Ломоносова», «завод имени Ленина» — часть названия, а не человек;
+# «действует от имени Иванова И. И.» — человек
+_NAMED_AFTER = re.compile(r"(?:\bим\.|(?<!\bот )\bимени)\s*$", re.IGNORECASE)
+NAMED_AFTER_LOOKBEHIND_CHARS = 12
 
 _SEPARATORS = re.compile(r"\s*(?:[:=]|-(?=\s))?\s*")
 # строка вида «Адрес: …» — это метка другого поля, а не значение
@@ -112,6 +125,7 @@ class _Matcher:
         else:
             # встроенный re: позиции pos/endpos, чтобы проверки (?<!…) видели символы перед окном
             offset, matches = 0, self._regex.finditer(text, start, end)
+        excluded = None if self.is_user_regex else _excluded_spans(self.data_type, text, start, end)
         found = 0
         for scanned, match in enumerate(matches, start=1):
             if scanned > MAX_SCANNED_MATCHES:
@@ -119,15 +133,51 @@ class _Matcher:
             raw = match.group(self._group)
             if not raw or len(raw) > MAX_RAW_CHARS:
                 continue
+            value_start, value_end = offset + match.start(self._group), offset + match.end(self._group)
+            if excluded and _overlaps(excluded, value_start, value_end):
+                continue
+            if self.data_type is DataType.PERSON and _NAMED_AFTER.search(
+                text, max(0, value_start - NAMED_AFTER_LOOKBEHIND_CHARS), value_start
+            ):
+                continue
             value = self._normalize(raw)
             if value is None:
                 continue
-            yield _Candidate(
-                value=value, raw=raw, start=offset + match.start(self._group), end=offset + match.end(self._group)
-            )
+            yield _Candidate(value=value, raw=raw, start=value_start, end=value_end)
             found += 1
             if found >= limit:
                 return
+
+
+def _excluded_spans(data_type: DataType, text: str, start: int, end: int) -> list[tuple[int, int]]:
+    """Отсортированные непересекающиеся участки, занятые форматами, внутри которых значение типа не берётся."""
+    stronger = _EXCLUDED_INSIDE.get(data_type)
+    if not stronger:
+        return []
+    low, high = max(0, start - EXCLUSION_CONTEXT_CHARS), min(len(text), end + EXCLUSION_CONTEXT_CHARS)
+    spans = []
+    for other in stronger:
+        for scanned, match in enumerate(TYPE_RULES[other].pattern.finditer(text, low, high)):
+            if scanned >= MAX_SCANNED_MATCHES:
+                break
+            if other is DataType.INN and not _INN_LABEL.search(
+                text, max(0, match.start() - INN_LABEL_LOOKBEHIND_CHARS), match.start()
+            ):
+                continue
+            spans.append(match.span())
+    merged: list[tuple[int, int]] = []
+    for span_start, span_end in sorted(spans):
+        if merged and span_start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], span_end))
+        else:
+            merged.append((span_start, span_end))
+    return merged
+
+
+def _overlaps(spans: list[tuple[int, int]], start: int, end: int) -> bool:
+    index = bisect.bisect_right(spans, (start, float("inf"))) - 1
+    candidates = spans[max(index, 0):index + 2]
+    return any(span_start < end and start < span_end for span_start, span_end in candidates)
 
 
 class DocumentIndex:
@@ -246,6 +296,8 @@ def _keyword_tail(field: TemplateField, index: DocumentIndex) -> RuleMatch | Non
             if raw:
                 start = index.text.index(raw, start)
                 confidence = CONFIDENCE_TAIL_NEXT_LINE if window.next_line else CONFIDENCE_TAIL
+                if TYPE_RULES[DataType.DATE].pattern.search(raw):
+                    confidence = min(confidence, CONFIDENCE_TAIL_WITH_DATE)
                 return RuleMatch(value=raw, raw=raw, start=start, end=start + len(raw), confidence=confidence)
     return None
 

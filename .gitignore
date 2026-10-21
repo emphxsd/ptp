@@ -38,3 +38,11 @@ htmlcov/
 # сертификаты для GigaChat скачиваются с gosuslugi.ru
 processor/certs/*
 !processor/certs/README.txt
+
+# синтетическая выборка генерируется заново (python -m evaluation.generate)
+processor/evaluation/data/
+
+# отчёты оценки могут содержать данные реальных документов; в git — только синтетические
+processor/evaluation/reports/*
+!processor/evaluation/reports/synthetic/
+!processor/evaluation/reports/holdout/

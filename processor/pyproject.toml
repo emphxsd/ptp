@@ -17,7 +17,7 @@ filterwarnings = [
 ]
 
 [tool.coverage.run]
-source = ["app"]
+source = ["app", "evaluation"]
 branch = true
 
 [tool.coverage.report]

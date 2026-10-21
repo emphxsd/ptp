@@ -109,6 +109,8 @@ class NatashaRecognizer:
     def _nominative(self, word: str, gender: str | None) -> str:
         forms = self._vocab.parse(word)
         compatible = [f for f in forms if gender is None or f.feats.get("Gender") in (gender, None)] or forms
+        # «Елены», «Михайловны» — ещё и именительный падеж множественного числа: в ФИО он не встречается
+        compatible = [f for f in compatible if f.feats.get("Number") != "Plur"] or compatible
         if any(f.feats.get("Case") == "Nom" for f in compatible):
             return word
         for form in compatible:

@@ -1,0 +1,2018 @@
+{
+  "dataset": "holdout",
+  "documents": 100,
+  "skipped_modes": {
+    "llm": "LLM не настроена (не задан ключ GigaChat)"
+  },
+  "notes": [],
+  "environment": {
+    "ocr": "tesseract",
+    "llm": "нет"
+  },
+  "runs": {
+    "rules": [
+      {
+        "doc_id": "invoice-001",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 8.498999988660216,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-002",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 22.977399989031255,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-003",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3068.9220000058413,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-004",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 6.420199992135167,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-005",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 20.813099981751293,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-006",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 933.2881000009365,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-007",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 8.323100046254694,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-008",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 21.57390001229942,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-009",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2777.8921000426635,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "invoice-010",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 6.3578999834135175,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-011",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 41.473800025414675,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-012",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 857.4754999717698,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-013",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 7.418000022880733,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-014",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 19.07430001301691,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-015",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2816.0223999875598,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-016",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 10.958200029563159,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-017",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 17.329399997834116,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-018",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 751.5343999839388,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-019",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 7.445900002494454,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-020",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 22.877200040966272,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-021",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2405.5954000214115,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-022",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 4.9214999889954925,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-023",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 20.036500005517155,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-024",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 1121.2900999817066,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-025",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 15.968099993187934,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "act-001",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 23.214099986944348,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-002",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 124.66309999581426,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-003",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2628.5797000164166,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-004",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 4.910899966489524,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "act-005",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 22.429499949794263,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-006",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 971.2995000299998,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-007",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 8.709700021427125,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-008",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 20.360599970445037,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-009",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2717.3069000127725,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-010",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 7.743900001514703,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-011",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 16.40880003105849,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-012",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 839.5206999848597,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-013",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.801099992822856,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-014",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 18.234899966046214,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-015",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2761.454700026661,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-016",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 6.450499990023673,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-017",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 54.63120003696531,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-018",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 902.7711999951862,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-019",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.757800012361258,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-020",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 18.90829997137189,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-021",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2734.988899959717,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-022",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 4.46249998640269,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-023",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 18.04419996915385,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-024",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 955.6218999787234,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-025",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 8.609100012108684,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "contract-001",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 9.023099963087589,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-002",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 20.44300001580268,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-003",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3299.3051999947056,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-004",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.4873000481165946,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-005",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 23.466699989512563,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-006",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3219.8501999955624,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-007",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 11.189699987880886,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-008",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 23.01360003184527,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-009",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3125.690900022164,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-010",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.029399995692074,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-011",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 18.09500000672415,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-012",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3995.379799976945,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-013",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 6.277200009208173,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-014",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 28.9786999928765,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-015",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3768.7472000252455,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-016",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 4.334500001277775,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-017",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 19.02260002680123,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-018",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3104.2545000091195,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-019",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 7.570099958684295,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-020",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 19.457200018223375,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-021",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3205.371600051876,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-022",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.3446999518200755,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-023",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 18.067700031679124,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-024",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3347.8865000070073,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-025",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 7.504099979996681,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-001",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.135499988682568,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-002",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 20.090200006961823,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-003",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3262.405499990564,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-004",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 3.7939000176265836,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-005",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 17.44320004945621,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-006",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 905.0967000075616,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-007",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 9.373700013384223,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-008",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 19.91869998164475,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-009",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3347.5949999992736,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-010",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 3.312800021376461,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-011",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 15.199300018139184,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-012",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 785.8030000352301,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-013",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 3.8370999973267317,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-014",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 16.212899994570762,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-015",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 2781.341699999757,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-016",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.0069999997504056,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-017",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 14.99840000178665,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-018",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 856.7703000153415,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-019",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.979600013233721,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-020",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 14.582300034817308,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-021",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 3434.2047999962233,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-022",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.659600021317601,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-023",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "rules",
+        "ms": 15.526700008194894,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-024",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "rules",
+        "ms": 724.9729000031948,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-025",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "rules",
+        "ms": 5.074700049590319,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      }
+    ],
+    "ner": [
+      {
+        "doc_id": "invoice-001",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 8.464000013191253,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-002",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 19.020100007764995,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-003",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2826.7418000032194,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-004",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 15.86650003446266,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-005",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 21.559700020588934,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-006",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 927.1195000037551,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-007",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 6.479900039266795,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-008",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 18.84579996112734,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-009",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2665.825499978382,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "invoice-010",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 8.034099999349564,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-011",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 17.600299965124577,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-012",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 873.8015000126325,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-013",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 6.798500020522624,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-014",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 21.74699999159202,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-015",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2681.9086999748833,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-016",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 6.617299979552627,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-017",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 17.391400004271418,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-018",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 731.686599960085,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-019",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 6.3396000186912715,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-020",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 76.03190001100302,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-021",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2484.0975999832153,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-022",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 8.383300038985908,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "invoice-023",
+        "doc_type": "invoice",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 20.032500033266842,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-024",
+        "doc_type": "invoice",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 791.2466999841854,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "invoice-025",
+        "doc_type": "invoice",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 8.979000034742057,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "act-001",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 6.051499978639185,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-002",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 15.644399973098189,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-003",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2548.9533999934793,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-004",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 3.722800000105053,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "act-005",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 17.944300023373216,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-006",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 937.6186999725178,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-007",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 5.941900017205626,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-008",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 16.445299959741533,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-009",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2705.5588999646716,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-010",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 6.9249999942258,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-011",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 25.16799996374175,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-012",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 947.7639999822713,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-013",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 37.17790002701804,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-014",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 22.184600005857646,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-015",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2809.541300055571,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-016",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 4.220800008624792,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-017",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 18.370000005234033,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-018",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 963.2236000034027,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-019",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 10.606300027575344,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-020",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 23.238499998115003,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-021",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2779.2181000113487,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-022",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 4.2572999955154955,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-023",
+        "doc_type": "act",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 16.446200024802238,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-024",
+        "doc_type": "act",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 830.2637999877334,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "act-025",
+        "doc_type": "act",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 8.488699968438596,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "contract-001",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 131.76310004200786,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-002",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 38.25599997071549,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-003",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3150.3278000163846,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-004",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 106.45750002004206,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-005",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 36.45690000848845,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-006",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3142.541599983815,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-007",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 18.33499997155741,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-008",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 33.39230001438409,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-009",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3011.5764000220224,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-010",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 122.07809998653829,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-011",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 39.80349999619648,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-012",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3771.10840001842,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-013",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 98.83570001693442,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-014",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 41.93810001015663,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-015",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 4100.898899952881,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-016",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 113.79490001127124,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-017",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 42.503400007262826,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-018",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3429.1389000136405,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-019",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 124.95010002749041,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 3
+      },
+      {
+        "doc_id": "contract-020",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 33.09039998566732,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-021",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3162.351300008595,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-022",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 19.986500032246113,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "contract-023",
+        "doc_type": "contract",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 46.92360002081841,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-024",
+        "doc_type": "contract",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3342.175900004804,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "contract-025",
+        "doc_type": "contract",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 104.58029998699203,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 2
+      },
+      {
+        "doc_id": "resume-001",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 58.34370001684874,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-002",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 71.38179999310523,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-003",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3040.1797000085935,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-004",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 53.104199992958456,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-005",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 68.16889997571707,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-006",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 849.8235000297427,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-007",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 63.540699949953705,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-008",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 65.03469997551292,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-009",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 3394.81369999703,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-010",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 43.9397000009194,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-011",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 61.76749995211139,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-012",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 706.1199999880046,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-013",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 51.08000000473112,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-014",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 68.27540002996102,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-015",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2700.3218000172637,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-016",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 65.3473999700509,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-017",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 77.11169996764511,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-018",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 983.5636999923736,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-019",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 41.740700020454824,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-020",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 54.26840001018718,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-021",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 2567.6856999634765,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-022",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 30.599200050346553,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-023",
+        "doc_type": "resume",
+        "kind": "docx",
+        "mode": "ner",
+        "ms": 28.361299948301166,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 1
+      },
+      {
+        "doc_id": "resume-024",
+        "doc_type": "resume",
+        "kind": "scan",
+        "mode": "ner",
+        "ms": 456.24999998835847,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      },
+      {
+        "doc_id": "resume-025",
+        "doc_type": "resume",
+        "kind": "pdf",
+        "mode": "ner",
+        "ms": 20.76739998301491,
+        "error": null,
+        "warnings": [],
+        "flagged_fields": 0
+      }
+    ]
+  }
+}

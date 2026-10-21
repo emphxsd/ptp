@@ -1,0 +1,1501 @@
+﻿mode,doc_id,doc_type,kind,field,expected,predicted,outcome,needs_review,source
+rules,invoice-001,invoice,pdf,bik,048349125,048349125,tp,False,rule
+rules,invoice-001,invoice,pdf,buyer,"АО ""Кедр""","АО ""Кедр""",tp,False,rule
+rules,invoice-001,invoice,pdf,date,2024-09-14,2024-09-14,tp,False,rule
+rules,invoice-001,invoice,pdf,number,2024-6509,2024-6509,tp,False,rule
+rules,invoice-001,invoice,pdf,supplier,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,invoice-001,invoice,pdf,supplier_inn,9813998695,9813998695,tp,False,rule
+rules,invoice-001,invoice,pdf,total,1003375.40,1003375.40,tp,False,rule
+rules,invoice-001,invoice,pdf,vat,,1003375.40,fp,True,rule
+rules,invoice-002,invoice,docx,bik,045722299,045722299,tp,False,rule
+rules,invoice-002,invoice,docx,buyer,"АО ""Бриз""","АО ""Бриз""",tp,False,rule
+rules,invoice-002,invoice,docx,date,2024-09-23,2024-09-23,tp,False,rule
+rules,invoice-002,invoice,docx,number,2025-3275,2025-3275,tp,False,rule
+rules,invoice-002,invoice,docx,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+rules,invoice-002,invoice,docx,supplier_inn,8273177844,8273177844,tp,False,rule
+rules,invoice-002,invoice,docx,total,1123168.52,1123168.52,tp,False,rule
+rules,invoice-002,invoice,docx,vat,,1123168.52,fp,True,rule
+rules,invoice-003,invoice,scan,bik,047636544,047636544,tp,False,rule
+rules,invoice-003,invoice,scan,buyer,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+rules,invoice-003,invoice,scan,date,2024-11-29,2024-11-29,tp,False,rule
+rules,invoice-003,invoice,scan,number,В-58,В-58,tp,False,rule
+rules,invoice-003,invoice,scan,supplier,"ПАО ""Восход""","ПАО ""Восход""",tp,False,rule
+rules,invoice-003,invoice,scan,supplier_inn,2622948669,2622948669,tp,False,rule
+rules,invoice-003,invoice,scan,total,563415.00,563415.00,tp,False,rule
+rules,invoice-003,invoice,scan,vat,93902.50,93902.50,tp,False,rule
+rules,invoice-004,invoice,pdf,bik,048237683,048237683,tp,False,rule
+rules,invoice-004,invoice,pdf,buyer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,invoice-004,invoice,pdf,date,2025-04-10,2025-04-10,tp,False,rule
+rules,invoice-004,invoice,pdf,number,900,900,tp,False,rule
+rules,invoice-004,invoice,pdf,supplier,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+rules,invoice-004,invoice,pdf,supplier_inn,2642524770,2642524770,tp,False,rule
+rules,invoice-004,invoice,pdf,total,982549.92,982549.92,tp,False,rule
+rules,invoice-004,invoice,pdf,vat,163758.32,163758.32,tp,False,rule
+rules,invoice-005,invoice,docx,bik,045335674,045335674,tp,False,rule
+rules,invoice-005,invoice,docx,buyer,"ПАО ""Вектор""","ПАО ""Вектор""",tp,False,rule
+rules,invoice-005,invoice,docx,date,2026-08-27,2026-08-27,tp,False,rule
+rules,invoice-005,invoice,docx,number,2025-4783,2025-4783,tp,False,rule
+rules,invoice-005,invoice,docx,supplier,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+rules,invoice-005,invoice,docx,supplier_inn,2304118953,2304118953,tp,False,rule
+rules,invoice-005,invoice,docx,total,794597.18,794597.18,tp,False,rule
+rules,invoice-005,invoice,docx,vat,132432.86,132432.86,tp,False,rule
+rules,invoice-006,invoice,scan,bik,045755570,045755570,tp,False,rule
+rules,invoice-006,invoice,scan,buyer,"ПАО ""Альфа-Строй""","ПАО ""Альфа-Строй""",tp,False,rule
+rules,invoice-006,invoice,scan,date,2024-02-29,2024-02-29,tp,False,rule
+rules,invoice-006,invoice,scan,number,482,482,tp,False,rule
+rules,invoice-006,invoice,scan,supplier,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+rules,invoice-006,invoice,scan,supplier_inn,3300487648,3300487648,tp,False,rule
+rules,invoice-006,invoice,scan,total,539914.60,539914.60,tp,False,rule
+rules,invoice-006,invoice,scan,vat,,36295232.00,fp,True,rule
+rules,invoice-007,invoice,pdf,bik,042986724,042986724,tp,False,rule
+rules,invoice-007,invoice,pdf,buyer,"ПАО ""Меридиан""","ПАО ""Меридиан""",tp,False,rule
+rules,invoice-007,invoice,pdf,date,2026-08-19,2026-08-19,tp,False,rule
+rules,invoice-007,invoice,pdf,number,П-62,П-62,tp,False,rule
+rules,invoice-007,invoice,pdf,supplier,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+rules,invoice-007,invoice,pdf,supplier_inn,9112658443,9112658443,tp,False,rule
+rules,invoice-007,invoice,pdf,total,386694.40,386694.40,tp,False,rule
+rules,invoice-007,invoice,pdf,vat,64449.07,64449.07,tp,False,rule
+rules,invoice-008,invoice,docx,bik,046253197,046253197,tp,False,rule
+rules,invoice-008,invoice,docx,buyer,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+rules,invoice-008,invoice,docx,date,2025-07-12,2025-07-12,tp,False,rule
+rules,invoice-008,invoice,docx,number,2025-2382,2025-2382,tp,False,rule
+rules,invoice-008,invoice,docx,supplier,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+rules,invoice-008,invoice,docx,supplier_inn,6765237357,6765237357,tp,False,rule
+rules,invoice-008,invoice,docx,total,501766.13,501766.13,tp,False,rule
+rules,invoice-008,invoice,docx,vat,83627.69,83627.69,tp,False,rule
+rules,invoice-009,invoice,scan,bik,042712592,042712592,tp,False,rule
+rules,invoice-009,invoice,scan,buyer,"ООО ""Кедр""","ООО ""Кедр""",tp,False,rule
+rules,invoice-009,invoice,scan,date,2026-08-19,2026-08-19,tp,False,rule
+rules,invoice-009,invoice,scan,number,278,278,tp,False,rule
+rules,invoice-009,invoice,scan,supplier,"ООО ""Кедр""","ООО ""Кедр""",tp,False,rule
+rules,invoice-009,invoice,scan,supplier_inn,9495183801,9495183801,tp,False,rule
+rules,invoice-009,invoice,scan,total,1504053.64,1504053.64,tp,False,rule
+rules,invoice-009,invoice,scan,vat,250675.61,250675.61,tp,False,rule
+rules,invoice-010,invoice,pdf,bik,049855231,049855231,tp,False,rule
+rules,invoice-010,invoice,pdf,buyer,"ООО ""Лотос""","ООО ""Лотос""",tp,False,rule
+rules,invoice-010,invoice,pdf,date,2026-01-16,2026-01-16,tp,False,rule
+rules,invoice-010,invoice,pdf,number,П-20,П-20,tp,False,rule
+rules,invoice-010,invoice,pdf,supplier,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+rules,invoice-010,invoice,pdf,supplier_inn,2930733682,2930733682,tp,False,rule
+rules,invoice-010,invoice,pdf,total,196238.00,196238.00,tp,False,rule
+rules,invoice-010,invoice,pdf,vat,,196238.00,fp,True,rule
+rules,invoice-011,invoice,docx,bik,049291908,049291908,tp,False,rule
+rules,invoice-011,invoice,docx,buyer,"ООО ""Гранит""","ООО ""Гранит""",tp,False,rule
+rules,invoice-011,invoice,docx,date,2024-11-12,2024-11-12,tp,False,rule
+rules,invoice-011,invoice,docx,number,992,992,tp,False,rule
+rules,invoice-011,invoice,docx,supplier,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+rules,invoice-011,invoice,docx,supplier_inn,6945028313,6945028313,tp,False,rule
+rules,invoice-011,invoice,docx,total,1074607.36,1074607.36,tp,False,rule
+rules,invoice-011,invoice,docx,vat,,1074607.36,fp,True,rule
+rules,invoice-012,invoice,scan,bik,047040429,047040429,tp,False,rule
+rules,invoice-012,invoice,scan,buyer,"ПАО ""Кедр""","ПАО ""Кедр""",tp,False,rule
+rules,invoice-012,invoice,scan,date,2026-02-05,2026-02-05,tp,False,rule
+rules,invoice-012,invoice,scan,number,2024-0757,2024-0757,tp,False,rule
+rules,invoice-012,invoice,scan,supplier,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+rules,invoice-012,invoice,scan,supplier_inn,5401901876,5401901876,tp,False,rule
+rules,invoice-012,invoice,scan,total,192405.72,192405.72,tp,False,rule
+rules,invoice-012,invoice,scan,vat,32067.62,32067.62,tp,False,rule
+rules,invoice-013,invoice,pdf,bik,041434766,041434766,tp,False,rule
+rules,invoice-013,invoice,pdf,buyer,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+rules,invoice-013,invoice,pdf,date,2024-09-29,2024-09-29,tp,False,rule
+rules,invoice-013,invoice,pdf,number,2024-8598,2024-8598,tp,False,rule
+rules,invoice-013,invoice,pdf,supplier,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+rules,invoice-013,invoice,pdf,supplier_inn,7905982814,7905982814,tp,False,rule
+rules,invoice-013,invoice,pdf,total,764331.04,764331.04,tp,False,rule
+rules,invoice-013,invoice,pdf,vat,127388.51,127388.51,tp,False,rule
+rules,invoice-014,invoice,docx,bik,049342343,049342343,tp,False,rule
+rules,invoice-014,invoice,docx,buyer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,invoice-014,invoice,docx,date,2026-04-17,2026-04-17,tp,False,rule
+rules,invoice-014,invoice,docx,number,843,843,tp,False,rule
+rules,invoice-014,invoice,docx,supplier,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+rules,invoice-014,invoice,docx,supplier_inn,1668179220,1668179220,tp,False,rule
+rules,invoice-014,invoice,docx,total,812291.56,812291.56,tp,False,rule
+rules,invoice-014,invoice,docx,vat,135381.93,135381.93,tp,False,rule
+rules,invoice-015,invoice,scan,bik,046138988,046138988,tp,False,rule
+rules,invoice-015,invoice,scan,buyer,"АО ""Кедр""","АО ""Кедр""",tp,False,rule
+rules,invoice-015,invoice,scan,date,2025-09-19,2025-09-19,tp,False,rule
+rules,invoice-015,invoice,scan,number,2024-1666,2024-1666,tp,False,rule
+rules,invoice-015,invoice,scan,supplier,"АО ""Ромашка""","АО ""Ромашка""",tp,False,rule
+rules,invoice-015,invoice,scan,supplier_inn,8942607919,8942607919,tp,False,rule
+rules,invoice-015,invoice,scan,total,321393.66,321393.66,tp,False,rule
+rules,invoice-015,invoice,scan,vat,,321393.66,fp,True,rule
+rules,invoice-016,invoice,pdf,bik,043457131,043457131,tp,False,rule
+rules,invoice-016,invoice,pdf,buyer,"АО ""СтройИнвест""","АО ""СтройИнвест""",tp,False,rule
+rules,invoice-016,invoice,pdf,date,2025-09-29,2025-09-29,tp,False,rule
+rules,invoice-016,invoice,pdf,number,К-50,К-50,tp,False,rule
+rules,invoice-016,invoice,pdf,supplier,"ПАО ""ТехноПарк""","ПАО ""ТехноПарк""",tp,False,rule
+rules,invoice-016,invoice,pdf,supplier_inn,8670940981,8670940981,tp,False,rule
+rules,invoice-016,invoice,pdf,total,1271592.00,1271592.00,tp,False,rule
+rules,invoice-016,invoice,pdf,vat,211932.00,211932.00,tp,False,rule
+rules,invoice-017,invoice,docx,bik,046523811,046523811,tp,False,rule
+rules,invoice-017,invoice,docx,buyer,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+rules,invoice-017,invoice,docx,date,2025-12-30,2025-12-30,tp,False,rule
+rules,invoice-017,invoice,docx,number,А-33,А-33,tp,False,rule
+rules,invoice-017,invoice,docx,supplier,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+rules,invoice-017,invoice,docx,supplier_inn,6327718626,6327718626,tp,False,rule
+rules,invoice-017,invoice,docx,total,888948.00,888948.00,tp,False,rule
+rules,invoice-017,invoice,docx,vat,,888948.00,fp,True,rule
+rules,invoice-018,invoice,scan,bik,044779657,044779657,tp,False,rule
+rules,invoice-018,invoice,scan,buyer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,invoice-018,invoice,scan,date,2025-08-21,2025-08-21,tp,False,rule
+rules,invoice-018,invoice,scan,number,2026-7421,2026-7421,tp,False,rule
+rules,invoice-018,invoice,scan,supplier,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+rules,invoice-018,invoice,scan,supplier_inn,8258444196,8258444196,tp,False,rule
+rules,invoice-018,invoice,scan,total,640144.84,640144.84,tp,False,rule
+rules,invoice-018,invoice,scan,vat,106690.81,106690.81,tp,False,rule
+rules,invoice-019,invoice,pdf,bik,046977736,046977736,tp,False,rule
+rules,invoice-019,invoice,pdf,buyer,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+rules,invoice-019,invoice,pdf,date,2026-03-14,2026-03-14,tp,False,rule
+rules,invoice-019,invoice,pdf,number,2025-2408,2025-2408,tp,False,rule
+rules,invoice-019,invoice,pdf,supplier,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+rules,invoice-019,invoice,pdf,supplier_inn,1278046585,1278046585,tp,True,rule
+rules,invoice-019,invoice,pdf,total,34156.00,34156.00,tp,False,rule
+rules,invoice-019,invoice,pdf,vat,5692.67,5692.67,tp,False,rule
+rules,invoice-020,invoice,docx,bik,044925364,044925364,tp,False,rule
+rules,invoice-020,invoice,docx,buyer,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+rules,invoice-020,invoice,docx,date,2024-12-19,2024-12-19,tp,False,rule
+rules,invoice-020,invoice,docx,number,А-72,А-72,tp,False,rule
+rules,invoice-020,invoice,docx,supplier,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+rules,invoice-020,invoice,docx,supplier_inn,4785222387,4785222387,tp,False,rule
+rules,invoice-020,invoice,docx,total,936427.59,936427.59,tp,False,rule
+rules,invoice-020,invoice,docx,vat,156071.26,156071.26,tp,False,rule
+rules,invoice-021,invoice,scan,bik,043260921,043260921,tp,False,rule
+rules,invoice-021,invoice,scan,buyer,"АО ""Орион""","АО ""Орион""",tp,False,rule
+rules,invoice-021,invoice,scan,date,2024-05-03,2024-05-03,tp,False,rule
+rules,invoice-021,invoice,scan,number,К-52,K-52,wrong,False,rule
+rules,invoice-021,invoice,scan,supplier,"ПАО ""СтройИнвест""","ПАО ""СтройИнвест""",tp,False,rule
+rules,invoice-021,invoice,scan,supplier_inn,1597760556,1597760556,tp,False,rule
+rules,invoice-021,invoice,scan,total,209217.80,209217.80,tp,False,rule
+rules,invoice-021,invoice,scan,vat,34869.63,34869.63,tp,False,rule
+rules,invoice-022,invoice,pdf,bik,044571385,044571385,tp,False,rule
+rules,invoice-022,invoice,pdf,buyer,"АО ""Восход""","АО ""Восход""",tp,False,rule
+rules,invoice-022,invoice,pdf,date,2025-12-16,2025-12-16,tp,False,rule
+rules,invoice-022,invoice,pdf,number,2024-1961,2024-1961,tp,False,rule
+rules,invoice-022,invoice,pdf,supplier,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+rules,invoice-022,invoice,pdf,supplier_inn,3172334964,3172334964,tp,False,rule
+rules,invoice-022,invoice,pdf,total,510545.00,510545.00,tp,False,rule
+rules,invoice-022,invoice,pdf,vat,85090.83,85090.83,tp,False,rule
+rules,invoice-023,invoice,docx,bik,041416970,041416970,tp,False,rule
+rules,invoice-023,invoice,docx,buyer,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+rules,invoice-023,invoice,docx,date,2024-03-26,2024-03-26,tp,False,rule
+rules,invoice-023,invoice,docx,number,2024-5825,2024-5825,tp,False,rule
+rules,invoice-023,invoice,docx,supplier,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+rules,invoice-023,invoice,docx,supplier_inn,8039273300,8039273300,tp,False,rule
+rules,invoice-023,invoice,docx,total,11779.92,11779.92,tp,False,rule
+rules,invoice-023,invoice,docx,vat,1963.32,1963.32,tp,False,rule
+rules,invoice-024,invoice,scan,bik,045350366,045350366,tp,False,rule
+rules,invoice-024,invoice,scan,buyer,"ПАО ""Альфа-Строй""","ПАО ""Альфа-Строй""",tp,False,rule
+rules,invoice-024,invoice,scan,date,2026-04-12,2026-04-12,tp,False,rule
+rules,invoice-024,invoice,scan,number,139,139,tp,False,rule
+rules,invoice-024,invoice,scan,supplier,"ПАО ""Кедр""","ПАО ""Кедр""",tp,False,rule
+rules,invoice-024,invoice,scan,supplier_inn,8057929923,8057929923,tp,False,rule
+rules,invoice-024,invoice,scan,total,25872.00,25872.00,tp,False,rule
+rules,invoice-024,invoice,scan,vat,4312.00,4312.00,tp,False,rule
+rules,invoice-025,invoice,pdf,bik,042769505,042769505,tp,False,rule
+rules,invoice-025,invoice,pdf,buyer,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+rules,invoice-025,invoice,pdf,date,2025-11-17,2025-11-17,tp,False,rule
+rules,invoice-025,invoice,pdf,number,М-76,М-76,tp,False,rule
+rules,invoice-025,invoice,pdf,supplier,"ООО ""Гранит""","ООО ""Гранит""",tp,False,rule
+rules,invoice-025,invoice,pdf,supplier_inn,1920824226,1920824226,tp,False,rule
+rules,invoice-025,invoice,pdf,total,930686.50,930686.50,tp,False,rule
+rules,invoice-025,invoice,pdf,vat,155114.42,155114.42,tp,False,rule
+rules,act-001,act,pdf,contractor,"АО ""Сибирь-Трейд""","АО ""Сибирь-Трейд""",tp,False,rule
+rules,act-001,act,pdf,contractor_inn,6501351000,6501351000,tp,False,rule
+rules,act-001,act,pdf,customer,"ПАО ""Бриз""","ПАО ""Бриз""",tp,False,rule
+rules,act-001,act,pdf,date,2025-08-31,2025-08-31,tp,False,rule
+rules,act-001,act,pdf,number,В-5,В-5,tp,False,rule
+rules,act-001,act,pdf,signer,Морозова А. М.,Морозова А. М.,tp,False,rule
+rules,act-001,act,pdf,total,107763.25,107763.25,tp,False,rule
+rules,act-002,act,docx,contractor,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+rules,act-002,act,docx,contractor_inn,2834190828,2834190828,tp,False,rule
+rules,act-002,act,docx,customer,"ПАО ""Альфа-Строй""","ПАО ""Альфа-Строй""",tp,False,rule
+rules,act-002,act,docx,date,2026-03-23,2026-03-23,tp,False,rule
+rules,act-002,act,docx,number,501,501,tp,False,rule
+rules,act-002,act,docx,signer,Морозов И. Н.,Морозов И. Н.,tp,False,rule
+rules,act-002,act,docx,total,363544.67,363544.67,tp,False,rule
+rules,act-003,act,scan,contractor,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+rules,act-003,act,scan,contractor_inn,8660471392,8660471392,tp,False,rule
+rules,act-003,act,scan,customer,"ООО ""Орион""","ООО ""Орион""",tp,False,rule
+rules,act-003,act,scan,date,2024-08-21,2024-08-21,tp,False,rule
+rules,act-003,act,scan,number,2025-3606,2025-3606,tp,False,rule
+rules,act-003,act,scan,signer,Кузнецов В. О.,Кузнецов В. О.,tp,False,rule
+rules,act-003,act,scan,total,162821.80,162821.80,tp,False,rule
+rules,act-004,act,pdf,contractor,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+rules,act-004,act,pdf,contractor_inn,7896516483,7896516483,tp,False,rule
+rules,act-004,act,pdf,customer,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+rules,act-004,act,pdf,date,2024-03-31,2024-03-31,tp,False,rule
+rules,act-004,act,pdf,number,2024-8156,2024-8156,tp,False,rule
+rules,act-004,act,pdf,signer,Петров В. И.,Петров В. И.,tp,False,rule
+rules,act-004,act,pdf,total,356027.23,356027.23,tp,False,rule
+rules,act-005,act,docx,contractor,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+rules,act-005,act,docx,contractor_inn,3443177468,3443177468,tp,False,rule
+rules,act-005,act,docx,customer,"ООО ""Меридиан""","ООО ""Меридиан""",tp,False,rule
+rules,act-005,act,docx,date,2026-02-16,2026-02-16,tp,False,rule
+rules,act-005,act,docx,number,880,880,tp,False,rule
+rules,act-005,act,docx,signer,Соколов В. А.,Соколов В. А.,tp,False,rule
+rules,act-005,act,docx,total,283807.76,283807.76,tp,False,rule
+rules,act-006,act,scan,contractor,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+rules,act-006,act,scan,contractor_inn,3713831290,3713831290,tp,False,rule
+rules,act-006,act,scan,customer,"АО ""Альфа-Строй""","АО ""Альфа-Строй""",tp,False,rule
+rules,act-006,act,scan,date,2025-05-22,2025-05-22,tp,False,rule
+rules,act-006,act,scan,number,2025-5263,2025-5263,tp,False,rule
+rules,act-006,act,scan,signer,Волков П. О.,Волков П. О.,tp,False,rule
+rules,act-006,act,scan,total,23125.00,23125.00,tp,False,rule
+rules,act-007,act,pdf,contractor,"АО ""Вектор""","АО ""Вектор""",tp,False,rule
+rules,act-007,act,pdf,contractor_inn,1748514812,1748514812,tp,False,rule
+rules,act-007,act,pdf,customer,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+rules,act-007,act,pdf,date,2025-03-07,2025-03-07,tp,False,rule
+rules,act-007,act,pdf,number,П-80,П-80,tp,False,rule
+rules,act-007,act,pdf,signer,Петров П. И.,Петров П. И.,tp,False,rule
+rules,act-007,act,pdf,total,394644.00,394644.00,tp,False,rule
+rules,act-008,act,docx,contractor,"ПАО ""Вектор""","ПАО ""Вектор""",tp,False,rule
+rules,act-008,act,docx,contractor_inn,3188904994,3188904994,tp,False,rule
+rules,act-008,act,docx,customer,"ООО ""Восход""","ООО ""Восход""",tp,False,rule
+rules,act-008,act,docx,date,2024-05-24,2024-05-24,tp,False,rule
+rules,act-008,act,docx,number,В-37,В-37,tp,False,rule
+rules,act-008,act,docx,signer,Соколов О. Н.,Соколов О. Н.,tp,False,rule
+rules,act-008,act,docx,total,203455.00,203455.00,tp,False,rule
+rules,act-009,act,scan,contractor,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+rules,act-009,act,scan,contractor_inn,4405613570,4405613570,tp,False,rule
+rules,act-009,act,scan,customer,"ПАО ""Восход""","ПАО ""Восход""",tp,False,rule
+rules,act-009,act,scan,date,2024-10-06,2024-10-06,tp,False,rule
+rules,act-009,act,scan,number,945,945,tp,False,rule
+rules,act-009,act,scan,signer,Кузнецов Н. И.,Кузнецов Н. И.,tp,False,rule
+rules,act-009,act,scan,total,651183.94,651183.94,tp,False,rule
+rules,act-010,act,pdf,contractor,"АО ""Сибирь-Трейд""","АО ""Сибирь-Трейд""",tp,False,rule
+rules,act-010,act,pdf,contractor_inn,2807567810,2807567810,tp,False,rule
+rules,act-010,act,pdf,customer,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+rules,act-010,act,pdf,date,2024-12-06,2024-12-06,tp,False,rule
+rules,act-010,act,pdf,number,686,686,tp,False,rule
+rules,act-010,act,pdf,signer,Морозова Н. И.,Морозова Н. И.,tp,False,rule
+rules,act-010,act,pdf,total,739864.48,739864.48,tp,False,rule
+rules,act-011,act,docx,contractor,"АО ""Восход""","АО ""Восход""",tp,False,rule
+rules,act-011,act,docx,contractor_inn,9367088782,9367088782,tp,False,rule
+rules,act-011,act,docx,customer,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+rules,act-011,act,docx,date,2024-05-22,2024-05-22,tp,False,rule
+rules,act-011,act,docx,number,2024-3275,2024-3275,tp,False,rule
+rules,act-011,act,docx,signer,Иванова С. П.,Иванова С. П.,tp,False,rule
+rules,act-011,act,docx,total,210904.00,210904.00,tp,False,rule
+rules,act-012,act,scan,contractor,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+rules,act-012,act,scan,contractor_inn,4832717453,4832717453,tp,False,rule
+rules,act-012,act,scan,customer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,act-012,act,scan,date,2024-03-18,2024-03-18,tp,False,rule
+rules,act-012,act,scan,number,В-62,В-62,tp,False,rule
+rules,act-012,act,scan,signer,Соколов С. Н.,Соколов С. Н.,tp,False,rule
+rules,act-012,act,scan,total,417283.23,417283.23,tp,False,rule
+rules,act-013,act,pdf,contractor,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,act-013,act,pdf,contractor_inn,2838149570,2838149570,tp,False,rule
+rules,act-013,act,pdf,customer,"АО ""Альфа-Строй""","АО ""Альфа-Строй""",tp,False,rule
+rules,act-013,act,pdf,date,2025-10-12,2025-10-12,tp,False,rule
+rules,act-013,act,pdf,number,П-39,П-39,tp,False,rule
+rules,act-013,act,pdf,signer,Смирнов П. М.,Смирнов П. М.,tp,False,rule
+rules,act-013,act,pdf,total,164468.46,164468.46,tp,False,rule
+rules,act-014,act,docx,contractor,"АО ""Орион""","АО ""Орион""",tp,False,rule
+rules,act-014,act,docx,contractor_inn,2830007140,2830007140,tp,False,rule
+rules,act-014,act,docx,customer,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+rules,act-014,act,docx,date,2026-01-04,2026-01-04,tp,False,rule
+rules,act-014,act,docx,number,410,410,tp,False,rule
+rules,act-014,act,docx,signer,Попова А. А.,Попова А. А.,tp,False,rule
+rules,act-014,act,docx,total,145248.00,145248.00,tp,False,rule
+rules,act-015,act,scan,contractor,"АО ""СтройИнвест""","АО ""СтройИнвест""",tp,False,rule
+rules,act-015,act,scan,contractor_inn,6483447444,6483447444,tp,False,rule
+rules,act-015,act,scan,customer,"ПАО ""Прогресс""","ПАО ""Прогресс""",tp,False,rule
+rules,act-015,act,scan,date,2025-02-20,2025-02-20,tp,False,rule
+rules,act-015,act,scan,number,729,729,tp,False,rule
+rules,act-015,act,scan,signer,Петрова С. С.,Петрова С. С.,tp,False,rule
+rules,act-015,act,scan,total,485625.00,485625.00,tp,False,rule
+rules,act-016,act,pdf,contractor,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,act-016,act,pdf,contractor_inn,8537073086,8537073086,tp,True,rule
+rules,act-016,act,pdf,customer,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+rules,act-016,act,pdf,date,2025-10-12,2025-10-12,tp,False,rule
+rules,act-016,act,pdf,number,432,432,tp,False,rule
+rules,act-016,act,pdf,signer,Морозов П. И.,Морозов П. И.,tp,False,rule
+rules,act-016,act,pdf,total,293904.00,293904.00,tp,False,rule
+rules,act-017,act,docx,contractor,"ПАО ""ТехноПарк""","ПАО ""ТехноПарк""",tp,False,rule
+rules,act-017,act,docx,contractor_inn,7058188585,7058188585,tp,False,rule
+rules,act-017,act,docx,customer,"ПАО ""СтройИнвест""","ПАО ""СтройИнвест""",tp,False,rule
+rules,act-017,act,docx,date,2026-08-21,2026-08-21,tp,False,rule
+rules,act-017,act,docx,number,2025-0469,2025-0469,tp,False,rule
+rules,act-017,act,docx,signer,Лебедев В. И.,Лебедев В. И.,tp,False,rule
+rules,act-017,act,docx,total,473538.65,473538.65,tp,False,rule
+rules,act-018,act,scan,contractor,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+rules,act-018,act,scan,contractor_inn,6966026839,6966026839,tp,True,rule
+rules,act-018,act,scan,customer,"ПАО ""Кедр""","ПАО ""Кедр""",tp,False,rule
+rules,act-018,act,scan,date,2026-09-04,2026-09-04,tp,False,rule
+rules,act-018,act,scan,number,Б-55,Б-55,tp,False,rule
+rules,act-018,act,scan,signer,Захарова О. М.,Захарова О. М.,tp,False,rule
+rules,act-018,act,scan,total,157236.61,157236.61,tp,False,rule
+rules,act-019,act,pdf,contractor,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+rules,act-019,act,pdf,contractor_inn,2736751271,2736751271,tp,False,rule
+rules,act-019,act,pdf,customer,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+rules,act-019,act,pdf,date,2026-04-18,2026-04-18,tp,False,rule
+rules,act-019,act,pdf,number,673,673,tp,False,rule
+rules,act-019,act,pdf,signer,Смирнов А. М.,Смирнов А. М.,tp,False,rule
+rules,act-019,act,pdf,total,486127.00,486127.00,tp,False,rule
+rules,act-020,act,docx,contractor,"ООО ""Меридиан""","ООО ""Меридиан""",tp,False,rule
+rules,act-020,act,docx,contractor_inn,8974962240,8974962240,tp,False,rule
+rules,act-020,act,docx,customer,"ПАО ""Ромашка""","ПАО ""Ромашка""",tp,False,rule
+rules,act-020,act,docx,date,2026-09-20,2026-09-20,tp,False,rule
+rules,act-020,act,docx,number,В-46,В-46,tp,False,rule
+rules,act-020,act,docx,signer,Иванов Н. А.,Иванов Н. А.,tp,False,rule
+rules,act-020,act,docx,total,312856.00,312856.00,tp,False,rule
+rules,act-021,act,scan,contractor,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+rules,act-021,act,scan,contractor_inn,2375049978,2375049978,tp,False,rule
+rules,act-021,act,scan,customer,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+rules,act-021,act,scan,date,2024-10-31,2024-10-31,tp,False,rule
+rules,act-021,act,scan,number,П-64,П-64,tp,False,rule
+rules,act-021,act,scan,signer,Попова Е. А.,Попова Е. А.,tp,False,rule
+rules,act-021,act,scan,total,184612.04,184612.04,tp,False,rule
+rules,act-022,act,pdf,contractor,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+rules,act-022,act,pdf,contractor_inn,6681621045,6681621045,tp,False,rule
+rules,act-022,act,pdf,customer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+rules,act-022,act,pdf,date,2026-04-24,2026-04-24,tp,False,rule
+rules,act-022,act,pdf,number,М-63,М-63,tp,False,rule
+rules,act-022,act,pdf,signer,Захарова Н. Н.,Захарова Н. Н.,tp,False,rule
+rules,act-022,act,pdf,total,403231.00,403231.00,tp,False,rule
+rules,act-023,act,docx,contractor,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+rules,act-023,act,docx,contractor_inn,9720453314,9720453314,tp,False,rule
+rules,act-023,act,docx,customer,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+rules,act-023,act,docx,date,2025-01-23,2025-01-23,tp,False,rule
+rules,act-023,act,docx,number,А-89,А-89,tp,False,rule
+rules,act-023,act,docx,signer,Лебедев И. М.,Лебедев И. М.,tp,False,rule
+rules,act-023,act,docx,total,338098.64,338098.64,tp,False,rule
+rules,act-024,act,scan,contractor,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+rules,act-024,act,scan,contractor_inn,2462032586,2462032586,tp,False,rule
+rules,act-024,act,scan,customer,"ООО ""Бриз""","ООО ""Бриз""",tp,False,rule
+rules,act-024,act,scan,date,2025-09-16,2025-09-16,tp,False,rule
+rules,act-024,act,scan,number,В-96,В-96,tp,False,rule
+rules,act-024,act,scan,signer,Смирнов П. А.,Смирнов П. А.,tp,False,rule
+rules,act-024,act,scan,total,545521.32,545521.32,tp,False,rule
+rules,act-025,act,pdf,contractor,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+rules,act-025,act,pdf,contractor_inn,2168728548,2168728548,tp,False,rule
+rules,act-025,act,pdf,customer,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+rules,act-025,act,pdf,date,2025-07-19,2025-07-19,tp,False,rule
+rules,act-025,act,pdf,number,2025-5706,2025-5706,tp,False,rule
+rules,act-025,act,pdf,signer,Захарова Н. А.,Захарова Н. А.,tp,False,rule
+rules,act-025,act,pdf,total,183468.09,183468.09,tp,False,rule
+rules,contract-001,contract,pdf,amount,2559559.00,2559559.00,tp,False,rule
+rules,contract-001,contract,pdf,city,Казань,"Казань ""07"" января 2025 г.",wrong,True,rule
+rules,contract-001,contract,pdf,date,2025-01-07,2025-01-07,tp,False,rule
+rules,contract-001,contract,pdf,director,Соколова Елена Михайловна,,fn,False,
+rules,contract-001,contract,pdf,number,2025-1629,2025-1629,tp,False,rule
+rules,contract-001,contract,pdf,supplier,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+rules,contract-001,contract,pdf,supplier_inn,3040491801,3040491801,tp,False,rule
+rules,contract-001,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-002,contract,docx,amount,4818264.00,4818264.00,tp,False,rule
+rules,contract-002,contract,docx,city,Казань,Казань 18.01.2025,wrong,True,rule
+rules,contract-002,contract,docx,date,2025-01-18,2025-01-18,tp,False,rule
+rules,contract-002,contract,docx,director,Новикова Елена Петровна,,fn,False,
+rules,contract-002,contract,docx,number,А-36,А-36,tp,False,rule
+rules,contract-002,contract,docx,supplier,"ПАО ""Вектор""","ПАО ""Вектор""",tp,False,rule
+rules,contract-002,contract,docx,supplier_inn,1110875303,1110875303,tp,False,rule
+rules,contract-002,contract,docx,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-003,contract,scan,amount,980728.00,980728.00,tp,False,rule
+rules,contract-003,contract,scan,city,Казань,Казань 02.08.2026,wrong,True,rule
+rules,contract-003,contract,scan,date,2026-08-02,2026-08-02,tp,False,rule
+rules,contract-003,contract,scan,director,Захарова Наталья Николаевна,,fn,False,
+rules,contract-003,contract,scan,number,2025-3985,2025-3985,tp,False,rule
+rules,contract-003,contract,scan,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+rules,contract-003,contract,scan,supplier_inn,5408186953,5408186953,tp,False,rule
+rules,contract-003,contract,scan,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-004,contract,pdf,amount,4700215.00,4700215.00,tp,False,rule
+rules,contract-004,contract,pdf,city,Казань,"Казань ""18"" июня 2024 г.",wrong,True,rule
+rules,contract-004,contract,pdf,date,2024-06-18,2024-06-18,tp,False,rule
+rules,contract-004,contract,pdf,director,Волков Пётр Михайлович,,fn,False,
+rules,contract-004,contract,pdf,number,2025-1642,2025-1642,tp,False,rule
+rules,contract-004,contract,pdf,supplier,"ООО ""Меридиан""","ООО ""Меридиан""",tp,False,rule
+rules,contract-004,contract,pdf,supplier_inn,5549352970,5549352970,tp,False,rule
+rules,contract-004,contract,pdf,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-005,contract,docx,amount,4675074.00,4675074.00,tp,False,rule
+rules,contract-005,contract,docx,city,Екатеринбург,Екатеринбург 10 февраля 2025 года,wrong,True,rule
+rules,contract-005,contract,docx,date,2025-02-10,2025-02-10,tp,False,rule
+rules,contract-005,contract,docx,director,Петров Сергей Николаевич,,fn,False,
+rules,contract-005,contract,docx,number,2024-8498,2024-8498,tp,False,rule
+rules,contract-005,contract,docx,supplier,"ООО ""Восход""","ООО ""Восход""",tp,False,rule
+rules,contract-005,contract,docx,supplier_inn,6462685720,6462685720,tp,False,rule
+rules,contract-005,contract,docx,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-006,contract,scan,amount,4503452.00,4503452.00,tp,False,rule
+rules,contract-006,contract,scan,city,Казань,Казань 22 августа 2026 года,wrong,True,rule
+rules,contract-006,contract,scan,date,2026-08-22,2026-08-22,tp,False,rule
+rules,contract-006,contract,scan,director,Соколов Олег Владимирович,,fn,False,
+rules,contract-006,contract,scan,number,Б-99,Б-99,tp,False,rule
+rules,contract-006,contract,scan,supplier,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+rules,contract-006,contract,scan,supplier_inn,6603496020,6603496020,tp,False,rule
+rules,contract-006,contract,scan,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-007,contract,pdf,amount,2762580.00,2762580.00,tp,False,rule
+rules,contract-007,contract,pdf,city,Воронеж,Воронеж 17 июля 2025 года,wrong,True,rule
+rules,contract-007,contract,pdf,date,2025-07-17,2025-07-17,tp,False,rule
+rules,contract-007,contract,pdf,director,Белов Андрей Владимирович,,fn,False,
+rules,contract-007,contract,pdf,number,2025-4603,2025-4603,tp,False,rule
+rules,contract-007,contract,pdf,supplier,"АО ""Северный ветер""","АО ""Северный ветер""",tp,False,rule
+rules,contract-007,contract,pdf,supplier_inn,2790277525,2790277525,tp,False,rule
+rules,contract-007,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-008,contract,docx,amount,4339086.00,4339086.00,tp,False,rule
+rules,contract-008,contract,docx,city,Екатеринбург,Екатеринбург 16 марта 2025 года,wrong,True,rule
+rules,contract-008,contract,docx,date,2025-03-16,2025-03-16,tp,False,rule
+rules,contract-008,contract,docx,director,Новикова Анна Олеговна,,fn,False,
+rules,contract-008,contract,docx,number,В-73,В-73,tp,False,rule
+rules,contract-008,contract,docx,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+rules,contract-008,contract,docx,supplier_inn,3589664958,3589664958,tp,False,rule
+rules,contract-008,contract,docx,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-009,contract,scan,amount,4950924.00,4950924.00,tp,False,rule
+rules,contract-009,contract,scan,city,Санкт-Петербург,Санкт-Петербург 25 августа 2026 года,wrong,True,rule
+rules,contract-009,contract,scan,date,2026-08-25,2026-08-25,tp,False,rule
+rules,contract-009,contract,scan,director,Морозов Дмитрий Иванович,,fn,False,
+rules,contract-009,contract,scan,number,2024-7958,2024-7958,tp,False,rule
+rules,contract-009,contract,scan,supplier,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+rules,contract-009,contract,scan,supplier_inn,2971100520,2971100520,tp,False,rule
+rules,contract-009,contract,scan,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-010,contract,pdf,amount,4057850.00,4057850.00,tp,False,rule
+rules,contract-010,contract,pdf,city,Нижний Новгород,Нижний Новгород 20 апреля 2024 года,wrong,True,rule
+rules,contract-010,contract,pdf,date,2024-04-20,2024-04-20,tp,False,rule
+rules,contract-010,contract,pdf,director,Лебедев Владимир Олегович,,fn,False,
+rules,contract-010,contract,pdf,number,323,323,tp,False,rule
+rules,contract-010,contract,pdf,supplier,"ООО ""Ромашка""","ООО ""Ромашка""",tp,False,rule
+rules,contract-010,contract,pdf,supplier_inn,3544121172,3544121172,tp,True,rule
+rules,contract-010,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-011,contract,docx,amount,2947316.00,2947316.00,tp,False,rule
+rules,contract-011,contract,docx,city,Воронеж,Воронеж 25.03.2024,wrong,True,rule
+rules,contract-011,contract,docx,date,2024-03-25,2024-03-25,tp,False,rule
+rules,contract-011,contract,docx,director,Попов Владимир Андреевич,,fn,False,
+rules,contract-011,contract,docx,number,2026-6405,2026-6405,tp,False,rule
+rules,contract-011,contract,docx,supplier,"ПАО ""Импульс""","ПАО ""Импульс""",tp,False,rule
+rules,contract-011,contract,docx,supplier_inn,9416859695,9416859695,tp,False,rule
+rules,contract-011,contract,docx,term,в течение 14 рабочих дней с момента оплаты,в течение 14 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-012,contract,scan,amount,349980.00,349980.00,tp,False,rule
+rules,contract-012,contract,scan,city,Санкт-Петербург,Санкт-Петербург 01.04.2026,wrong,True,rule
+rules,contract-012,contract,scan,date,2026-04-01,2026-04-01,tp,False,rule
+rules,contract-012,contract,scan,director,Морозов Алексей Владимирович,,fn,False,
+rules,contract-012,contract,scan,number,273,273,tp,False,rule
+rules,contract-012,contract,scan,supplier,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+rules,contract-012,contract,scan,supplier_inn,4476986040,4476986040,tp,False,rule
+rules,contract-012,contract,scan,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-013,contract,pdf,amount,454729.00,454729.00,tp,False,rule
+rules,contract-013,contract,pdf,city,Воронеж,Воронеж 30 июля 2026 года,wrong,True,rule
+rules,contract-013,contract,pdf,date,2026-07-30,2026-07-30,tp,False,rule
+rules,contract-013,contract,pdf,director,Волков Пётр Алексеевич,,fn,False,
+rules,contract-013,contract,pdf,number,777,777,tp,False,rule
+rules,contract-013,contract,pdf,supplier,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+rules,contract-013,contract,pdf,supplier_inn,9670364271,9670364271,tp,False,rule
+rules,contract-013,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-014,contract,docx,amount,443684.00,443684.00,tp,False,rule
+rules,contract-014,contract,docx,city,Краснодар,Краснодар 28 июня 2024 года,wrong,True,rule
+rules,contract-014,contract,docx,date,2024-06-28,2024-06-28,tp,False,rule
+rules,contract-014,contract,docx,director,Лебедев Пётр Сергеевич,,fn,False,
+rules,contract-014,contract,docx,number,Б-55,Б-55,tp,False,rule
+rules,contract-014,contract,docx,supplier,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+rules,contract-014,contract,docx,supplier_inn,5985093420,5985093420,tp,False,rule
+rules,contract-014,contract,docx,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-015,contract,scan,amount,2226097.00,2226097.00,tp,False,rule
+rules,contract-015,contract,scan,city,Нижний Новгород,Нижний Новгород 04.01.2024,wrong,True,rule
+rules,contract-015,contract,scan,date,2024-01-04,2024-01-04,tp,False,rule
+rules,contract-015,contract,scan,director,Смирнова Елена Алексеевна,,fn,False,
+rules,contract-015,contract,scan,number,2025-5314,2025-5314,tp,False,rule
+rules,contract-015,contract,scan,supplier,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+rules,contract-015,contract,scan,supplier_inn,3579081731,3579081731,tp,False,rule
+rules,contract-015,contract,scan,term,в течение 14 рабочих дней с момента оплаты,в течение 14 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-016,contract,pdf,amount,2762866.00,2762866.00,tp,False,rule
+rules,contract-016,contract,pdf,city,Самара,Самара 17.09.2024,wrong,True,rule
+rules,contract-016,contract,pdf,date,2024-09-17,2024-09-17,tp,False,rule
+rules,contract-016,contract,pdf,director,Морозов Олег Алексеевич,,fn,False,
+rules,contract-016,contract,pdf,number,Б-3,Б-3,tp,False,rule
+rules,contract-016,contract,pdf,supplier,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+rules,contract-016,contract,pdf,supplier_inn,3144565335,3144565335,tp,False,rule
+rules,contract-016,contract,pdf,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-017,contract,docx,amount,4072554.00,4072554.00,tp,False,rule
+rules,contract-017,contract,docx,city,Санкт-Петербург,Санкт-Петербург 26.02.2025,wrong,True,rule
+rules,contract-017,contract,docx,date,2025-02-26,2025-02-26,tp,False,rule
+rules,contract-017,contract,docx,director,Лебедева Ирина Дмитриевна,,fn,False,
+rules,contract-017,contract,docx,number,М-90,М-90,tp,False,rule
+rules,contract-017,contract,docx,supplier,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+rules,contract-017,contract,docx,supplier_inn,8908454331,8908454331,tp,False,rule
+rules,contract-017,contract,docx,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-018,contract,scan,amount,2501373.00,2501373.00,tp,False,rule
+rules,contract-018,contract,scan,city,Самара,Самара 11 марта 2024 года,wrong,True,rule
+rules,contract-018,contract,scan,date,2024-03-11,2024-03-11,tp,False,rule
+rules,contract-018,contract,scan,director,Соколов Андрей Дмитриевич,,fn,False,
+rules,contract-018,contract,scan,number,552,552,tp,False,rule
+rules,contract-018,contract,scan,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+rules,contract-018,contract,scan,supplier_inn,9173531613,9173531613,tp,False,rule
+rules,contract-018,contract,scan,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-019,contract,pdf,amount,4000691.00,4000691.00,tp,False,rule
+rules,contract-019,contract,pdf,city,Москва,"Москва ""09"" марта 2026 г.",wrong,True,rule
+rules,contract-019,contract,pdf,date,2026-03-09,2026-03-09,tp,False,rule
+rules,contract-019,contract,pdf,director,Лебедева Ирина Сергеевна,,fn,False,
+rules,contract-019,contract,pdf,number,В-70,В-70,tp,False,rule
+rules,contract-019,contract,pdf,supplier,"ООО ""Бриз""","ООО ""Бриз""",tp,False,rule
+rules,contract-019,contract,pdf,supplier_inn,1500620131,1500620131,tp,False,rule
+rules,contract-019,contract,pdf,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-020,contract,docx,amount,2441452.00,2441452.00,tp,False,rule
+rules,contract-020,contract,docx,city,Екатеринбург,Екатеринбург 18.01.2025,wrong,True,rule
+rules,contract-020,contract,docx,date,2025-01-18,2025-01-18,tp,False,rule
+rules,contract-020,contract,docx,director,Волков Пётр Сергеевич,,fn,False,
+rules,contract-020,contract,docx,number,819,819,tp,False,rule
+rules,contract-020,contract,docx,supplier,"АО ""Северный ветер""","АО ""Северный ветер""",tp,False,rule
+rules,contract-020,contract,docx,supplier_inn,7557285471,7557285471,tp,False,rule
+rules,contract-020,contract,docx,term,в течение 14 рабочих дней с момента оплаты,в течение 14 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-021,contract,scan,amount,2872489.00,2872489.00,tp,False,rule
+rules,contract-021,contract,scan,city,Новосибирск,"Новосибирск ""27"" февраля 2025 г.",wrong,True,rule
+rules,contract-021,contract,scan,date,2025-02-27,2025-02-27,tp,False,rule
+rules,contract-021,contract,scan,director,Белов Владимир Олегович,,fn,False,
+rules,contract-021,contract,scan,number,П-98,П-98,tp,False,rule
+rules,contract-021,contract,scan,supplier,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+rules,contract-021,contract,scan,supplier_inn,5941735729,5941735729,tp,False,rule
+rules,contract-021,contract,scan,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-022,contract,pdf,amount,3183262.00,3183262.00,tp,False,rule
+rules,contract-022,contract,pdf,city,Самара,Самара 05.11.2024,wrong,True,rule
+rules,contract-022,contract,pdf,date,2024-11-05,2024-11-05,tp,False,rule
+rules,contract-022,contract,pdf,director,Кузнецова Татьяна Алексеевна,,fn,False,
+rules,contract-022,contract,pdf,number,2026-1881,2026-1881,tp,False,rule
+rules,contract-022,contract,pdf,supplier,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+rules,contract-022,contract,pdf,supplier_inn,3746221028,3746221028,tp,False,rule
+rules,contract-022,contract,pdf,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-023,contract,docx,amount,1594618.00,1594618.00,tp,False,rule
+rules,contract-023,contract,docx,city,Самара,"Самара ""21"" октября 2025 г.",wrong,True,rule
+rules,contract-023,contract,docx,date,2025-10-21,2025-10-21,tp,False,rule
+rules,contract-023,contract,docx,director,Белов Михаил Андреевич,,fn,False,
+rules,contract-023,contract,docx,number,2025-6069,2025-6069,tp,False,rule
+rules,contract-023,contract,docx,supplier,"АО ""Бриз""","АО ""Бриз""",tp,False,rule
+rules,contract-023,contract,docx,supplier_inn,7842491585,7842491585,tp,False,rule
+rules,contract-023,contract,docx,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-024,contract,scan,amount,1465366.00,1465366.00,tp,False,rule
+rules,contract-024,contract,scan,city,Воронеж,Воронеж 26 мая 2024 года,wrong,True,rule
+rules,contract-024,contract,scan,date,2024-05-26,2024-05-26,tp,False,rule
+rules,contract-024,contract,scan,director,Захаров Сергей Николаевич,,fn,False,
+rules,contract-024,contract,scan,number,А-22,А-22,tp,False,rule
+rules,contract-024,contract,scan,supplier,"ПАО ""СтройИнвест""","ПАО ""СтройИнвест""",tp,False,rule
+rules,contract-024,contract,scan,supplier_inn,3583851535,3583851535,tp,False,rule
+rules,contract-024,contract,scan,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+rules,contract-025,contract,pdf,amount,4572156.00,4572156.00,tp,False,rule
+rules,contract-025,contract,pdf,city,Самара,"Самара ""31"" января 2024 г.",wrong,True,rule
+rules,contract-025,contract,pdf,date,2024-01-31,2024-01-31,tp,False,rule
+rules,contract-025,contract,pdf,director,Попов Михаил Иванович,,fn,False,
+rules,contract-025,contract,pdf,number,265,265,tp,False,rule
+rules,contract-025,contract,pdf,supplier,"ООО ""Ромашка""","ООО ""Ромашка""",tp,False,rule
+rules,contract-025,contract,pdf,supplier_inn,4778597392,4778597392,tp,False,rule
+rules,contract-025,contract,pdf,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+rules,resume-001,resume,pdf,birth_date,1973-08-10,1973-08-10,tp,False,rule
+rules,resume-001,resume,pdf,city,Санкт-Петербург,Санкт-Петербург,tp,False,rule
+rules,resume-001,resume,pdf,email,petrov896@yandex.ru,petrov896@yandex.ru,tp,False,rule
+rules,resume-001,resume,pdf,full_name,Петров Олег Иванович,,fn,True,
+rules,resume-001,resume,pdf,phone,'+79243931972,'+79243931972,tp,False,rule
+rules,resume-001,resume,pdf,position,Аналитик данных,Аналитик данных,tp,False,rule
+rules,resume-001,resume,pdf,salary,238000.00,238000.00,tp,False,rule
+rules,resume-002,resume,docx,birth_date,1970-11-17,1970-11-17,tp,False,rule
+rules,resume-002,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+rules,resume-002,resume,docx,email,novikov644@gmail.com,novikov644@gmail.com,tp,False,rule
+rules,resume-002,resume,docx,full_name,Новиков Андрей Сергеевич,,fn,True,
+rules,resume-002,resume,docx,phone,'+79851032748,'+79851032748,tp,False,rule
+rules,resume-002,resume,docx,position,Менеджер по продажам,Менеджер по продажам,tp,False,rule
+rules,resume-002,resume,docx,salary,,,tn,False,
+rules,resume-003,resume,scan,birth_date,1974-03-01,1974-03-01,tp,False,rule
+rules,resume-003,resume,scan,city,Казань,Казань,tp,False,rule
+rules,resume-003,resume,scan,email,belova366@gmail.com,belova366@gmail.com,tp,False,rule
+rules,resume-003,resume,scan,full_name,Белова Анна Владимировна,,fn,True,
+rules,resume-003,resume,scan,phone,'+79333658348,'+79333658348,tp,False,rule
+rules,resume-003,resume,scan,position,Офис-менеджер,Офис-менеджер,tp,False,rule
+rules,resume-003,resume,scan,salary,,,tn,False,
+rules,resume-004,resume,pdf,birth_date,1976-08-02,1976-08-02,tp,False,rule
+rules,resume-004,resume,pdf,city,Пермь,Пермь,tp,False,rule
+rules,resume-004,resume,pdf,email,novikova679@mail.ru,novikova679@mail.ru,tp,False,rule
+rules,resume-004,resume,pdf,full_name,Новикова Ольга Николаевна,,fn,True,
+rules,resume-004,resume,pdf,phone,'+79199616386,'+79199616386,tp,False,rule
+rules,resume-004,resume,pdf,position,Аналитик данных,Аналитик данных,tp,False,rule
+rules,resume-004,resume,pdf,salary,177000.00,177000.00,tp,False,rule
+rules,resume-005,resume,docx,birth_date,1999-12-19,1999-12-19,tp,False,rule
+rules,resume-005,resume,docx,city,Нижний Новгород,Нижний Новгород,tp,False,rule
+rules,resume-005,resume,docx,email,smirnova887@inbox.ru,smirnova887@inbox.ru,tp,False,rule
+rules,resume-005,resume,docx,full_name,Смирнова Светлана Владимировна,,fn,True,
+rules,resume-005,resume,docx,phone,'+79566946758,'+79566946758,tp,False,rule
+rules,resume-005,resume,docx,position,Специалист по кадрам,Специалист по кадрам,tp,False,rule
+rules,resume-005,resume,docx,salary,223000.00,223000.00,tp,False,rule
+rules,resume-006,resume,scan,birth_date,1997-04-23,1997-04-23,tp,False,rule
+rules,resume-006,resume,scan,city,Санкт-Петербург,Санкт-Петербург,tp,False,rule
+rules,resume-006,resume,scan,email,popova582@mail.ru,popova582@mail.ru,tp,False,rule
+rules,resume-006,resume,scan,full_name,Попова Ирина Сергеевна,,fn,True,
+rules,resume-006,resume,scan,phone,'+79947218121,'+79947218121,tp,False,rule
+rules,resume-006,resume,scan,position,Бухгалтер,Бухгалтер,tp,False,rule
+rules,resume-006,resume,scan,salary,,,tn,False,
+rules,resume-007,resume,pdf,birth_date,1992-01-04,1992-01-04,tp,False,rule
+rules,resume-007,resume,pdf,city,Москва,Москва,tp,False,rule
+rules,resume-007,resume,pdf,email,popov956@inbox.ru,popov956@inbox.ru,tp,False,rule
+rules,resume-007,resume,pdf,full_name,Попов Владимир Николаевич,,fn,True,
+rules,resume-007,resume,pdf,phone,'+79263412029,'+79263412029,tp,False,rule
+rules,resume-007,resume,pdf,position,Бухгалтер,Бухгалтер,tp,False,rule
+rules,resume-007,resume,pdf,salary,43000.00,43000.00,tp,False,rule
+rules,resume-008,resume,docx,birth_date,1999-11-14,1999-11-14,tp,False,rule
+rules,resume-008,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+rules,resume-008,resume,docx,email,sokolov41@yandex.ru,sokolov41@yandex.ru,tp,False,rule
+rules,resume-008,resume,docx,full_name,Соколов Иван Дмитриевич,,fn,True,
+rules,resume-008,resume,docx,phone,'+79705397132,'+79705397132,tp,False,rule
+rules,resume-008,resume,docx,position,Логист,Логист,tp,False,rule
+rules,resume-008,resume,docx,salary,56000.00,56000.00,tp,False,rule
+rules,resume-009,resume,scan,birth_date,1970-04-25,1970-04-25,tp,False,rule
+rules,resume-009,resume,scan,city,Пермь,Пермь,tp,False,rule
+rules,resume-009,resume,scan,email,zaharov964@mail.ru,zaharov964@mail.ru,tp,False,rule
+rules,resume-009,resume,scan,full_name,Захаров Иван Алексеевич,,fn,True,
+rules,resume-009,resume,scan,phone,'+79558625541,'+79558625541,tp,False,rule
+rules,resume-009,resume,scan,position,Инженер-программист,Инженер-программист,tp,False,rule
+rules,resume-009,resume,scan,salary,174000.00,174000.00,tp,False,rule
+rules,resume-010,resume,pdf,birth_date,2000-12-31,2000-12-31,tp,False,rule
+rules,resume-010,resume,pdf,city,Самара,Самара,tp,False,rule
+rules,resume-010,resume,pdf,email,novikova152@mail.ru,novikova152@mail.ru,tp,False,rule
+rules,resume-010,resume,pdf,full_name,Новикова Ольга Николаевна,,fn,True,
+rules,resume-010,resume,pdf,phone,'+79921992456,'+79921992456,tp,False,rule
+rules,resume-010,resume,pdf,position,Инженер-программист,Инженер-программист,tp,False,rule
+rules,resume-010,resume,pdf,salary,,,tn,False,
+rules,resume-011,resume,docx,birth_date,1980-09-22,1980-09-22,tp,False,rule
+rules,resume-011,resume,docx,city,Казань,Казань,tp,False,rule
+rules,resume-011,resume,docx,email,zaharov308@gmail.com,zaharov308@gmail.com,tp,False,rule
+rules,resume-011,resume,docx,full_name,Захаров Николай Петрович,,fn,True,
+rules,resume-011,resume,docx,phone,'+79481076698,'+79481076698,tp,False,rule
+rules,resume-011,resume,docx,position,Бухгалтер,Бухгалтер,tp,False,rule
+rules,resume-011,resume,docx,salary,178000.00,178000.00,tp,False,rule
+rules,resume-012,resume,scan,birth_date,1972-03-14,1972-03-14,tp,False,rule
+rules,resume-012,resume,scan,city,Новосибирск,Новосибирск,tp,False,rule
+rules,resume-012,resume,scan,email,belova719@yandex.ru,belova719@yandex.ru,tp,False,rule
+rules,resume-012,resume,scan,full_name,Белова Татьяна Владимировна,,fn,True,
+rules,resume-012,resume,scan,phone,'+79027658946,'+79027658946,tp,False,rule
+rules,resume-012,resume,scan,position,Маркетолог,Маркетолог,tp,False,rule
+rules,resume-012,resume,scan,salary,,,tn,False,
+rules,resume-013,resume,pdf,birth_date,1991-04-04,1991-04-04,tp,False,rule
+rules,resume-013,resume,pdf,city,Москва,Москва,tp,False,rule
+rules,resume-013,resume,pdf,email,sokolova188@yandex.ru,sokolova188@yandex.ru,tp,False,rule
+rules,resume-013,resume,pdf,full_name,Соколова Ольга Петровна,,fn,True,
+rules,resume-013,resume,pdf,phone,'+79101353341,'+79101353341,tp,False,rule
+rules,resume-013,resume,pdf,position,Логист,Логист,tp,False,rule
+rules,resume-013,resume,pdf,salary,66000.00,66000.00,tp,False,rule
+rules,resume-014,resume,docx,birth_date,1972-01-29,1972-01-29,tp,False,rule
+rules,resume-014,resume,docx,city,Самара,Самара,tp,False,rule
+rules,resume-014,resume,docx,email,volkova879@mail.ru,volkova879@mail.ru,tp,False,rule
+rules,resume-014,resume,docx,full_name,Волкова Наталья Дмитриевна,,fn,True,
+rules,resume-014,resume,docx,phone,'+79937743654,'+79937743654,tp,False,rule
+rules,resume-014,resume,docx,position,Бухгалтер,Бухгалтер,tp,False,rule
+rules,resume-014,resume,docx,salary,,,tn,False,
+rules,resume-015,resume,scan,birth_date,1990-05-14,1990-05-14,tp,False,rule
+rules,resume-015,resume,scan,city,Нижний Новгород,Нижний Новгород,tp,False,rule
+rules,resume-015,resume,scan,email,novikov751@yandex.ru,novikov751@yandex.ru,tp,False,rule
+rules,resume-015,resume,scan,full_name,Новиков Сергей Владимирович,,fn,True,
+rules,resume-015,resume,scan,phone,'+79768152424,'+79768152424,tp,False,rule
+rules,resume-015,resume,scan,position,Инженер-программист,Инженер-программист,tp,False,rule
+rules,resume-015,resume,scan,salary,50000.00,50000.00,tp,False,rule
+rules,resume-016,resume,pdf,birth_date,1991-12-12,1991-12-12,tp,False,rule
+rules,resume-016,resume,pdf,city,Казань,Казань,tp,False,rule
+rules,resume-016,resume,pdf,email,sokolov411@gmail.com,sokolov411@gmail.com,tp,False,rule
+rules,resume-016,resume,pdf,full_name,Соколов Дмитрий Николаевич,,fn,True,
+rules,resume-016,resume,pdf,phone,'+79645409817,'+79645409817,tp,False,rule
+rules,resume-016,resume,pdf,position,Системный администратор,Системный администратор,tp,False,rule
+rules,resume-016,resume,pdf,salary,,,tn,False,
+rules,resume-017,resume,docx,birth_date,2002-08-05,2002-08-05,tp,False,rule
+rules,resume-017,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+rules,resume-017,resume,docx,email,zaharova662@inbox.ru,zaharova662@inbox.ru,tp,False,rule
+rules,resume-017,resume,docx,full_name,Захарова Анна Николаевна,,fn,True,
+rules,resume-017,resume,docx,phone,'+79239732418,'+79239732418,tp,False,rule
+rules,resume-017,resume,docx,position,Системный администратор,Системный администратор,tp,False,rule
+rules,resume-017,resume,docx,salary,,,tn,False,
+rules,resume-018,resume,scan,birth_date,1973-07-15,1973-07-15,tp,False,rule
+rules,resume-018,resume,scan,city,Самара,Самара,tp,False,rule
+rules,resume-018,resume,scan,email,volkova930@mail.ru,volkova930@mail.ru,tp,False,rule
+rules,resume-018,resume,scan,full_name,Волкова Ирина Владимировна,,fn,True,
+rules,resume-018,resume,scan,phone,'+79191912036,'+79191912036,tp,False,rule
+rules,resume-018,resume,scan,position,Бухгалтер,Бухгалтер,tp,False,rule
+rules,resume-018,resume,scan,salary,150000.00,150000.00,tp,False,rule
+rules,resume-019,resume,pdf,birth_date,1993-11-10,1993-11-10,tp,False,rule
+rules,resume-019,resume,pdf,city,Москва,Москва,tp,False,rule
+rules,resume-019,resume,pdf,email,lebedev657@mail.ru,lebedev657@mail.ru,tp,False,rule
+rules,resume-019,resume,pdf,full_name,Лебедев Дмитрий Сергеевич,,fn,True,
+rules,resume-019,resume,pdf,phone,'+79709969837,'+79709969837,tp,False,rule
+rules,resume-019,resume,pdf,position,Специалист по кадрам,Специалист по кадрам,tp,False,rule
+rules,resume-019,resume,pdf,salary,,,tn,False,
+rules,resume-020,resume,docx,birth_date,1979-04-01,1979-04-01,tp,False,rule
+rules,resume-020,resume,docx,city,Краснодар,Краснодар,tp,False,rule
+rules,resume-020,resume,docx,email,petrova353@gmail.com,petrova353@gmail.com,tp,False,rule
+rules,resume-020,resume,docx,full_name,Петрова Татьяна Николаевна,,fn,True,
+rules,resume-020,resume,docx,phone,'+79663677767,'+79663677767,tp,False,rule
+rules,resume-020,resume,docx,position,Логист,Логист,tp,False,rule
+rules,resume-020,resume,docx,salary,,,tn,False,
+rules,resume-021,resume,scan,birth_date,1990-04-01,1990-04-01,tp,False,rule
+rules,resume-021,resume,scan,city,Краснодар,Краснодар,tp,False,rule
+rules,resume-021,resume,scan,email,petrov365@mail.ru,petrov365@mail.ru,tp,False,rule
+rules,resume-021,resume,scan,full_name,Петров Владимир Иванович,,fn,True,
+rules,resume-021,resume,scan,phone,'+79898358984,'+79898358984,tp,False,rule
+rules,resume-021,resume,scan,position,Аналитик данных,Аналитик данных,tp,False,rule
+rules,resume-021,resume,scan,salary,280000.00,280000.00,tp,False,rule
+rules,resume-022,resume,pdf,birth_date,1976-02-18,1976-02-18,tp,False,rule
+rules,resume-022,resume,pdf,city,Екатеринбург,Екатеринбург,tp,False,rule
+rules,resume-022,resume,pdf,email,morozova684@yandex.ru,morozova684@yandex.ru,tp,False,rule
+rules,resume-022,resume,pdf,full_name,Морозова Светлана Петровна,,fn,True,
+rules,resume-022,resume,pdf,phone,'+79182466155,'+79182466155,tp,False,rule
+rules,resume-022,resume,pdf,position,Бухгалтер,Бухгалтер,tp,False,rule
+rules,resume-022,resume,pdf,salary,,,tn,False,
+rules,resume-023,resume,docx,birth_date,2000-05-17,2000-05-17,tp,False,rule
+rules,resume-023,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+rules,resume-023,resume,docx,email,morozov14@inbox.ru,morozov14@inbox.ru,tp,False,rule
+rules,resume-023,resume,docx,full_name,Морозов Владимир Петрович,,fn,True,
+rules,resume-023,resume,docx,phone,'+79448597763,'+79448597763,tp,False,rule
+rules,resume-023,resume,docx,position,Юрист,Юрист,tp,False,rule
+rules,resume-023,resume,docx,salary,236000.00,236000.00,tp,False,rule
+rules,resume-024,resume,scan,birth_date,1989-12-28,1989-12-28,tp,False,rule
+rules,resume-024,resume,scan,city,Краснодар,Краснодар,tp,False,rule
+rules,resume-024,resume,scan,email,sokolov312@yandex.ru,sokolov312@yandex.ru,tp,False,rule
+rules,resume-024,resume,scan,full_name,Соколов Николай Сергеевич,,fn,True,
+rules,resume-024,resume,scan,phone,'+79338224033,'+79338224033,tp,False,rule
+rules,resume-024,resume,scan,position,Инженер-программист,Инженер-программист,tp,False,rule
+rules,resume-024,resume,scan,salary,,,tn,False,
+rules,resume-025,resume,pdf,birth_date,1973-12-03,1973-12-03,tp,False,rule
+rules,resume-025,resume,pdf,city,Самара,Самара,tp,False,rule
+rules,resume-025,resume,pdf,email,petrov233@mail.ru,petrov233@mail.ru,tp,False,rule
+rules,resume-025,resume,pdf,full_name,Петров Алексей Михайлович,,fn,True,
+rules,resume-025,resume,pdf,phone,'+79688945731,'+79688945731,tp,False,rule
+rules,resume-025,resume,pdf,position,Логист,Логист,tp,False,rule
+rules,resume-025,resume,pdf,salary,,,tn,False,
+ner,invoice-001,invoice,pdf,bik,048349125,048349125,tp,False,rule
+ner,invoice-001,invoice,pdf,buyer,"АО ""Кедр""","АО ""Кедр""",tp,False,rule
+ner,invoice-001,invoice,pdf,date,2024-09-14,2024-09-14,tp,False,rule
+ner,invoice-001,invoice,pdf,number,2024-6509,2024-6509,tp,False,rule
+ner,invoice-001,invoice,pdf,supplier,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,invoice-001,invoice,pdf,supplier_inn,9813998695,9813998695,tp,False,rule
+ner,invoice-001,invoice,pdf,total,1003375.40,1003375.40,tp,False,rule
+ner,invoice-001,invoice,pdf,vat,,1003375.40,fp,True,rule
+ner,invoice-002,invoice,docx,bik,045722299,045722299,tp,False,rule
+ner,invoice-002,invoice,docx,buyer,"АО ""Бриз""","АО ""Бриз""",tp,False,rule
+ner,invoice-002,invoice,docx,date,2024-09-23,2024-09-23,tp,False,rule
+ner,invoice-002,invoice,docx,number,2025-3275,2025-3275,tp,False,rule
+ner,invoice-002,invoice,docx,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+ner,invoice-002,invoice,docx,supplier_inn,8273177844,8273177844,tp,False,rule
+ner,invoice-002,invoice,docx,total,1123168.52,1123168.52,tp,False,rule
+ner,invoice-002,invoice,docx,vat,,1123168.52,fp,True,rule
+ner,invoice-003,invoice,scan,bik,047636544,047636544,tp,False,rule
+ner,invoice-003,invoice,scan,buyer,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+ner,invoice-003,invoice,scan,date,2024-11-29,2024-11-29,tp,False,rule
+ner,invoice-003,invoice,scan,number,В-58,В-58,tp,False,rule
+ner,invoice-003,invoice,scan,supplier,"ПАО ""Восход""","ПАО ""Восход""",tp,False,rule
+ner,invoice-003,invoice,scan,supplier_inn,2622948669,2622948669,tp,False,rule
+ner,invoice-003,invoice,scan,total,563415.00,563415.00,tp,False,rule
+ner,invoice-003,invoice,scan,vat,93902.50,93902.50,tp,False,rule
+ner,invoice-004,invoice,pdf,bik,048237683,048237683,tp,False,rule
+ner,invoice-004,invoice,pdf,buyer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,invoice-004,invoice,pdf,date,2025-04-10,2025-04-10,tp,False,rule
+ner,invoice-004,invoice,pdf,number,900,900,tp,False,rule
+ner,invoice-004,invoice,pdf,supplier,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+ner,invoice-004,invoice,pdf,supplier_inn,2642524770,2642524770,tp,False,rule
+ner,invoice-004,invoice,pdf,total,982549.92,982549.92,tp,False,rule
+ner,invoice-004,invoice,pdf,vat,163758.32,163758.32,tp,False,rule
+ner,invoice-005,invoice,docx,bik,045335674,045335674,tp,False,rule
+ner,invoice-005,invoice,docx,buyer,"ПАО ""Вектор""","ПАО ""Вектор""",tp,False,rule
+ner,invoice-005,invoice,docx,date,2026-08-27,2026-08-27,tp,False,rule
+ner,invoice-005,invoice,docx,number,2025-4783,2025-4783,tp,False,rule
+ner,invoice-005,invoice,docx,supplier,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+ner,invoice-005,invoice,docx,supplier_inn,2304118953,2304118953,tp,False,rule
+ner,invoice-005,invoice,docx,total,794597.18,794597.18,tp,False,rule
+ner,invoice-005,invoice,docx,vat,132432.86,132432.86,tp,False,rule
+ner,invoice-006,invoice,scan,bik,045755570,045755570,tp,False,rule
+ner,invoice-006,invoice,scan,buyer,"ПАО ""Альфа-Строй""","ПАО ""Альфа-Строй""",tp,False,rule
+ner,invoice-006,invoice,scan,date,2024-02-29,2024-02-29,tp,False,rule
+ner,invoice-006,invoice,scan,number,482,482,tp,False,rule
+ner,invoice-006,invoice,scan,supplier,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+ner,invoice-006,invoice,scan,supplier_inn,3300487648,3300487648,tp,False,rule
+ner,invoice-006,invoice,scan,total,539914.60,539914.60,tp,False,rule
+ner,invoice-006,invoice,scan,vat,,36295232.00,fp,True,rule
+ner,invoice-007,invoice,pdf,bik,042986724,042986724,tp,False,rule
+ner,invoice-007,invoice,pdf,buyer,"ПАО ""Меридиан""","ПАО ""Меридиан""",tp,False,rule
+ner,invoice-007,invoice,pdf,date,2026-08-19,2026-08-19,tp,False,rule
+ner,invoice-007,invoice,pdf,number,П-62,П-62,tp,False,rule
+ner,invoice-007,invoice,pdf,supplier,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+ner,invoice-007,invoice,pdf,supplier_inn,9112658443,9112658443,tp,False,rule
+ner,invoice-007,invoice,pdf,total,386694.40,386694.40,tp,False,rule
+ner,invoice-007,invoice,pdf,vat,64449.07,64449.07,tp,False,rule
+ner,invoice-008,invoice,docx,bik,046253197,046253197,tp,False,rule
+ner,invoice-008,invoice,docx,buyer,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+ner,invoice-008,invoice,docx,date,2025-07-12,2025-07-12,tp,False,rule
+ner,invoice-008,invoice,docx,number,2025-2382,2025-2382,tp,False,rule
+ner,invoice-008,invoice,docx,supplier,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+ner,invoice-008,invoice,docx,supplier_inn,6765237357,6765237357,tp,False,rule
+ner,invoice-008,invoice,docx,total,501766.13,501766.13,tp,False,rule
+ner,invoice-008,invoice,docx,vat,83627.69,83627.69,tp,False,rule
+ner,invoice-009,invoice,scan,bik,042712592,042712592,tp,False,rule
+ner,invoice-009,invoice,scan,buyer,"ООО ""Кедр""","ООО ""Кедр""",tp,False,rule
+ner,invoice-009,invoice,scan,date,2026-08-19,2026-08-19,tp,False,rule
+ner,invoice-009,invoice,scan,number,278,278,tp,False,rule
+ner,invoice-009,invoice,scan,supplier,"ООО ""Кедр""","ООО ""Кедр""",tp,False,rule
+ner,invoice-009,invoice,scan,supplier_inn,9495183801,9495183801,tp,False,rule
+ner,invoice-009,invoice,scan,total,1504053.64,1504053.64,tp,False,rule
+ner,invoice-009,invoice,scan,vat,250675.61,250675.61,tp,False,rule
+ner,invoice-010,invoice,pdf,bik,049855231,049855231,tp,False,rule
+ner,invoice-010,invoice,pdf,buyer,"ООО ""Лотос""","ООО ""Лотос""",tp,False,rule
+ner,invoice-010,invoice,pdf,date,2026-01-16,2026-01-16,tp,False,rule
+ner,invoice-010,invoice,pdf,number,П-20,П-20,tp,False,rule
+ner,invoice-010,invoice,pdf,supplier,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+ner,invoice-010,invoice,pdf,supplier_inn,2930733682,2930733682,tp,False,rule
+ner,invoice-010,invoice,pdf,total,196238.00,196238.00,tp,False,rule
+ner,invoice-010,invoice,pdf,vat,,196238.00,fp,True,rule
+ner,invoice-011,invoice,docx,bik,049291908,049291908,tp,False,rule
+ner,invoice-011,invoice,docx,buyer,"ООО ""Гранит""","ООО ""Гранит""",tp,False,rule
+ner,invoice-011,invoice,docx,date,2024-11-12,2024-11-12,tp,False,rule
+ner,invoice-011,invoice,docx,number,992,992,tp,False,rule
+ner,invoice-011,invoice,docx,supplier,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+ner,invoice-011,invoice,docx,supplier_inn,6945028313,6945028313,tp,False,rule
+ner,invoice-011,invoice,docx,total,1074607.36,1074607.36,tp,False,rule
+ner,invoice-011,invoice,docx,vat,,1074607.36,fp,True,rule
+ner,invoice-012,invoice,scan,bik,047040429,047040429,tp,False,rule
+ner,invoice-012,invoice,scan,buyer,"ПАО ""Кедр""","ПАО ""Кедр""",tp,False,rule
+ner,invoice-012,invoice,scan,date,2026-02-05,2026-02-05,tp,False,rule
+ner,invoice-012,invoice,scan,number,2024-0757,2024-0757,tp,False,rule
+ner,invoice-012,invoice,scan,supplier,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+ner,invoice-012,invoice,scan,supplier_inn,5401901876,5401901876,tp,False,rule
+ner,invoice-012,invoice,scan,total,192405.72,192405.72,tp,False,rule
+ner,invoice-012,invoice,scan,vat,32067.62,32067.62,tp,False,rule
+ner,invoice-013,invoice,pdf,bik,041434766,041434766,tp,False,rule
+ner,invoice-013,invoice,pdf,buyer,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+ner,invoice-013,invoice,pdf,date,2024-09-29,2024-09-29,tp,False,rule
+ner,invoice-013,invoice,pdf,number,2024-8598,2024-8598,tp,False,rule
+ner,invoice-013,invoice,pdf,supplier,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+ner,invoice-013,invoice,pdf,supplier_inn,7905982814,7905982814,tp,False,rule
+ner,invoice-013,invoice,pdf,total,764331.04,764331.04,tp,False,rule
+ner,invoice-013,invoice,pdf,vat,127388.51,127388.51,tp,False,rule
+ner,invoice-014,invoice,docx,bik,049342343,049342343,tp,False,rule
+ner,invoice-014,invoice,docx,buyer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,invoice-014,invoice,docx,date,2026-04-17,2026-04-17,tp,False,rule
+ner,invoice-014,invoice,docx,number,843,843,tp,False,rule
+ner,invoice-014,invoice,docx,supplier,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+ner,invoice-014,invoice,docx,supplier_inn,1668179220,1668179220,tp,False,rule
+ner,invoice-014,invoice,docx,total,812291.56,812291.56,tp,False,rule
+ner,invoice-014,invoice,docx,vat,135381.93,135381.93,tp,False,rule
+ner,invoice-015,invoice,scan,bik,046138988,046138988,tp,False,rule
+ner,invoice-015,invoice,scan,buyer,"АО ""Кедр""","АО ""Кедр""",tp,False,rule
+ner,invoice-015,invoice,scan,date,2025-09-19,2025-09-19,tp,False,rule
+ner,invoice-015,invoice,scan,number,2024-1666,2024-1666,tp,False,rule
+ner,invoice-015,invoice,scan,supplier,"АО ""Ромашка""","АО ""Ромашка""",tp,False,rule
+ner,invoice-015,invoice,scan,supplier_inn,8942607919,8942607919,tp,False,rule
+ner,invoice-015,invoice,scan,total,321393.66,321393.66,tp,False,rule
+ner,invoice-015,invoice,scan,vat,,321393.66,fp,True,rule
+ner,invoice-016,invoice,pdf,bik,043457131,043457131,tp,False,rule
+ner,invoice-016,invoice,pdf,buyer,"АО ""СтройИнвест""","АО ""СтройИнвест""",tp,False,rule
+ner,invoice-016,invoice,pdf,date,2025-09-29,2025-09-29,tp,False,rule
+ner,invoice-016,invoice,pdf,number,К-50,К-50,tp,False,rule
+ner,invoice-016,invoice,pdf,supplier,"ПАО ""ТехноПарк""","ПАО ""ТехноПарк""",tp,False,rule
+ner,invoice-016,invoice,pdf,supplier_inn,8670940981,8670940981,tp,False,rule
+ner,invoice-016,invoice,pdf,total,1271592.00,1271592.00,tp,False,rule
+ner,invoice-016,invoice,pdf,vat,211932.00,211932.00,tp,False,rule
+ner,invoice-017,invoice,docx,bik,046523811,046523811,tp,False,rule
+ner,invoice-017,invoice,docx,buyer,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+ner,invoice-017,invoice,docx,date,2025-12-30,2025-12-30,tp,False,rule
+ner,invoice-017,invoice,docx,number,А-33,А-33,tp,False,rule
+ner,invoice-017,invoice,docx,supplier,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+ner,invoice-017,invoice,docx,supplier_inn,6327718626,6327718626,tp,False,rule
+ner,invoice-017,invoice,docx,total,888948.00,888948.00,tp,False,rule
+ner,invoice-017,invoice,docx,vat,,888948.00,fp,True,rule
+ner,invoice-018,invoice,scan,bik,044779657,044779657,tp,False,rule
+ner,invoice-018,invoice,scan,buyer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,invoice-018,invoice,scan,date,2025-08-21,2025-08-21,tp,False,rule
+ner,invoice-018,invoice,scan,number,2026-7421,2026-7421,tp,False,rule
+ner,invoice-018,invoice,scan,supplier,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+ner,invoice-018,invoice,scan,supplier_inn,8258444196,8258444196,tp,False,rule
+ner,invoice-018,invoice,scan,total,640144.84,640144.84,tp,False,rule
+ner,invoice-018,invoice,scan,vat,106690.81,106690.81,tp,False,rule
+ner,invoice-019,invoice,pdf,bik,046977736,046977736,tp,False,rule
+ner,invoice-019,invoice,pdf,buyer,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+ner,invoice-019,invoice,pdf,date,2026-03-14,2026-03-14,tp,False,rule
+ner,invoice-019,invoice,pdf,number,2025-2408,2025-2408,tp,False,rule
+ner,invoice-019,invoice,pdf,supplier,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+ner,invoice-019,invoice,pdf,supplier_inn,1278046585,1278046585,tp,True,rule
+ner,invoice-019,invoice,pdf,total,34156.00,34156.00,tp,False,rule
+ner,invoice-019,invoice,pdf,vat,5692.67,5692.67,tp,False,rule
+ner,invoice-020,invoice,docx,bik,044925364,044925364,tp,False,rule
+ner,invoice-020,invoice,docx,buyer,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+ner,invoice-020,invoice,docx,date,2024-12-19,2024-12-19,tp,False,rule
+ner,invoice-020,invoice,docx,number,А-72,А-72,tp,False,rule
+ner,invoice-020,invoice,docx,supplier,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+ner,invoice-020,invoice,docx,supplier_inn,4785222387,4785222387,tp,False,rule
+ner,invoice-020,invoice,docx,total,936427.59,936427.59,tp,False,rule
+ner,invoice-020,invoice,docx,vat,156071.26,156071.26,tp,False,rule
+ner,invoice-021,invoice,scan,bik,043260921,043260921,tp,False,rule
+ner,invoice-021,invoice,scan,buyer,"АО ""Орион""","АО ""Орион""",tp,False,rule
+ner,invoice-021,invoice,scan,date,2024-05-03,2024-05-03,tp,False,rule
+ner,invoice-021,invoice,scan,number,К-52,K-52,wrong,False,rule
+ner,invoice-021,invoice,scan,supplier,"ПАО ""СтройИнвест""","ПАО ""СтройИнвест""",tp,False,rule
+ner,invoice-021,invoice,scan,supplier_inn,1597760556,1597760556,tp,False,rule
+ner,invoice-021,invoice,scan,total,209217.80,209217.80,tp,False,rule
+ner,invoice-021,invoice,scan,vat,34869.63,34869.63,tp,False,rule
+ner,invoice-022,invoice,pdf,bik,044571385,044571385,tp,False,rule
+ner,invoice-022,invoice,pdf,buyer,"АО ""Восход""","АО ""Восход""",tp,False,rule
+ner,invoice-022,invoice,pdf,date,2025-12-16,2025-12-16,tp,False,rule
+ner,invoice-022,invoice,pdf,number,2024-1961,2024-1961,tp,False,rule
+ner,invoice-022,invoice,pdf,supplier,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+ner,invoice-022,invoice,pdf,supplier_inn,3172334964,3172334964,tp,False,rule
+ner,invoice-022,invoice,pdf,total,510545.00,510545.00,tp,False,rule
+ner,invoice-022,invoice,pdf,vat,85090.83,85090.83,tp,False,rule
+ner,invoice-023,invoice,docx,bik,041416970,041416970,tp,False,rule
+ner,invoice-023,invoice,docx,buyer,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+ner,invoice-023,invoice,docx,date,2024-03-26,2024-03-26,tp,False,rule
+ner,invoice-023,invoice,docx,number,2024-5825,2024-5825,tp,False,rule
+ner,invoice-023,invoice,docx,supplier,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+ner,invoice-023,invoice,docx,supplier_inn,8039273300,8039273300,tp,False,rule
+ner,invoice-023,invoice,docx,total,11779.92,11779.92,tp,False,rule
+ner,invoice-023,invoice,docx,vat,1963.32,1963.32,tp,False,rule
+ner,invoice-024,invoice,scan,bik,045350366,045350366,tp,False,rule
+ner,invoice-024,invoice,scan,buyer,"ПАО ""Альфа-Строй""","ПАО ""Альфа-Строй""",tp,False,rule
+ner,invoice-024,invoice,scan,date,2026-04-12,2026-04-12,tp,False,rule
+ner,invoice-024,invoice,scan,number,139,139,tp,False,rule
+ner,invoice-024,invoice,scan,supplier,"ПАО ""Кедр""","ПАО ""Кедр""",tp,False,rule
+ner,invoice-024,invoice,scan,supplier_inn,8057929923,8057929923,tp,False,rule
+ner,invoice-024,invoice,scan,total,25872.00,25872.00,tp,False,rule
+ner,invoice-024,invoice,scan,vat,4312.00,4312.00,tp,False,rule
+ner,invoice-025,invoice,pdf,bik,042769505,042769505,tp,False,rule
+ner,invoice-025,invoice,pdf,buyer,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+ner,invoice-025,invoice,pdf,date,2025-11-17,2025-11-17,tp,False,rule
+ner,invoice-025,invoice,pdf,number,М-76,М-76,tp,False,rule
+ner,invoice-025,invoice,pdf,supplier,"ООО ""Гранит""","ООО ""Гранит""",tp,False,rule
+ner,invoice-025,invoice,pdf,supplier_inn,1920824226,1920824226,tp,False,rule
+ner,invoice-025,invoice,pdf,total,930686.50,930686.50,tp,False,rule
+ner,invoice-025,invoice,pdf,vat,155114.42,155114.42,tp,False,rule
+ner,act-001,act,pdf,contractor,"АО ""Сибирь-Трейд""","АО ""Сибирь-Трейд""",tp,False,rule
+ner,act-001,act,pdf,contractor_inn,6501351000,6501351000,tp,False,rule
+ner,act-001,act,pdf,customer,"ПАО ""Бриз""","ПАО ""Бриз""",tp,False,rule
+ner,act-001,act,pdf,date,2025-08-31,2025-08-31,tp,False,rule
+ner,act-001,act,pdf,number,В-5,В-5,tp,False,rule
+ner,act-001,act,pdf,signer,Морозова А. М.,Морозова А. М.,tp,False,rule
+ner,act-001,act,pdf,total,107763.25,107763.25,tp,False,rule
+ner,act-002,act,docx,contractor,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+ner,act-002,act,docx,contractor_inn,2834190828,2834190828,tp,False,rule
+ner,act-002,act,docx,customer,"ПАО ""Альфа-Строй""","ПАО ""Альфа-Строй""",tp,False,rule
+ner,act-002,act,docx,date,2026-03-23,2026-03-23,tp,False,rule
+ner,act-002,act,docx,number,501,501,tp,False,rule
+ner,act-002,act,docx,signer,Морозов И. Н.,Морозов И. Н.,tp,False,rule
+ner,act-002,act,docx,total,363544.67,363544.67,tp,False,rule
+ner,act-003,act,scan,contractor,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+ner,act-003,act,scan,contractor_inn,8660471392,8660471392,tp,False,rule
+ner,act-003,act,scan,customer,"ООО ""Орион""","ООО ""Орион""",tp,False,rule
+ner,act-003,act,scan,date,2024-08-21,2024-08-21,tp,False,rule
+ner,act-003,act,scan,number,2025-3606,2025-3606,tp,False,rule
+ner,act-003,act,scan,signer,Кузнецов В. О.,Кузнецов В. О.,tp,False,rule
+ner,act-003,act,scan,total,162821.80,162821.80,tp,False,rule
+ner,act-004,act,pdf,contractor,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+ner,act-004,act,pdf,contractor_inn,7896516483,7896516483,tp,False,rule
+ner,act-004,act,pdf,customer,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+ner,act-004,act,pdf,date,2024-03-31,2024-03-31,tp,False,rule
+ner,act-004,act,pdf,number,2024-8156,2024-8156,tp,False,rule
+ner,act-004,act,pdf,signer,Петров В. И.,Петров В. И.,tp,False,rule
+ner,act-004,act,pdf,total,356027.23,356027.23,tp,False,rule
+ner,act-005,act,docx,contractor,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+ner,act-005,act,docx,contractor_inn,3443177468,3443177468,tp,False,rule
+ner,act-005,act,docx,customer,"ООО ""Меридиан""","ООО ""Меридиан""",tp,False,rule
+ner,act-005,act,docx,date,2026-02-16,2026-02-16,tp,False,rule
+ner,act-005,act,docx,number,880,880,tp,False,rule
+ner,act-005,act,docx,signer,Соколов В. А.,Соколов В. А.,tp,False,rule
+ner,act-005,act,docx,total,283807.76,283807.76,tp,False,rule
+ner,act-006,act,scan,contractor,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+ner,act-006,act,scan,contractor_inn,3713831290,3713831290,tp,False,rule
+ner,act-006,act,scan,customer,"АО ""Альфа-Строй""","АО ""Альфа-Строй""",tp,False,rule
+ner,act-006,act,scan,date,2025-05-22,2025-05-22,tp,False,rule
+ner,act-006,act,scan,number,2025-5263,2025-5263,tp,False,rule
+ner,act-006,act,scan,signer,Волков П. О.,Волков П. О.,tp,False,rule
+ner,act-006,act,scan,total,23125.00,23125.00,tp,False,rule
+ner,act-007,act,pdf,contractor,"АО ""Вектор""","АО ""Вектор""",tp,False,rule
+ner,act-007,act,pdf,contractor_inn,1748514812,1748514812,tp,False,rule
+ner,act-007,act,pdf,customer,"ООО ""Альфа-Строй""","ООО ""Альфа-Строй""",tp,False,rule
+ner,act-007,act,pdf,date,2025-03-07,2025-03-07,tp,False,rule
+ner,act-007,act,pdf,number,П-80,П-80,tp,False,rule
+ner,act-007,act,pdf,signer,Петров П. И.,Петров П. И.,tp,False,rule
+ner,act-007,act,pdf,total,394644.00,394644.00,tp,False,rule
+ner,act-008,act,docx,contractor,"ПАО ""Вектор""","ПАО ""Вектор""",tp,False,rule
+ner,act-008,act,docx,contractor_inn,3188904994,3188904994,tp,False,rule
+ner,act-008,act,docx,customer,"ООО ""Восход""","ООО ""Восход""",tp,False,rule
+ner,act-008,act,docx,date,2024-05-24,2024-05-24,tp,False,rule
+ner,act-008,act,docx,number,В-37,В-37,tp,False,rule
+ner,act-008,act,docx,signer,Соколов О. Н.,Соколов О. Н.,tp,False,rule
+ner,act-008,act,docx,total,203455.00,203455.00,tp,False,rule
+ner,act-009,act,scan,contractor,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+ner,act-009,act,scan,contractor_inn,4405613570,4405613570,tp,False,rule
+ner,act-009,act,scan,customer,"ПАО ""Восход""","ПАО ""Восход""",tp,False,rule
+ner,act-009,act,scan,date,2024-10-06,2024-10-06,tp,False,rule
+ner,act-009,act,scan,number,945,945,tp,False,rule
+ner,act-009,act,scan,signer,Кузнецов Н. И.,Кузнецов Н. И.,tp,False,rule
+ner,act-009,act,scan,total,651183.94,651183.94,tp,False,rule
+ner,act-010,act,pdf,contractor,"АО ""Сибирь-Трейд""","АО ""Сибирь-Трейд""",tp,False,rule
+ner,act-010,act,pdf,contractor_inn,2807567810,2807567810,tp,False,rule
+ner,act-010,act,pdf,customer,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+ner,act-010,act,pdf,date,2024-12-06,2024-12-06,tp,False,rule
+ner,act-010,act,pdf,number,686,686,tp,False,rule
+ner,act-010,act,pdf,signer,Морозова Н. И.,Морозова Н. И.,tp,False,rule
+ner,act-010,act,pdf,total,739864.48,739864.48,tp,False,rule
+ner,act-011,act,docx,contractor,"АО ""Восход""","АО ""Восход""",tp,False,rule
+ner,act-011,act,docx,contractor_inn,9367088782,9367088782,tp,False,rule
+ner,act-011,act,docx,customer,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+ner,act-011,act,docx,date,2024-05-22,2024-05-22,tp,False,rule
+ner,act-011,act,docx,number,2024-3275,2024-3275,tp,False,rule
+ner,act-011,act,docx,signer,Иванова С. П.,Иванова С. П.,tp,False,rule
+ner,act-011,act,docx,total,210904.00,210904.00,tp,False,rule
+ner,act-012,act,scan,contractor,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+ner,act-012,act,scan,contractor_inn,4832717453,4832717453,tp,False,rule
+ner,act-012,act,scan,customer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,act-012,act,scan,date,2024-03-18,2024-03-18,tp,False,rule
+ner,act-012,act,scan,number,В-62,В-62,tp,False,rule
+ner,act-012,act,scan,signer,Соколов С. Н.,Соколов С. Н.,tp,False,rule
+ner,act-012,act,scan,total,417283.23,417283.23,tp,False,rule
+ner,act-013,act,pdf,contractor,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,act-013,act,pdf,contractor_inn,2838149570,2838149570,tp,False,rule
+ner,act-013,act,pdf,customer,"АО ""Альфа-Строй""","АО ""Альфа-Строй""",tp,False,rule
+ner,act-013,act,pdf,date,2025-10-12,2025-10-12,tp,False,rule
+ner,act-013,act,pdf,number,П-39,П-39,tp,False,rule
+ner,act-013,act,pdf,signer,Смирнов П. М.,Смирнов П. М.,tp,False,rule
+ner,act-013,act,pdf,total,164468.46,164468.46,tp,False,rule
+ner,act-014,act,docx,contractor,"АО ""Орион""","АО ""Орион""",tp,False,rule
+ner,act-014,act,docx,contractor_inn,2830007140,2830007140,tp,False,rule
+ner,act-014,act,docx,customer,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+ner,act-014,act,docx,date,2026-01-04,2026-01-04,tp,False,rule
+ner,act-014,act,docx,number,410,410,tp,False,rule
+ner,act-014,act,docx,signer,Попова А. А.,Попова А. А.,tp,False,rule
+ner,act-014,act,docx,total,145248.00,145248.00,tp,False,rule
+ner,act-015,act,scan,contractor,"АО ""СтройИнвест""","АО ""СтройИнвест""",tp,False,rule
+ner,act-015,act,scan,contractor_inn,6483447444,6483447444,tp,False,rule
+ner,act-015,act,scan,customer,"ПАО ""Прогресс""","ПАО ""Прогресс""",tp,False,rule
+ner,act-015,act,scan,date,2025-02-20,2025-02-20,tp,False,rule
+ner,act-015,act,scan,number,729,729,tp,False,rule
+ner,act-015,act,scan,signer,Петрова С. С.,Петрова С. С.,tp,False,rule
+ner,act-015,act,scan,total,485625.00,485625.00,tp,False,rule
+ner,act-016,act,pdf,contractor,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,act-016,act,pdf,contractor_inn,8537073086,8537073086,tp,True,rule
+ner,act-016,act,pdf,customer,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+ner,act-016,act,pdf,date,2025-10-12,2025-10-12,tp,False,rule
+ner,act-016,act,pdf,number,432,432,tp,False,rule
+ner,act-016,act,pdf,signer,Морозов П. И.,Морозов П. И.,tp,False,rule
+ner,act-016,act,pdf,total,293904.00,293904.00,tp,False,rule
+ner,act-017,act,docx,contractor,"ПАО ""ТехноПарк""","ПАО ""ТехноПарк""",tp,False,rule
+ner,act-017,act,docx,contractor_inn,7058188585,7058188585,tp,False,rule
+ner,act-017,act,docx,customer,"ПАО ""СтройИнвест""","ПАО ""СтройИнвест""",tp,False,rule
+ner,act-017,act,docx,date,2026-08-21,2026-08-21,tp,False,rule
+ner,act-017,act,docx,number,2025-0469,2025-0469,tp,False,rule
+ner,act-017,act,docx,signer,Лебедев В. И.,Лебедев В. И.,tp,False,rule
+ner,act-017,act,docx,total,473538.65,473538.65,tp,False,rule
+ner,act-018,act,scan,contractor,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+ner,act-018,act,scan,contractor_inn,6966026839,6966026839,tp,True,rule
+ner,act-018,act,scan,customer,"ПАО ""Кедр""","ПАО ""Кедр""",tp,False,rule
+ner,act-018,act,scan,date,2026-09-04,2026-09-04,tp,False,rule
+ner,act-018,act,scan,number,Б-55,Б-55,tp,False,rule
+ner,act-018,act,scan,signer,Захарова О. М.,Захарова О. М.,tp,False,rule
+ner,act-018,act,scan,total,157236.61,157236.61,tp,False,rule
+ner,act-019,act,pdf,contractor,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+ner,act-019,act,pdf,contractor_inn,2736751271,2736751271,tp,False,rule
+ner,act-019,act,pdf,customer,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+ner,act-019,act,pdf,date,2026-04-18,2026-04-18,tp,False,rule
+ner,act-019,act,pdf,number,673,673,tp,False,rule
+ner,act-019,act,pdf,signer,Смирнов А. М.,Смирнов А. М.,tp,False,rule
+ner,act-019,act,pdf,total,486127.00,486127.00,tp,False,rule
+ner,act-020,act,docx,contractor,"ООО ""Меридиан""","ООО ""Меридиан""",tp,False,rule
+ner,act-020,act,docx,contractor_inn,8974962240,8974962240,tp,False,rule
+ner,act-020,act,docx,customer,"ПАО ""Ромашка""","ПАО ""Ромашка""",tp,False,rule
+ner,act-020,act,docx,date,2026-09-20,2026-09-20,tp,False,rule
+ner,act-020,act,docx,number,В-46,В-46,tp,False,rule
+ner,act-020,act,docx,signer,Иванов Н. А.,Иванов Н. А.,tp,False,rule
+ner,act-020,act,docx,total,312856.00,312856.00,tp,False,rule
+ner,act-021,act,scan,contractor,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+ner,act-021,act,scan,contractor_inn,2375049978,2375049978,tp,False,rule
+ner,act-021,act,scan,customer,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+ner,act-021,act,scan,date,2024-10-31,2024-10-31,tp,False,rule
+ner,act-021,act,scan,number,П-64,П-64,tp,False,rule
+ner,act-021,act,scan,signer,Попова Е. А.,Попова Е. А.,tp,False,rule
+ner,act-021,act,scan,total,184612.04,184612.04,tp,False,rule
+ner,act-022,act,pdf,contractor,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+ner,act-022,act,pdf,contractor_inn,6681621045,6681621045,tp,False,rule
+ner,act-022,act,pdf,customer,"ООО ""Прогресс""","ООО ""Прогресс""",tp,False,rule
+ner,act-022,act,pdf,date,2026-04-24,2026-04-24,tp,False,rule
+ner,act-022,act,pdf,number,М-63,М-63,tp,False,rule
+ner,act-022,act,pdf,signer,Захарова Н. Н.,Захарова Н. Н.,tp,False,rule
+ner,act-022,act,pdf,total,403231.00,403231.00,tp,False,rule
+ner,act-023,act,docx,contractor,"АО ""Гранит""","АО ""Гранит""",tp,False,rule
+ner,act-023,act,docx,contractor_inn,9720453314,9720453314,tp,False,rule
+ner,act-023,act,docx,customer,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+ner,act-023,act,docx,date,2025-01-23,2025-01-23,tp,False,rule
+ner,act-023,act,docx,number,А-89,А-89,tp,False,rule
+ner,act-023,act,docx,signer,Лебедев И. М.,Лебедев И. М.,tp,False,rule
+ner,act-023,act,docx,total,338098.64,338098.64,tp,False,rule
+ner,act-024,act,scan,contractor,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+ner,act-024,act,scan,contractor_inn,2462032586,2462032586,tp,False,rule
+ner,act-024,act,scan,customer,"ООО ""Бриз""","ООО ""Бриз""",tp,False,rule
+ner,act-024,act,scan,date,2025-09-16,2025-09-16,tp,False,rule
+ner,act-024,act,scan,number,В-96,В-96,tp,False,rule
+ner,act-024,act,scan,signer,Смирнов П. А.,Смирнов П. А.,tp,False,rule
+ner,act-024,act,scan,total,545521.32,545521.32,tp,False,rule
+ner,act-025,act,pdf,contractor,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+ner,act-025,act,pdf,contractor_inn,2168728548,2168728548,tp,False,rule
+ner,act-025,act,pdf,customer,"АО ""Импульс""","АО ""Импульс""",tp,False,rule
+ner,act-025,act,pdf,date,2025-07-19,2025-07-19,tp,False,rule
+ner,act-025,act,pdf,number,2025-5706,2025-5706,tp,False,rule
+ner,act-025,act,pdf,signer,Захарова Н. А.,Захарова Н. А.,tp,False,rule
+ner,act-025,act,pdf,total,183468.09,183468.09,tp,False,rule
+ner,contract-001,contract,pdf,amount,2559559.00,2559559.00,tp,False,rule
+ner,contract-001,contract,pdf,city,Казань,"Казань ""07"" января 2025 г.",wrong,True,rule
+ner,contract-001,contract,pdf,date,2025-01-07,2025-01-07,tp,False,rule
+ner,contract-001,contract,pdf,director,Соколова Елена Михайловна,Соколова Елена Михайловна,tp,False,ner
+ner,contract-001,contract,pdf,number,2025-1629,2025-1629,tp,False,rule
+ner,contract-001,contract,pdf,supplier,"АО ""Лотос""","АО ""Лотос""",tp,False,rule
+ner,contract-001,contract,pdf,supplier_inn,3040491801,3040491801,tp,False,rule
+ner,contract-001,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-002,contract,docx,amount,4818264.00,4818264.00,tp,False,rule
+ner,contract-002,contract,docx,city,Казань,Казань 18.01.2025,wrong,True,rule
+ner,contract-002,contract,docx,date,2025-01-18,2025-01-18,tp,False,rule
+ner,contract-002,contract,docx,director,Новикова Елена Петровна,Новикова Елена Петровна,tp,True,ner
+ner,contract-002,contract,docx,number,А-36,А-36,tp,False,rule
+ner,contract-002,contract,docx,supplier,"ПАО ""Вектор""","ПАО ""Вектор""",tp,False,rule
+ner,contract-002,contract,docx,supplier_inn,1110875303,1110875303,tp,False,rule
+ner,contract-002,contract,docx,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-003,contract,scan,amount,980728.00,980728.00,tp,False,rule
+ner,contract-003,contract,scan,city,Казань,Казань 02.08.2026,wrong,True,rule
+ner,contract-003,contract,scan,date,2026-08-02,2026-08-02,tp,False,rule
+ner,contract-003,contract,scan,director,Захарова Наталья Николаевна,Захарова Наталья Николаевна,tp,True,ner
+ner,contract-003,contract,scan,number,2025-3985,2025-3985,tp,False,rule
+ner,contract-003,contract,scan,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+ner,contract-003,contract,scan,supplier_inn,5408186953,5408186953,tp,False,rule
+ner,contract-003,contract,scan,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-004,contract,pdf,amount,4700215.00,4700215.00,tp,False,rule
+ner,contract-004,contract,pdf,city,Казань,"Казань ""18"" июня 2024 г.",wrong,True,rule
+ner,contract-004,contract,pdf,date,2024-06-18,2024-06-18,tp,False,rule
+ner,contract-004,contract,pdf,director,Волков Пётр Михайлович,Волков Пётр Михайлович,tp,True,ner
+ner,contract-004,contract,pdf,number,2025-1642,2025-1642,tp,False,rule
+ner,contract-004,contract,pdf,supplier,"ООО ""Меридиан""","ООО ""Меридиан""",tp,False,rule
+ner,contract-004,contract,pdf,supplier_inn,5549352970,5549352970,tp,False,rule
+ner,contract-004,contract,pdf,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-005,contract,docx,amount,4675074.00,4675074.00,tp,False,rule
+ner,contract-005,contract,docx,city,Екатеринбург,Екатеринбург 10 февраля 2025 года,wrong,True,rule
+ner,contract-005,contract,docx,date,2025-02-10,2025-02-10,tp,False,rule
+ner,contract-005,contract,docx,director,Петров Сергей Николаевич,Петров Сергей Николаевич,tp,True,ner
+ner,contract-005,contract,docx,number,2024-8498,2024-8498,tp,False,rule
+ner,contract-005,contract,docx,supplier,"ООО ""Восход""","ООО ""Восход""",tp,False,rule
+ner,contract-005,contract,docx,supplier_inn,6462685720,6462685720,tp,False,rule
+ner,contract-005,contract,docx,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-006,contract,scan,amount,4503452.00,4503452.00,tp,False,rule
+ner,contract-006,contract,scan,city,Казань,Казань 22 августа 2026 года,wrong,True,rule
+ner,contract-006,contract,scan,date,2026-08-22,2026-08-22,tp,False,rule
+ner,contract-006,contract,scan,director,Соколов Олег Владимирович,Соколов Олег Владимирович,tp,True,ner
+ner,contract-006,contract,scan,number,Б-99,Б-99,tp,False,rule
+ner,contract-006,contract,scan,supplier,"АО ""Прогресс""","АО ""Прогресс""",tp,False,rule
+ner,contract-006,contract,scan,supplier_inn,6603496020,6603496020,tp,False,rule
+ner,contract-006,contract,scan,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-007,contract,pdf,amount,2762580.00,2762580.00,tp,False,rule
+ner,contract-007,contract,pdf,city,Воронеж,Воронеж 17 июля 2025 года,wrong,True,rule
+ner,contract-007,contract,pdf,date,2025-07-17,2025-07-17,tp,False,rule
+ner,contract-007,contract,pdf,director,Белов Андрей Владимирович,Белов Андрей Владимирович,tp,True,ner
+ner,contract-007,contract,pdf,number,2025-4603,2025-4603,tp,False,rule
+ner,contract-007,contract,pdf,supplier,"АО ""Северный ветер""","АО ""Северный ветер""",tp,False,rule
+ner,contract-007,contract,pdf,supplier_inn,2790277525,2790277525,tp,False,rule
+ner,contract-007,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-008,contract,docx,amount,4339086.00,4339086.00,tp,False,rule
+ner,contract-008,contract,docx,city,Екатеринбург,Екатеринбург 16 марта 2025 года,wrong,True,rule
+ner,contract-008,contract,docx,date,2025-03-16,2025-03-16,tp,False,rule
+ner,contract-008,contract,docx,director,Новикова Анна Олеговна,Новикова Анна Олеговна,tp,True,ner
+ner,contract-008,contract,docx,number,В-73,В-73,tp,False,rule
+ner,contract-008,contract,docx,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+ner,contract-008,contract,docx,supplier_inn,3589664958,3589664958,tp,False,rule
+ner,contract-008,contract,docx,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-009,contract,scan,amount,4950924.00,4950924.00,tp,False,rule
+ner,contract-009,contract,scan,city,Санкт-Петербург,Санкт-Петербург 25 августа 2026 года,wrong,True,rule
+ner,contract-009,contract,scan,date,2026-08-25,2026-08-25,tp,False,rule
+ner,contract-009,contract,scan,director,Морозов Дмитрий Иванович,Морозов Дмитрий Иванович,tp,False,ner
+ner,contract-009,contract,scan,number,2024-7958,2024-7958,tp,False,rule
+ner,contract-009,contract,scan,supplier,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+ner,contract-009,contract,scan,supplier_inn,2971100520,2971100520,tp,False,rule
+ner,contract-009,contract,scan,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-010,contract,pdf,amount,4057850.00,4057850.00,tp,False,rule
+ner,contract-010,contract,pdf,city,Нижний Новгород,Нижний Новгород 20 апреля 2024 года,wrong,True,rule
+ner,contract-010,contract,pdf,date,2024-04-20,2024-04-20,tp,False,rule
+ner,contract-010,contract,pdf,director,Лебедев Владимир Олегович,Лебедев Владимир Олегович,tp,False,ner
+ner,contract-010,contract,pdf,number,323,323,tp,False,rule
+ner,contract-010,contract,pdf,supplier,"ООО ""Ромашка""","ООО ""Ромашка""",tp,False,rule
+ner,contract-010,contract,pdf,supplier_inn,3544121172,3544121172,tp,True,rule
+ner,contract-010,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-011,contract,docx,amount,2947316.00,2947316.00,tp,False,rule
+ner,contract-011,contract,docx,city,Воронеж,Воронеж 25.03.2024,wrong,True,rule
+ner,contract-011,contract,docx,date,2024-03-25,2024-03-25,tp,False,rule
+ner,contract-011,contract,docx,director,Попов Владимир Андреевич,Попов Владимир Андреевич,tp,True,ner
+ner,contract-011,contract,docx,number,2026-6405,2026-6405,tp,False,rule
+ner,contract-011,contract,docx,supplier,"ПАО ""Импульс""","ПАО ""Импульс""",tp,False,rule
+ner,contract-011,contract,docx,supplier_inn,9416859695,9416859695,tp,False,rule
+ner,contract-011,contract,docx,term,в течение 14 рабочих дней с момента оплаты,в течение 14 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-012,contract,scan,amount,349980.00,349980.00,tp,False,rule
+ner,contract-012,contract,scan,city,Санкт-Петербург,Санкт-Петербург 01.04.2026,wrong,True,rule
+ner,contract-012,contract,scan,date,2026-04-01,2026-04-01,tp,False,rule
+ner,contract-012,contract,scan,director,Морозов Алексей Владимирович,Морозов Алексей Владимирович,tp,True,ner
+ner,contract-012,contract,scan,number,273,273,tp,False,rule
+ner,contract-012,contract,scan,supplier,"ООО ""Сибирь-Трейд""","ООО ""Сибирь-Трейд""",tp,False,rule
+ner,contract-012,contract,scan,supplier_inn,4476986040,4476986040,tp,False,rule
+ner,contract-012,contract,scan,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-013,contract,pdf,amount,454729.00,454729.00,tp,False,rule
+ner,contract-013,contract,pdf,city,Воронеж,Воронеж 30 июля 2026 года,wrong,True,rule
+ner,contract-013,contract,pdf,date,2026-07-30,2026-07-30,tp,False,rule
+ner,contract-013,contract,pdf,director,Волков Пётр Алексеевич,Волков Пётр Алексеевич,tp,False,ner
+ner,contract-013,contract,pdf,number,777,777,tp,False,rule
+ner,contract-013,contract,pdf,supplier,"ПАО ""Сибирь-Трейд""","ПАО ""Сибирь-Трейд""",tp,False,rule
+ner,contract-013,contract,pdf,supplier_inn,9670364271,9670364271,tp,False,rule
+ner,contract-013,contract,pdf,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-014,contract,docx,amount,443684.00,443684.00,tp,False,rule
+ner,contract-014,contract,docx,city,Краснодар,Краснодар 28 июня 2024 года,wrong,True,rule
+ner,contract-014,contract,docx,date,2024-06-28,2024-06-28,tp,False,rule
+ner,contract-014,contract,docx,director,Лебедев Пётр Сергеевич,Лебедев Пётр Сергеевич,tp,True,ner
+ner,contract-014,contract,docx,number,Б-55,Б-55,tp,False,rule
+ner,contract-014,contract,docx,supplier,"ООО ""Северный ветер""","ООО ""Северный ветер""",tp,False,rule
+ner,contract-014,contract,docx,supplier_inn,5985093420,5985093420,tp,False,rule
+ner,contract-014,contract,docx,term,в течение 20 рабочих дней с момента оплаты,в течение 20 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-015,contract,scan,amount,2226097.00,2226097.00,tp,False,rule
+ner,contract-015,contract,scan,city,Нижний Новгород,Нижний Новгород 04.01.2024,wrong,True,rule
+ner,contract-015,contract,scan,date,2024-01-04,2024-01-04,tp,False,rule
+ner,contract-015,contract,scan,director,Смирнова Елена Алексеевна,Смирнова Елена Алексеевна,tp,False,ner
+ner,contract-015,contract,scan,number,2025-5314,2025-5314,tp,False,rule
+ner,contract-015,contract,scan,supplier,"ПАО ""Гранит""","ПАО ""Гранит""",tp,False,rule
+ner,contract-015,contract,scan,supplier_inn,3579081731,3579081731,tp,False,rule
+ner,contract-015,contract,scan,term,в течение 14 рабочих дней с момента оплаты,в течение 14 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-016,contract,pdf,amount,2762866.00,2762866.00,tp,False,rule
+ner,contract-016,contract,pdf,city,Самара,Самара 17.09.2024,wrong,True,rule
+ner,contract-016,contract,pdf,date,2024-09-17,2024-09-17,tp,False,rule
+ner,contract-016,contract,pdf,director,Морозов Олег Алексеевич,Морозов Олег Алексеевич,tp,True,ner
+ner,contract-016,contract,pdf,number,Б-3,Б-3,tp,False,rule
+ner,contract-016,contract,pdf,supplier,"АО ""Меридиан""","АО ""Меридиан""",tp,False,rule
+ner,contract-016,contract,pdf,supplier_inn,3144565335,3144565335,tp,False,rule
+ner,contract-016,contract,pdf,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-017,contract,docx,amount,4072554.00,4072554.00,tp,False,rule
+ner,contract-017,contract,docx,city,Санкт-Петербург,Санкт-Петербург 26.02.2025,wrong,True,rule
+ner,contract-017,contract,docx,date,2025-02-26,2025-02-26,tp,False,rule
+ner,contract-017,contract,docx,director,Лебедева Ирина Дмитриевна,Лебедева Ирина Дмитриевна,tp,True,ner
+ner,contract-017,contract,docx,number,М-90,М-90,tp,False,rule
+ner,contract-017,contract,docx,supplier,"ПАО ""Лотос""","ПАО ""Лотос""",tp,False,rule
+ner,contract-017,contract,docx,supplier_inn,8908454331,8908454331,tp,False,rule
+ner,contract-017,contract,docx,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-018,contract,scan,amount,2501373.00,2501373.00,tp,False,rule
+ner,contract-018,contract,scan,city,Самара,Самара 11 марта 2024 года,wrong,True,rule
+ner,contract-018,contract,scan,date,2024-03-11,2024-03-11,tp,False,rule
+ner,contract-018,contract,scan,director,Соколов Андрей Дмитриевич,Соколов Андрей Дмитриевич,tp,False,ner
+ner,contract-018,contract,scan,number,552,552,tp,False,rule
+ner,contract-018,contract,scan,supplier,"ООО ""Импульс""","ООО ""Импульс""",tp,False,rule
+ner,contract-018,contract,scan,supplier_inn,9173531613,9173531613,tp,False,rule
+ner,contract-018,contract,scan,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-019,contract,pdf,amount,4000691.00,4000691.00,tp,False,rule
+ner,contract-019,contract,pdf,city,Москва,"Москва ""09"" марта 2026 г.",wrong,True,rule
+ner,contract-019,contract,pdf,date,2026-03-09,2026-03-09,tp,False,rule
+ner,contract-019,contract,pdf,director,Лебедева Ирина Сергеевна,Лебедева Ирина Сергеевна,tp,False,ner
+ner,contract-019,contract,pdf,number,В-70,В-70,tp,False,rule
+ner,contract-019,contract,pdf,supplier,"ООО ""Бриз""","ООО ""Бриз""",tp,False,rule
+ner,contract-019,contract,pdf,supplier_inn,1500620131,1500620131,tp,False,rule
+ner,contract-019,contract,pdf,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-020,contract,docx,amount,2441452.00,2441452.00,tp,False,rule
+ner,contract-020,contract,docx,city,Екатеринбург,Екатеринбург 18.01.2025,wrong,True,rule
+ner,contract-020,contract,docx,date,2025-01-18,2025-01-18,tp,False,rule
+ner,contract-020,contract,docx,director,Волков Пётр Сергеевич,Волков Пётр Сергеевич,tp,True,ner
+ner,contract-020,contract,docx,number,819,819,tp,False,rule
+ner,contract-020,contract,docx,supplier,"АО ""Северный ветер""","АО ""Северный ветер""",tp,False,rule
+ner,contract-020,contract,docx,supplier_inn,7557285471,7557285471,tp,False,rule
+ner,contract-020,contract,docx,term,в течение 14 рабочих дней с момента оплаты,в течение 14 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-021,contract,scan,amount,2872489.00,2872489.00,tp,False,rule
+ner,contract-021,contract,scan,city,Новосибирск,"Новосибирск ""27"" февраля 2025 г.",wrong,True,rule
+ner,contract-021,contract,scan,date,2025-02-27,2025-02-27,tp,False,rule
+ner,contract-021,contract,scan,director,Белов Владимир Олегович,Белов Владимир Олегович,tp,True,ner
+ner,contract-021,contract,scan,number,П-98,П-98,tp,False,rule
+ner,contract-021,contract,scan,supplier,"ООО ""Вектор""","ООО ""Вектор""",tp,False,rule
+ner,contract-021,contract,scan,supplier_inn,5941735729,5941735729,tp,False,rule
+ner,contract-021,contract,scan,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-022,contract,pdf,amount,3183262.00,3183262.00,tp,False,rule
+ner,contract-022,contract,pdf,city,Самара,Самара 05.11.2024,wrong,True,rule
+ner,contract-022,contract,pdf,date,2024-11-05,2024-11-05,tp,False,rule
+ner,contract-022,contract,pdf,director,Кузнецова Татьяна Алексеевна,Кузнецова Татьяна Алексеевна,tp,False,ner
+ner,contract-022,contract,pdf,number,2026-1881,2026-1881,tp,False,rule
+ner,contract-022,contract,pdf,supplier,"ПАО ""Северный ветер""","ПАО ""Северный ветер""",tp,False,rule
+ner,contract-022,contract,pdf,supplier_inn,3746221028,3746221028,tp,False,rule
+ner,contract-022,contract,pdf,term,в течение 30 рабочих дней с момента оплаты,в течение 30 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-023,contract,docx,amount,1594618.00,1594618.00,tp,False,rule
+ner,contract-023,contract,docx,city,Самара,"Самара ""21"" октября 2025 г.",wrong,True,rule
+ner,contract-023,contract,docx,date,2025-10-21,2025-10-21,tp,False,rule
+ner,contract-023,contract,docx,director,Белов Михаил Андреевич,Белов Михаил Андреевич,tp,True,ner
+ner,contract-023,contract,docx,number,2025-6069,2025-6069,tp,False,rule
+ner,contract-023,contract,docx,supplier,"АО ""Бриз""","АО ""Бриз""",tp,False,rule
+ner,contract-023,contract,docx,supplier_inn,7842491585,7842491585,tp,False,rule
+ner,contract-023,contract,docx,term,в течение 10 рабочих дней с момента оплаты,в течение 10 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-024,contract,scan,amount,1465366.00,1465366.00,tp,False,rule
+ner,contract-024,contract,scan,city,Воронеж,Воронеж 26 мая 2024 года,wrong,True,rule
+ner,contract-024,contract,scan,date,2024-05-26,2024-05-26,tp,False,rule
+ner,contract-024,contract,scan,director,Захаров Сергей Николаевич,Захаров Сергей Николаевич,tp,True,ner
+ner,contract-024,contract,scan,number,А-22,А-22,tp,False,rule
+ner,contract-024,contract,scan,supplier,"ПАО ""СтройИнвест""","ПАО ""СтройИнвест""",tp,False,rule
+ner,contract-024,contract,scan,supplier_inn,3583851535,3583851535,tp,False,rule
+ner,contract-024,contract,scan,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+ner,contract-025,contract,pdf,amount,4572156.00,4572156.00,tp,False,rule
+ner,contract-025,contract,pdf,city,Самара,"Самара ""31"" января 2024 г.",wrong,True,rule
+ner,contract-025,contract,pdf,date,2024-01-31,2024-01-31,tp,False,rule
+ner,contract-025,contract,pdf,director,Попов Михаил Иванович,Попов Михаил Иванович,tp,False,ner
+ner,contract-025,contract,pdf,number,265,265,tp,False,rule
+ner,contract-025,contract,pdf,supplier,"ООО ""Ромашка""","ООО ""Ромашка""",tp,False,rule
+ner,contract-025,contract,pdf,supplier_inn,4778597392,4778597392,tp,False,rule
+ner,contract-025,contract,pdf,term,в течение 5 рабочих дней с момента оплаты,в течение 5 рабочих дней с момента оплаты.,tp,False,rule
+ner,resume-001,resume,pdf,birth_date,1973-08-10,1973-08-10,tp,False,rule
+ner,resume-001,resume,pdf,city,Санкт-Петербург,Санкт-Петербург,tp,False,rule
+ner,resume-001,resume,pdf,email,petrov896@yandex.ru,petrov896@yandex.ru,tp,False,rule
+ner,resume-001,resume,pdf,full_name,Петров Олег Иванович,Петров Олег Иванович,tp,True,ner
+ner,resume-001,resume,pdf,phone,'+79243931972,'+79243931972,tp,False,rule
+ner,resume-001,resume,pdf,position,Аналитик данных,Аналитик данных,tp,False,rule
+ner,resume-001,resume,pdf,salary,238000.00,238000.00,tp,False,rule
+ner,resume-002,resume,docx,birth_date,1970-11-17,1970-11-17,tp,False,rule
+ner,resume-002,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+ner,resume-002,resume,docx,email,novikov644@gmail.com,novikov644@gmail.com,tp,False,rule
+ner,resume-002,resume,docx,full_name,Новиков Андрей Сергеевич,Новиков Андрей Сергеевич,tp,False,ner
+ner,resume-002,resume,docx,phone,'+79851032748,'+79851032748,tp,False,rule
+ner,resume-002,resume,docx,position,Менеджер по продажам,Менеджер по продажам,tp,False,rule
+ner,resume-002,resume,docx,salary,,,tn,False,
+ner,resume-003,resume,scan,birth_date,1974-03-01,1974-03-01,tp,False,rule
+ner,resume-003,resume,scan,city,Казань,Казань,tp,False,rule
+ner,resume-003,resume,scan,email,belova366@gmail.com,belova366@gmail.com,tp,False,rule
+ner,resume-003,resume,scan,full_name,Белова Анна Владимировна,Белова Анна Владимировна,tp,True,ner
+ner,resume-003,resume,scan,phone,'+79333658348,'+79333658348,tp,False,rule
+ner,resume-003,resume,scan,position,Офис-менеджер,Офис-менеджер,tp,False,rule
+ner,resume-003,resume,scan,salary,,,tn,False,
+ner,resume-004,resume,pdf,birth_date,1976-08-02,1976-08-02,tp,False,rule
+ner,resume-004,resume,pdf,city,Пермь,Пермь,tp,False,rule
+ner,resume-004,resume,pdf,email,novikova679@mail.ru,novikova679@mail.ru,tp,False,rule
+ner,resume-004,resume,pdf,full_name,Новикова Ольга Николаевна,Новикова Ольга Николаевна,tp,True,ner
+ner,resume-004,resume,pdf,phone,'+79199616386,'+79199616386,tp,False,rule
+ner,resume-004,resume,pdf,position,Аналитик данных,Аналитик данных,tp,False,rule
+ner,resume-004,resume,pdf,salary,177000.00,177000.00,tp,False,rule
+ner,resume-005,resume,docx,birth_date,1999-12-19,1999-12-19,tp,False,rule
+ner,resume-005,resume,docx,city,Нижний Новгород,Нижний Новгород,tp,False,rule
+ner,resume-005,resume,docx,email,smirnova887@inbox.ru,smirnova887@inbox.ru,tp,False,rule
+ner,resume-005,resume,docx,full_name,Смирнова Светлана Владимировна,Смирнова Светлана Владимировна,tp,True,ner
+ner,resume-005,resume,docx,phone,'+79566946758,'+79566946758,tp,False,rule
+ner,resume-005,resume,docx,position,Специалист по кадрам,Специалист по кадрам,tp,False,rule
+ner,resume-005,resume,docx,salary,223000.00,223000.00,tp,False,rule
+ner,resume-006,resume,scan,birth_date,1997-04-23,1997-04-23,tp,False,rule
+ner,resume-006,resume,scan,city,Санкт-Петербург,Санкт-Петербург,tp,False,rule
+ner,resume-006,resume,scan,email,popova582@mail.ru,popova582@mail.ru,tp,False,rule
+ner,resume-006,resume,scan,full_name,Попова Ирина Сергеевна,Попова Ирина Сергеевна,tp,False,ner
+ner,resume-006,resume,scan,phone,'+79947218121,'+79947218121,tp,False,rule
+ner,resume-006,resume,scan,position,Бухгалтер,Бухгалтер,tp,False,rule
+ner,resume-006,resume,scan,salary,,,tn,False,
+ner,resume-007,resume,pdf,birth_date,1992-01-04,1992-01-04,tp,False,rule
+ner,resume-007,resume,pdf,city,Москва,Москва,tp,False,rule
+ner,resume-007,resume,pdf,email,popov956@inbox.ru,popov956@inbox.ru,tp,False,rule
+ner,resume-007,resume,pdf,full_name,Попов Владимир Николаевич,Попов Владимир Николаевич,tp,True,ner
+ner,resume-007,resume,pdf,phone,'+79263412029,'+79263412029,tp,False,rule
+ner,resume-007,resume,pdf,position,Бухгалтер,Бухгалтер,tp,False,rule
+ner,resume-007,resume,pdf,salary,43000.00,43000.00,tp,False,rule
+ner,resume-008,resume,docx,birth_date,1999-11-14,1999-11-14,tp,False,rule
+ner,resume-008,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+ner,resume-008,resume,docx,email,sokolov41@yandex.ru,sokolov41@yandex.ru,tp,False,rule
+ner,resume-008,resume,docx,full_name,Соколов Иван Дмитриевич,Соколов Иван Дмитриевич,tp,True,ner
+ner,resume-008,resume,docx,phone,'+79705397132,'+79705397132,tp,False,rule
+ner,resume-008,resume,docx,position,Логист,Логист,tp,False,rule
+ner,resume-008,resume,docx,salary,56000.00,56000.00,tp,False,rule
+ner,resume-009,resume,scan,birth_date,1970-04-25,1970-04-25,tp,False,rule
+ner,resume-009,resume,scan,city,Пермь,Пермь,tp,False,rule
+ner,resume-009,resume,scan,email,zaharov964@mail.ru,zaharov964@mail.ru,tp,False,rule
+ner,resume-009,resume,scan,full_name,Захаров Иван Алексеевич,Захаров Иван Алексеевич,tp,True,ner
+ner,resume-009,resume,scan,phone,'+79558625541,'+79558625541,tp,False,rule
+ner,resume-009,resume,scan,position,Инженер-программист,Инженер-программист,tp,False,rule
+ner,resume-009,resume,scan,salary,174000.00,174000.00,tp,False,rule
+ner,resume-010,resume,pdf,birth_date,2000-12-31,2000-12-31,tp,False,rule
+ner,resume-010,resume,pdf,city,Самара,Самара,tp,False,rule
+ner,resume-010,resume,pdf,email,novikova152@mail.ru,novikova152@mail.ru,tp,False,rule
+ner,resume-010,resume,pdf,full_name,Новикова Ольга Николаевна,Новикова Ольга Николаевна,tp,True,ner
+ner,resume-010,resume,pdf,phone,'+79921992456,'+79921992456,tp,False,rule
+ner,resume-010,resume,pdf,position,Инженер-программист,Инженер-программист,tp,False,rule
+ner,resume-010,resume,pdf,salary,,,tn,False,
+ner,resume-011,resume,docx,birth_date,1980-09-22,1980-09-22,tp,False,rule
+ner,resume-011,resume,docx,city,Казань,Казань,tp,False,rule
+ner,resume-011,resume,docx,email,zaharov308@gmail.com,zaharov308@gmail.com,tp,False,rule
+ner,resume-011,resume,docx,full_name,Захаров Николай Петрович,Захаров Николай Петрович,tp,True,ner
+ner,resume-011,resume,docx,phone,'+79481076698,'+79481076698,tp,False,rule
+ner,resume-011,resume,docx,position,Бухгалтер,Бухгалтер,tp,False,rule
+ner,resume-011,resume,docx,salary,178000.00,178000.00,tp,False,rule
+ner,resume-012,resume,scan,birth_date,1972-03-14,1972-03-14,tp,False,rule
+ner,resume-012,resume,scan,city,Новосибирск,Новосибирск,tp,False,rule
+ner,resume-012,resume,scan,email,belova719@yandex.ru,belova719@yandex.ru,tp,False,rule
+ner,resume-012,resume,scan,full_name,Белова Татьяна Владимировна,Белова Татьяна Владимировна,tp,True,ner
+ner,resume-012,resume,scan,phone,'+79027658946,'+79027658946,tp,False,rule
+ner,resume-012,resume,scan,position,Маркетолог,Маркетолог,tp,False,rule
+ner,resume-012,resume,scan,salary,,,tn,False,
+ner,resume-013,resume,pdf,birth_date,1991-04-04,1991-04-04,tp,False,rule
+ner,resume-013,resume,pdf,city,Москва,Москва,tp,False,rule
+ner,resume-013,resume,pdf,email,sokolova188@yandex.ru,sokolova188@yandex.ru,tp,False,rule
+ner,resume-013,resume,pdf,full_name,Соколова Ольга Петровна,Соколова Ольга Петровна,tp,True,ner
+ner,resume-013,resume,pdf,phone,'+79101353341,'+79101353341,tp,False,rule
+ner,resume-013,resume,pdf,position,Логист,Логист,tp,False,rule
+ner,resume-013,resume,pdf,salary,66000.00,66000.00,tp,False,rule
+ner,resume-014,resume,docx,birth_date,1972-01-29,1972-01-29,tp,False,rule
+ner,resume-014,resume,docx,city,Самара,Самара,tp,False,rule
+ner,resume-014,resume,docx,email,volkova879@mail.ru,volkova879@mail.ru,tp,False,rule
+ner,resume-014,resume,docx,full_name,Волкова Наталья Дмитриевна,Волкова Наталья Дмитриевна,tp,False,ner
+ner,resume-014,resume,docx,phone,'+79937743654,'+79937743654,tp,False,rule
+ner,resume-014,resume,docx,position,Бухгалтер,Бухгалтер,tp,False,rule
+ner,resume-014,resume,docx,salary,,,tn,False,
+ner,resume-015,resume,scan,birth_date,1990-05-14,1990-05-14,tp,False,rule
+ner,resume-015,resume,scan,city,Нижний Новгород,Нижний Новгород,tp,False,rule
+ner,resume-015,resume,scan,email,novikov751@yandex.ru,novikov751@yandex.ru,tp,False,rule
+ner,resume-015,resume,scan,full_name,Новиков Сергей Владимирович,Новиков Сергей Владимирович,tp,True,ner
+ner,resume-015,resume,scan,phone,'+79768152424,'+79768152424,tp,False,rule
+ner,resume-015,resume,scan,position,Инженер-программист,Инженер-программист,tp,False,rule
+ner,resume-015,resume,scan,salary,50000.00,50000.00,tp,False,rule
+ner,resume-016,resume,pdf,birth_date,1991-12-12,1991-12-12,tp,False,rule
+ner,resume-016,resume,pdf,city,Казань,Казань,tp,False,rule
+ner,resume-016,resume,pdf,email,sokolov411@gmail.com,sokolov411@gmail.com,tp,False,rule
+ner,resume-016,resume,pdf,full_name,Соколов Дмитрий Николаевич,Соколов Дмитрий Николаевич,tp,False,ner
+ner,resume-016,resume,pdf,phone,'+79645409817,'+79645409817,tp,False,rule
+ner,resume-016,resume,pdf,position,Системный администратор,Системный администратор,tp,False,rule
+ner,resume-016,resume,pdf,salary,,,tn,False,
+ner,resume-017,resume,docx,birth_date,2002-08-05,2002-08-05,tp,False,rule
+ner,resume-017,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+ner,resume-017,resume,docx,email,zaharova662@inbox.ru,zaharova662@inbox.ru,tp,False,rule
+ner,resume-017,resume,docx,full_name,Захарова Анна Николаевна,Захарова Анна Николаевна,tp,False,ner
+ner,resume-017,resume,docx,phone,'+79239732418,'+79239732418,tp,False,rule
+ner,resume-017,resume,docx,position,Системный администратор,Системный администратор,tp,False,rule
+ner,resume-017,resume,docx,salary,,,tn,False,
+ner,resume-018,resume,scan,birth_date,1973-07-15,1973-07-15,tp,False,rule
+ner,resume-018,resume,scan,city,Самара,Самара,tp,False,rule
+ner,resume-018,resume,scan,email,volkova930@mail.ru,volkova930@mail.ru,tp,False,rule
+ner,resume-018,resume,scan,full_name,Волкова Ирина Владимировна,Волкова Ирина Владимировна,tp,True,ner
+ner,resume-018,resume,scan,phone,'+79191912036,'+79191912036,tp,False,rule
+ner,resume-018,resume,scan,position,Бухгалтер,Бухгалтер,tp,False,rule
+ner,resume-018,resume,scan,salary,150000.00,150000.00,tp,False,rule
+ner,resume-019,resume,pdf,birth_date,1993-11-10,1993-11-10,tp,False,rule
+ner,resume-019,resume,pdf,city,Москва,Москва,tp,False,rule
+ner,resume-019,resume,pdf,email,lebedev657@mail.ru,lebedev657@mail.ru,tp,False,rule
+ner,resume-019,resume,pdf,full_name,Лебедев Дмитрий Сергеевич,Лебедев Дмитрий Сергеевич,tp,False,ner
+ner,resume-019,resume,pdf,phone,'+79709969837,'+79709969837,tp,False,rule
+ner,resume-019,resume,pdf,position,Специалист по кадрам,Специалист по кадрам,tp,False,rule
+ner,resume-019,resume,pdf,salary,,,tn,False,
+ner,resume-020,resume,docx,birth_date,1979-04-01,1979-04-01,tp,False,rule
+ner,resume-020,resume,docx,city,Краснодар,Краснодар,tp,False,rule
+ner,resume-020,resume,docx,email,petrova353@gmail.com,petrova353@gmail.com,tp,False,rule
+ner,resume-020,resume,docx,full_name,Петрова Татьяна Николаевна,Петрова Татьяна Николаевна,tp,True,ner
+ner,resume-020,resume,docx,phone,'+79663677767,'+79663677767,tp,False,rule
+ner,resume-020,resume,docx,position,Логист,Логист,tp,False,rule
+ner,resume-020,resume,docx,salary,,,tn,False,
+ner,resume-021,resume,scan,birth_date,1990-04-01,1990-04-01,tp,False,rule
+ner,resume-021,resume,scan,city,Краснодар,Краснодар,tp,False,rule
+ner,resume-021,resume,scan,email,petrov365@mail.ru,petrov365@mail.ru,tp,False,rule
+ner,resume-021,resume,scan,full_name,Петров Владимир Иванович,Петров Владимир Иванович,tp,True,ner
+ner,resume-021,resume,scan,phone,'+79898358984,'+79898358984,tp,False,rule
+ner,resume-021,resume,scan,position,Аналитик данных,Аналитик данных,tp,False,rule
+ner,resume-021,resume,scan,salary,280000.00,280000.00,tp,False,rule
+ner,resume-022,resume,pdf,birth_date,1976-02-18,1976-02-18,tp,False,rule
+ner,resume-022,resume,pdf,city,Екатеринбург,Екатеринбург,tp,False,rule
+ner,resume-022,resume,pdf,email,morozova684@yandex.ru,morozova684@yandex.ru,tp,False,rule
+ner,resume-022,resume,pdf,full_name,Морозова Светлана Петровна,Морозова Светлана Петровна,tp,False,ner
+ner,resume-022,resume,pdf,phone,'+79182466155,'+79182466155,tp,False,rule
+ner,resume-022,resume,pdf,position,Бухгалтер,Бухгалтер,tp,False,rule
+ner,resume-022,resume,pdf,salary,,,tn,False,
+ner,resume-023,resume,docx,birth_date,2000-05-17,2000-05-17,tp,False,rule
+ner,resume-023,resume,docx,city,Екатеринбург,Екатеринбург,tp,False,rule
+ner,resume-023,resume,docx,email,morozov14@inbox.ru,morozov14@inbox.ru,tp,False,rule
+ner,resume-023,resume,docx,full_name,Морозов Владимир Петрович,Морозов Владимир Петрович,tp,True,ner
+ner,resume-023,resume,docx,phone,'+79448597763,'+79448597763,tp,False,rule
+ner,resume-023,resume,docx,position,Юрист,Юрист,tp,False,rule
+ner,resume-023,resume,docx,salary,236000.00,236000.00,tp,False,rule
+ner,resume-024,resume,scan,birth_date,1989-12-28,1989-12-28,tp,False,rule
+ner,resume-024,resume,scan,city,Краснодар,Краснодар,tp,False,rule
+ner,resume-024,resume,scan,email,sokolov312@yandex.ru,sokolov312@yandex.ru,tp,False,rule
+ner,resume-024,resume,scan,full_name,Соколов Николай Сергеевич,Соколов Николай Сергеевич,tp,True,ner
+ner,resume-024,resume,scan,phone,'+79338224033,'+79338224033,tp,False,rule
+ner,resume-024,resume,scan,position,Инженер-программист,Инженер-программист,tp,False,rule
+ner,resume-024,resume,scan,salary,,,tn,False,
+ner,resume-025,resume,pdf,birth_date,1973-12-03,1973-12-03,tp,False,rule
+ner,resume-025,resume,pdf,city,Самара,Самара,tp,False,rule
+ner,resume-025,resume,pdf,email,petrov233@mail.ru,petrov233@mail.ru,tp,False,rule
+ner,resume-025,resume,pdf,full_name,Петров Алексей Михайлович,Петров Алексей Михайлович,tp,True,ner
+ner,resume-025,resume,pdf,phone,'+79688945731,'+79688945731,tp,False,rule
+ner,resume-025,resume,pdf,position,Логист,Логист,tp,False,rule
+ner,resume-025,resume,pdf,salary,,,tn,False,

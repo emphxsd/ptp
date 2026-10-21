@@ -105,3 +105,23 @@ def test_ner_can_be_disabled():
     (candidate,) = process_document(docx, template, Settings(ner_enabled=False)).fields
 
     assert candidate.value is None
+
+
+# ---------------------------------------------------------------- найдено оценкой качества (шаг 7)
+@pytest.mark.parametrize(
+    ("genitive", "nominative"),
+    [
+        ("Соколовой Елены Михайловны", "Соколова Елена Михайловна"),
+        ("Кузнецовой Татьяны Алексеевны", "Кузнецова Татьяна Алексеевна"),
+        ("Захаровой Натальи Николаевны", "Захарова Наталья Николаевна"),
+    ],
+)
+def test_feminine_genitive_is_not_taken_for_plural_nominative(recognizer, genitive, nominative):
+    # «Елены», «Михайловны» — и родительный падеж ед. числа, и именительный мн. числа
+    assert recognizer.normalize_person(genitive) == nominative
+
+
+def test_person_named_after_is_not_a_person(recognizer):
+    text = "Образование: МГУ им. М. В. Ломоносова, Уральский федеральный университет имени Б. Н. Ельцина"
+
+    assert labels(recognizer.entities(text), "PER") == []

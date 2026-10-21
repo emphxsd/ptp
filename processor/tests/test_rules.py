@@ -146,3 +146,56 @@ def test_user_regex_result_is_normalized_by_type():
 
 def test_nothing_found_returns_none():
     assert find_by_rules(field(data_type="email"), "без почты") is None
+
+
+# ---------------------------------------------------------------- найдено оценкой качества (шаг 7)
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Дата рождения: 12 марта 1970 года",
+        'Договор от "05" июня 2025 г.',
+        "Телефон: +7 994 721 12 34",
+        "Тел. 8 (912) 345-67-89",
+        "E-mail: novikov644@gmail.com",
+        "ИНН 7707083893",
+    ],
+    ids=["text-date-year", "quoted-date-year", "phone-spaces", "phone-brackets", "email", "inn"],
+)
+def test_amount_is_not_taken_from_dates_or_phones(text):
+    assert find_by_rules(field("total", "amount"), text) is None
+
+
+def test_person_after_named_after_is_skipped():
+    text = "Иванов И. И.\nОбразование: МГУ им. М. В. Ломоносова"
+
+    match = find_by_rules(field("who", "person"), text)
+
+    assert match is not None and match.value == "Иванов И. И."
+    assert match.alternatives == ()
+
+
+def test_string_tail_mixed_with_date_goes_to_review():
+    # «г. Казань «07» января 2025 г.»: остаток строки после якоря содержит ещё и дату — значение сомнительно
+    match = find_by_rules(field("city", "string", ("г.",)), 'г. Казань "07" января 2025 г.')
+
+    assert match is not None
+    assert match.confidence < 0.6
+
+
+def test_plain_string_tail_keeps_confidence():
+    match = find_by_rules(field("city", "string", ("Город",)), "Город: Казань")
+
+    assert match.value == "Казань"
+    assert match.confidence >= 0.6
+
+
+def test_person_acting_on_behalf_is_kept():
+    match = find_by_rules(field("who", "person", ("Подписант",)), "Подписант: действует от имени Иванов И. И.")
+
+    assert match is not None and match.value == "Иванов И. И."
+
+
+def test_ten_digit_amount_without_inn_label_is_amount():
+    match = find_by_rules(field("total", "amount", ("Итого",)), "Итого: 1234567890")
+
+    assert match is not None and match.value == "1234567890.00"
