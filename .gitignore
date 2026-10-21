@@ -34,3 +34,7 @@ storage/app/
 .coverage
 htmlcov/
 .pytest_cache/
+
+# сертификаты для GigaChat скачиваются с gosuslugi.ru
+processor/certs/*
+!processor/certs/README.txt

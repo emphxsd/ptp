@@ -243,7 +243,7 @@ def test_health_reports_ner_status():
     from tests.conftest import make_client
 
     with make_client(ner_enabled=False) as client:
-        assert client.get("/health").json()["data"] == {"status": "ok", "ner": "disabled"}
+        assert client.get("/health").json()["data"] == {"status": "ok", "ner": "disabled", "llm": "not_configured"}
 
 
 def test_extract_returns_503_when_overloaded(invoice_pdf, template_json):

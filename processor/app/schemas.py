@@ -124,12 +124,16 @@ class ExtractionResult(BaseModel):
     llm_used: bool
     processing_ms: int
     text: str | None = None
+    # коды ситуаций, когда результат неполный, но обработка не прервана (например, LLM_UNAVAILABLE)
+    warnings: tuple[str, ...] = ()
 
 
 class HealthStatus(BaseModel):
-    # degraded — сервис работает, но NER включён и не загрузился (обработка только правилами)
+    # degraded — сервис работает, но включённый этап (NER или LLM) не загрузился
     status: Literal["ok", "degraded"]
     ner: Literal["ready", "disabled", "unavailable"]
+    # not_configured — ключ провайдера не задан; доступность самого API при старте не проверяется (лимиты)
+    llm: Literal["ready", "disabled", "not_configured", "unavailable"]
 
 
 class ApiError(BaseModel):

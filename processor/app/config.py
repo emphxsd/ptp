@@ -1,18 +1,22 @@
 """Настройки сервиса. Значения проверяются при создании, чтобы ошибка конфигурации всплывала при старте."""
 import math
 import os
+import re
 from collections.abc import Mapping
 from functools import lru_cache
+from urllib.parse import urlsplit
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator, model_validator
 
 BYTES_IN_MB = 1024 * 1024
 ENV_PREFIX = "PROCESSOR_"
 # запас на служебные части multipart (поле template, заголовки, boundary)
 MULTIPART_OVERHEAD_BYTES = 64 * 1024
 UTF8_MAX_BYTES_PER_CHAR = 4
+# ключ авторизации GigaChat — Base64; иное — ошибка копирования (и сбой кодирования заголовка)
+_AUTH_KEY = re.compile(r"^[A-Za-z0-9+/=_-]{8,4096}$")
 
 
 class Settings(BaseModel):
@@ -33,6 +37,25 @@ class Settings(BaseModel):
     review_threshold: float = Field(default=0.6, gt=0.0, lt=1.0)
     # этапы каскада можно отключать — для сравнения подходов в экспериментах
     ner_enabled: bool = True
+    # этап LLM: включается, если задан ключ провайдера; llm_enabled=false — отключить для экспериментов
+    llm_enabled: bool = True
+    llm_provider: Literal["gigachat"] = "gigachat"
+    # ключ авторизации GigaChat (Base64 от Client ID:Client Secret) — только из окружения, в логи не попадает
+    gigachat_auth_key: SecretStr | None = None
+    gigachat_scope: Literal["GIGACHAT_API_PERS", "GIGACHAT_API_B2B", "GIGACHAT_API_CORP"] = "GIGACHAT_API_PERS"
+    gigachat_model: str = Field(default="GigaChat-2-Pro", pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
+    gigachat_oauth_url: str = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth"
+    gigachat_api_url: str = "https://api.giga.chat/v1"
+    # путь к корневому сертификату Минцифры (PEM), которым подписаны серверы GigaChat
+    gigachat_ca_bundle: str | None = None
+    # общий бюджет обработки документа — 30 с, из них на LLM не больше
+    llm_timeout_seconds: float = Field(default=20.0, gt=0, le=60)
+    # сколько символов документа отправлять в LLM (длинный документ — начало и окна вокруг якорей)
+    llm_max_input_chars: int = Field(default=12_000, ge=1000, le=100_000)
+    llm_max_output_tokens: int = Field(default=1024, ge=64, le=8192)
+    # у физлиц GigaChat — один поток генерации
+    llm_max_concurrent: int = Field(default=1, gt=0, le=10)
+    llm_queue_wait_seconds: float = Field(default=5.0, gt=0, le=60)
     # одновременных /extract на процесс и сколько ждать свободного места, прежде чем ответить 503
     max_concurrent_extractions: int = Field(default=4, gt=0, le=64)
     queue_wait_seconds: float = Field(default=10.0, gt=0, le=120)
@@ -42,11 +65,30 @@ class Settings(BaseModel):
     api_token: str | None = None
     docs_enabled: bool = True
 
+    @field_validator("gigachat_auth_key")
+    @classmethod
+    def auth_key_format(cls, value: SecretStr | None) -> SecretStr | None:
+        if value is not None and value.get_secret_value() and not _AUTH_KEY.match(value.get_secret_value()):
+            raise ValueError("ключ GigaChat должен быть строкой Base64 из личного кабинета")
+        return value
+
+    @field_validator("gigachat_oauth_url", "gigachat_api_url")
+    @classmethod
+    def https_without_credentials(cls, url: str) -> str:
+        parts = urlsplit(url)
+        if parts.scheme != "https" or not parts.hostname or parts.username is not None or parts.password is not None:
+            raise ValueError("адрес GigaChat должен иметь вид https://хост/путь")
+        return url
+
     @model_validator(mode="after")
     def production_requires_token(self) -> "Settings":
         if self.environment == "production" and not self.api_token:
             raise ValueError(f"в режиме production нужно задать {ENV_PREFIX}API_TOKEN")
         return self
+
+    @property
+    def llm_configured(self) -> bool:
+        return self.llm_enabled and self.gigachat_auth_key is not None and bool(self.gigachat_auth_key.get_secret_value())
 
     @property
     def docs_available(self) -> bool:
@@ -73,14 +115,27 @@ class Settings(BaseModel):
             "max_template_chars",
             "docx_max_table_rows",
             "review_threshold",
+            "gigachat_scope",
+            "gigachat_model",
+            "gigachat_oauth_url",
+            "gigachat_api_url",
+            "llm_timeout_seconds",
+            "llm_max_input_chars",
+            "llm_max_output_tokens",
+            "llm_max_concurrent",
+            "llm_queue_wait_seconds",
         ):
             if (raw := env.get(f"{ENV_PREFIX}{name.upper()}")) is not None:
                 values[name] = raw
         if token := env.get(f"{ENV_PREFIX}API_TOKEN"):
             values["api_token"] = token
+        if auth_key := env.get(f"{ENV_PREFIX}GIGACHAT_AUTH_KEY", "").strip():
+            values["gigachat_auth_key"] = auth_key
+        if ca_bundle := env.get(f"{ENV_PREFIX}GIGACHAT_CA_BUNDLE", "").strip():
+            values["gigachat_ca_bundle"] = ca_bundle
         if environment := env.get(f"{ENV_PREFIX}ENV"):
             values["environment"] = environment.strip().lower()
-        for flag in ("docs_enabled", "ner_enabled"):
+        for flag in ("docs_enabled", "ner_enabled", "llm_enabled"):
             if (raw_flag := env.get(f"{ENV_PREFIX}{flag.upper()}")) is not None:
                 values[flag] = raw_flag.strip().lower() in ("1", "true", "yes", "on")
         return cls(**values)

@@ -1,6 +1,7 @@
 """Маршруты API. Обработчики тонкие: разбор входа, вызов конвейера, упаковка в конверт."""
 import asyncio
 import hmac
+from typing import Literal
 
 from fastapi import APIRouter, Depends, File, Form, Request, Response, UploadFile
 from fastapi.concurrency import run_in_threadpool
@@ -46,8 +47,9 @@ def parse_template(raw: str, max_chars: int) -> Template:
 
 @router.get("/health", response_model=ApiResponse[HealthStatus])
 async def health(request: Request) -> ApiResponse[HealthStatus]:
-    ner = request.app.state.ner_status
-    return ApiResponse.ok(HealthStatus(status="degraded" if ner == "unavailable" else "ok", ner=ner))
+    ner, llm = request.app.state.ner_status, request.app.state.llm_status
+    status = "degraded" if "unavailable" in (ner, llm) else "ok"
+    return ApiResponse.ok(HealthStatus(status=status, ner=ner, llm=llm))
 
 
 @router.post(
@@ -62,6 +64,8 @@ async def extract(
     file: UploadFile = File(description="Документ: PDF, DOCX, PNG или JPG"),
     template: str = Form(description="Шаблон извлечения в формате JSON"),
     include_text: bool = Form(False, description="Вернуть извлечённый текст"),
+    # строка, а не bool: отсутствующее bool-поле формы FastAPI считает false (как чекбокс HTML)
+    use_llm: Literal["true", "false"] = Form("true", description="Разрешить отправку фрагментов документа во внешнюю LLM"),
     settings: Settings = Depends(get_app_settings),
 ) -> ApiResponse[ExtractionResult]:
     response.headers["Cache-Control"] = "no-store"
@@ -74,7 +78,14 @@ async def extract(
     except TimeoutError:
         raise ServiceBusyError("Сервис перегружен, повторите запрос позже") from None
     try:
-        result = await run_in_threadpool(process_document, data, parsed_template, settings, include_text)
+        result = await run_in_threadpool(
+            process_document,
+            data,
+            parsed_template,
+            settings,
+            include_text,
+            llm=request.app.state.llm_client if use_llm == "true" else None,
+        )
     finally:
         slots.release()
     return ApiResponse.ok(result)

@@ -9,6 +9,7 @@ from fastapi.concurrency import run_in_threadpool
 
 from app import __version__
 from app.fields.ner import get_recognizer
+from app.llm.factory import build_llm_client
 from app.api.errors import register_error_handlers
 from app.api.routes import router
 from app.config import Settings, get_settings
@@ -31,7 +32,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             except Exception as exc:  # сервис работает и без NER — на одних правилах, /health сообщит degraded
                 app.state.ner_status = "unavailable"
                 logging.getLogger("processor").warning("Модели NER не загружены: %s", type(exc).__name__)
-        yield
+        _start_llm(app, settings)
+        try:
+            yield
+        finally:
+            if app.state.llm_client is not None:
+                app.state.llm_client.close()
 
     app = FastAPI(
         title="Сервис обработки документов",
@@ -43,6 +49,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     app.state.settings = settings
     app.state.ner_status = "disabled"
+    app.state.llm_client = None
+    app.state.llm_status = "disabled"
     app.state.extract_slots = asyncio.Semaphore(settings.max_concurrent_extractions)
     # порядок: последний добавленный — внешний; ошибки ловятся внутри лимита тела
     app.add_middleware(UnhandledErrorMiddleware)
@@ -50,6 +58,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     register_error_handlers(app)
     app.include_router(router)
     return app
+
+
+def _start_llm(app: FastAPI, settings: Settings) -> None:
+    """Клиент LLM создаётся при старте; API провайдера не вызывается (лимиты и токены)."""
+    app.state.llm_client = None
+    if not settings.llm_enabled:
+        app.state.llm_status = "disabled"
+        return
+    try:
+        app.state.llm_client = build_llm_client(settings)
+    except (OSError, ValueError) as exc:  # например, не найден файл сертификата — работаем без LLM
+        app.state.llm_status = "unavailable"
+        logging.getLogger("processor").warning("LLM-клиент не создан: %s", type(exc).__name__)
+        return
+    app.state.llm_status = "ready" if app.state.llm_client is not None else "not_configured"
 
 
 app = create_app()

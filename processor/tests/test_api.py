@@ -12,7 +12,11 @@ def test_health(client):
     response = client.get("/health")
 
     assert response.status_code == 200
-    assert response.json() == {"success": True, "data": {"status": "ok", "ner": "ready"}, "error": None}
+    assert response.json() == {
+        "success": True,
+        "data": {"status": "ok", "ner": "ready", "llm": "not_configured"},
+        "error": None,
+    }
 
 
 def test_extract_pdf_returns_document_info_and_fields(client, template_json):
