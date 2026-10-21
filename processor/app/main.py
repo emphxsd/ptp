@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from fastapi.concurrency import run_in_threadpool
 
 from app import __version__
+from app.extraction.ocr import TesseractEngine, check_tesseract, resolve_command
 from app.fields.ner import get_recognizer
 from app.llm.factory import build_llm_client
 from app.api.errors import register_error_handlers
@@ -33,6 +34,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 app.state.ner_status = "unavailable"
                 logging.getLogger("processor").warning("Модели NER не загружены: %s", type(exc).__name__)
         _start_llm(app, settings)
+        await run_in_threadpool(_start_ocr, app, settings)
         try:
             yield
         finally:
@@ -51,6 +53,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.ner_status = "disabled"
     app.state.llm_client = None
     app.state.llm_status = "disabled"
+    app.state.ocr_engine = None
+    app.state.ocr_status = "disabled"
     app.state.extract_slots = asyncio.Semaphore(settings.max_concurrent_extractions)
     # порядок: последний добавленный — внешний; ошибки ловятся внутри лимита тела
     app.add_middleware(UnhandledErrorMiddleware)
@@ -58,6 +62,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     register_error_handlers(app)
     app.include_router(router)
     return app
+
+
+def _start_ocr(app: FastAPI, settings: Settings) -> None:
+    """Tesseract — внешняя программа: проверяем наличие и языки при старте, без него сканы не обрабатываются."""
+    app.state.ocr_engine = None
+    if not settings.ocr_enabled:
+        app.state.ocr_status = "disabled"
+        return
+    # абсолютный путь: иначе Windows ищет tesseract.exe и в текущем каталоге
+    cmd = resolve_command(settings.tesseract_cmd) or settings.tesseract_cmd
+    if not check_tesseract(cmd, settings.ocr_languages):
+        app.state.ocr_status = "unavailable"
+        logging.getLogger("processor").warning("Tesseract не найден или нет языков %s", settings.ocr_languages)
+        return
+    app.state.ocr_engine = TesseractEngine(cmd, settings.ocr_languages)
+    app.state.ocr_status = "ready"
 
 
 def _start_llm(app: FastAPI, settings: Settings) -> None:

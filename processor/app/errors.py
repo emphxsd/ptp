@@ -65,6 +65,12 @@ class NoTextLayerError(ProcessingError):
     code = "NO_TEXT_LAYER"
 
 
+class OcrFailedError(ProcessingError):
+    """Текстового слоя нет, а распознать ни одну страницу не удалось (таймаут или сбой Tesseract)."""
+
+    code = "OCR_FAILED"
+
+
 class EmptyDocumentError(ProcessingError):
     code = "EMPTY_DOCUMENT"
 

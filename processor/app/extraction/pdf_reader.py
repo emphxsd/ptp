@@ -17,14 +17,14 @@ from app.extraction.text import ExtractedText
 
 # PyMuPDF не поддерживает параллельную работу из нескольких потоков — сериализуем доступ.
 # Изоляция в отдельных процессах с таймаутом будет добавлена при контейнеризации.
-_PYMUPDF_LOCK = threading.Lock()
+PYMUPDF_LOCK = threading.Lock()
 
 _REPLACEMENT_CHAR = "�"
 _PRIVATE_USE = range(0xE000, 0xF900)
 
 
 def read_pdf(data: bytes, settings: Settings) -> ExtractedText:
-    with _PYMUPDF_LOCK:
+    with PYMUPDF_LOCK:
         try:
             raw_pages = _read_pages(data, settings)
         except ProcessingError:

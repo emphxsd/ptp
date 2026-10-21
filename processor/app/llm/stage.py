@@ -62,8 +62,16 @@ class _Hit:
 
 
 class LlmStage:
-    def __init__(self, client: LlmClient, index: DocumentIndex, max_input_chars: int, max_output_tokens: int):
+    def __init__(
+        self,
+        client: LlmClient,
+        index: DocumentIndex,
+        max_input_chars: int,
+        max_output_tokens: int,
+        timeout: float | None = None,
+    ):
         self._client = client
+        self._timeout = timeout
         self._index = index
         self._max_input_chars = max_input_chars
         self._max_output_tokens = max_output_tokens
@@ -73,7 +81,8 @@ class LlmStage:
         fields = [r.field for r in requests]
         context, truncated = select_context(self._index.text, fields, self._index, self._max_input_chars)
         candidates = {r.field.name: r.candidates for r in requests if r.candidates}
-        reply = self._client.complete(build_messages(fields, candidates, context), self._max_output_tokens)
+        messages = build_messages(fields, candidates, context)
+        reply = self._client.complete(messages, self._max_output_tokens, timeout=self._timeout)
         logger.info("LLM: полей %d, токенов %d/%d", len(fields), reply.prompt_tokens, reply.completion_tokens)
         answers = parse_reply(reply.content, [f.name for f in fields])
         matches = {}

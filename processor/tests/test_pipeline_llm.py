@@ -28,7 +28,7 @@ class FakeLlm:
     error: Exception | None = None
     calls: list = dc_field(default_factory=list)
 
-    def complete(self, messages, max_tokens):
+    def complete(self, messages, max_tokens, timeout=None):
         self.calls.append(messages)
         if self.error is not None:
             raise self.error
@@ -175,3 +175,24 @@ def test_unexpected_llm_exception_degrades_to_warning():
     assert result.llm_used is False
     assert "LLM_UNAVAILABLE" in result.warnings
     assert {f.name: f for f in result.fields}["inn"].value == "7707083893"
+
+
+def test_llm_gets_remaining_budget_and_is_skipped_when_time_is_up(monkeypatch):
+    import app.pipeline as pipeline
+
+    timeouts = []
+
+    class RecordingLlm(FakeLlm):
+        def complete(self, messages, max_tokens, timeout=None):
+            timeouts.append(timeout)
+            return super().complete(messages, max_tokens)
+
+    run(template(INN, TERMS), RecordingLlm(), processing_budget_seconds=10)
+    assert timeouts and 0 < timeouts[0] <= 10
+
+    clock = iter([0.0, 100.0, 100.0, 100.0, 100.0, 100.0])
+    monkeypatch.setattr(pipeline.time, "perf_counter", lambda: next(clock, 100.0))
+    result = run(template(INN, TERMS), RecordingLlm(), processing_budget_seconds=10)
+
+    assert len(timeouts) == 1
+    assert "LLM_SKIPPED_TIME_BUDGET" in result.warnings

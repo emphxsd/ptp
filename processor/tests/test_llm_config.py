@@ -66,8 +66,10 @@ def test_factory_builds_gigachat_client():
 
 
 def health(settings: Settings) -> dict:
-    with TestClient(create_app(settings)) as client:
-        return client.get("/health").json()["data"]
+    with TestClient(create_app(settings.model_copy(update={"ocr_enabled": False}))) as client:
+        data = client.get("/health").json()["data"]
+    assert data.pop("ocr") == "disabled"
+    return data
 
 
 def test_health_reports_llm_ready_without_calling_api():
@@ -93,7 +95,7 @@ def test_extract_endpoint_uses_llm_client_from_app_state():
     from tests.conftest import make_docx, post_extract
 
     class FakeLlm:
-        def complete(self, messages, max_tokens):
+        def complete(self, messages, max_tokens, timeout=None):
             return LlmReply('{"terms": {"value": "до конца месяца", "quote": "до конца месяца"}}')
 
         def close(self):
@@ -133,7 +135,7 @@ def test_request_can_opt_out_of_llm():
     calls = []
 
     class FakeLlm:
-        def complete(self, messages, max_tokens):
+        def complete(self, messages, max_tokens, timeout=None):
             calls.append(messages)
             return LlmReply("{}")
 

@@ -47,9 +47,10 @@ def parse_template(raw: str, max_chars: int) -> Template:
 
 @router.get("/health", response_model=ApiResponse[HealthStatus])
 async def health(request: Request) -> ApiResponse[HealthStatus]:
-    ner, llm = request.app.state.ner_status, request.app.state.llm_status
-    status = "degraded" if "unavailable" in (ner, llm) else "ok"
-    return ApiResponse.ok(HealthStatus(status=status, ner=ner, llm=llm))
+    state = request.app.state
+    ner, llm, ocr = state.ner_status, state.llm_status, state.ocr_status
+    status = "degraded" if "unavailable" in (ner, llm, ocr) else "ok"
+    return ApiResponse.ok(HealthStatus(status=status, ner=ner, llm=llm, ocr=ocr))
 
 
 @router.post(
@@ -85,6 +86,7 @@ async def extract(
             settings,
             include_text,
             llm=request.app.state.llm_client if use_llm == "true" else None,
+            ocr=request.app.state.ocr_engine,
         )
     finally:
         slots.release()

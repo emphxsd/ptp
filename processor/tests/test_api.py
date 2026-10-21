@@ -14,7 +14,7 @@ def test_health(client):
     assert response.status_code == 200
     assert response.json() == {
         "success": True,
-        "data": {"status": "ok", "ner": "ready", "llm": "not_configured"},
+        "data": {"status": "ok", "ner": "ready", "llm": "not_configured", "ocr": "disabled"},
         "error": None,
     }
 
@@ -34,6 +34,8 @@ def test_extract_pdf_returns_document_info_and_fields(client, template_json):
         "pages_without_text": 0,
         "has_text_layer": True,
         "chars": len(INVOICE_TEXT_NORMALIZED),
+        "ocr_pages": 0,
+        "ocr_confidence": None,
     }
     assert [f["name"] for f in data["fields"]] == ["inn", "comment"]
     assert data["llm_used"] is False
@@ -69,6 +71,7 @@ def test_fields_are_found_by_rules(client, invoice_pdf, template_json):
         "confidence": 0.0,
         "needs_review": False,
         "alternatives": [],
+        "issues": [],
     }
 
 

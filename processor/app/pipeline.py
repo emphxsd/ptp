@@ -1,16 +1,19 @@
 """Конвейер обработки документа: проверка файла → извлечение текста → поиск полей.
-Поиск полей — каскад этапов: правила → NER → LLM (валидация — на следующем шаге)."""
+Поиск полей — каскад этапов: правила → NER → LLM, затем проверка значений (validation.py)."""
 import logging
 import time
 from dataclasses import dataclass, replace
 
 from app.config import Settings
 from app.errors import EmptyDocumentError, FileTooLargeError, NoTextLayerError
+from app.extraction.ocr import OcrEngine
+from app.extraction.ocr_stage import INCOMPLETE_WARNINGS, apply_ocr
 from app.extraction.file_types import DocumentFormat, detect_format
 from app.extraction.text import ExtractedText, extract_text
 from app.fields.ner import EntityRecognizer, get_recognizer
 from app.fields.ner_stage import NerStage
 from app.fields.rules import DocumentIndex, RuleMatch, find_by_rules
+from app.fields.validation import review_issues
 from app.llm.client import LlmClient
 from app.llm.errors import LlmError, LlmUnavailableError
 from app.llm.stage import LlmRequest, LlmStage
@@ -39,6 +42,7 @@ def process_document(
     include_text: bool = False,
     recognizer: EntityRecognizer | None = None,
     llm: LlmClient | None = None,
+    ocr: OcrEngine | None = None,
 ) -> ExtractionResult:
     started = time.perf_counter()
     if len(data) > settings.max_file_bytes:
@@ -46,18 +50,30 @@ def process_document(
 
     fmt = detect_format(data)
     extracted = extract_text(data, fmt, settings)
-    _ensure_has_text(extracted)
+
+    def remaining() -> float:  # общий срок документа делят OCR и LLM
+        return settings.processing_budget_seconds - (time.perf_counter() - started)
+
+    ocr_warnings: tuple[str, ...] = ()
+    ocr_available = ocr is not None and settings.ocr_enabled
+    if ocr_available and extracted.pages_without_text:
+        extracted, ocr_warnings = apply_ocr(data, extracted, settings, ocr, timeout=max(remaining(), 0.0))
+    elif extracted.pages_without_text and extracted.has_text:
+        ocr_warnings = ("OCR_UNAVAILABLE",)  # страницы-сканы смешанного PDF пропущены
+    _ensure_has_text(extracted, ocr_available)
 
     # модели NER загружаются, только если в шаблоне есть поля, которым они нужны
     if recognizer is None and settings.ner_enabled and any(NerStage.applies_to(f) for f in template.fields):
         recognizer = _load_recognizer()
     index = DocumentIndex(extracted.text)
     found = _cascade(index, template, settings, recognizer)
-    llm_used, warnings = False, ()
+    llm_used, llm_warnings = False, ()
     if llm is not None and settings.llm_enabled:
-        found, llm_used, warnings = _refine_with_llm(found, index, settings, llm)
+        found, llm_used, llm_warnings = _refine_with_llm(found, index, settings, llm, remaining())
     threshold = settings.review_threshold
-    fields = tuple(_to_result(f.field, f.match, f.source, threshold) for f in found)
+    document_issues = _document_issues(ocr_warnings)
+    fields = tuple(_to_result(f.field, f.match, f.source, threshold, document_issues) for f in found)
+    warnings = (*ocr_warnings, *llm_warnings)
     return ExtractionResult(
         document=DocumentInfo(
             format=extracted.format,
@@ -65,13 +81,27 @@ def process_document(
             pages_without_text=extracted.pages_without_text,
             has_text_layer=extracted.has_text_layer,
             chars=len(extracted.text),
+            ocr_pages=extracted.ocr_pages,
+            ocr_confidence=extracted.ocr_confidence,
         ),
         fields=fields,
         llm_used=llm_used,
         processing_ms=int((time.perf_counter() - started) * 1000),
         text=extracted.text if include_text else None,
         warnings=warnings,
+        needs_review=any(f.needs_review for f in fields),
+        review_fields=tuple(f.name for f in fields if f.needs_review),
     )
+
+
+def _document_issues(ocr_warnings: tuple[str, ...]) -> tuple[str, ...]:
+    """При плохом или неполном распознавании любое значение может быть ошибочным или пропущенным."""
+    issues = []
+    if "LOW_OCR_QUALITY" in ocr_warnings:
+        issues.append("LOW_OCR_QUALITY")
+    if INCOMPLETE_WARNINGS.intersection(ocr_warnings):
+        issues.append("INCOMPLETE_OCR")
+    return tuple(issues)
 
 
 def _load_recognizer() -> EntityRecognizer | None:
@@ -83,12 +113,14 @@ def _load_recognizer() -> EntityRecognizer | None:
         return None
 
 
-def _ensure_has_text(extracted: ExtractedText) -> None:
-    if extracted.has_text_layer:
+def _ensure_has_text(extracted: ExtractedText, ocr_available: bool) -> None:
+    if extracted.has_text:
         return
     if extracted.format is DocumentFormat.DOCX:
         raise EmptyDocumentError("Документ не содержит текста")
-    raise NoTextLayerError("В документе нет текстового слоя (скан или изображение); OCR будет добавлен позже")
+    if ocr_available:
+        raise NoTextLayerError("Текст на скане или изображении не распознан")
+    raise NoTextLayerError("В документе нет текстового слоя (скан или изображение), а OCR отключён или не установлен")
 
 
 def find_fields(
@@ -120,7 +152,7 @@ def _cascade(
 
 
 def _refine_with_llm(
-    found: list[_Found], index: DocumentIndex, settings: Settings, llm: LlmClient
+    found: list[_Found], index: DocumentIndex, settings: Settings, llm: LlmClient, time_left: float
 ) -> tuple[list[_Found], bool, tuple[str, ...]]:
     """Одним запросом к LLM уточняются поля без значения или с уверенностью ниже порога.
     Сбой LLM не прерывает обработку: остаются результаты правил и NER, код ошибки — в warnings."""
@@ -128,10 +160,12 @@ def _refine_with_llm(
     pending = [f for f in found if f.match is None or f.match.confidence < threshold]
     if not pending:
         return found, False, ()
+    if time_left < settings.llm_min_seconds:  # общий срок документа почти исчерпан (например, долгий OCR)
+        return found, False, ("LLM_SKIPPED_TIME_BUDGET",)
     warnings: list[str] = []
     if len(pending) > MAX_LLM_FIELDS:
         pending, warnings = pending[:MAX_LLM_FIELDS], ["LLM_FIELDS_TRUNCATED"]
-    stage = LlmStage(llm, index, settings.llm_max_input_chars, settings.llm_max_output_tokens)
+    stage = LlmStage(llm, index, settings.llm_max_input_chars, settings.llm_max_output_tokens, time_left)
     requests = [LlmRequest(f.field, _candidates(f.match)) for f in pending]
     try:
         outcome = stage.find(requests)
@@ -199,10 +233,17 @@ def _combine(
     return replace(winner, alternatives=alternatives), "ner" if ner_wins else "rule"
 
 
-def _to_result(field: TemplateField, match: RuleMatch | None, source: str, threshold: float) -> FieldResult:
+def _to_result(
+    field: TemplateField,
+    match: RuleMatch | None,
+    source: str | None,
+    threshold: float,
+    document_issues: tuple[str, ...] = (),
+) -> FieldResult:
+    issues = review_issues(field, match, source, threshold, document_issues)
     if match is None:
         return FieldResult(
-            name=field.name, value=None, source=None, raw=None, confidence=0.0, needs_review=field.is_required
+            name=field.name, value=None, source=None, raw=None, confidence=0.0, needs_review=bool(issues), issues=issues
         )
     return FieldResult(
         name=field.name,
@@ -212,6 +253,7 @@ def _to_result(field: TemplateField, match: RuleMatch | None, source: str, thres
         start=match.start,
         end=match.end,
         confidence=match.confidence,
-        needs_review=match.confidence < threshold,
+        needs_review=bool(issues),
         alternatives=match.alternatives,
+        issues=issues,
     )

@@ -14,14 +14,27 @@ class ExtractedText:
     pages_text: tuple[str, ...]
     pages: int | None
     pages_without_text: int
+    # страницы, текст которых получен распознаванием (OCR), и средняя уверенность Tesseract (0–100)
+    ocr_page_indexes: tuple[int, ...] = ()
+    ocr_confidence: float | None = None
 
     @property
     def text(self) -> str:
         return PAGE_SEPARATOR.join(page for page in self.pages_text if page)
 
     @property
-    def has_text_layer(self) -> bool:
+    def has_text(self) -> bool:
         return any(self.pages_text)
+
+    @property
+    def has_text_layer(self) -> bool:
+        """Есть ли текст в самом файле (без учёта распознанных страниц)."""
+        ocr = set(self.ocr_page_indexes)
+        return any(page for index, page in enumerate(self.pages_text) if index not in ocr)
+
+    @property
+    def ocr_pages(self) -> int:
+        return len(self.ocr_page_indexes)
 
 
 def extract_text(data: bytes, fmt: DocumentFormat, settings: Settings) -> ExtractedText:
@@ -34,5 +47,5 @@ def extract_text(data: bytes, fmt: DocumentFormat, settings: Settings) -> Extrac
         from app.extraction.docx_reader import read_docx
 
         return read_docx(data, settings)
-    # изображения: текста нет до подключения OCR
+    # изображения: текст появляется только после OCR (ocr_stage.apply_ocr)
     return ExtractedText(format=fmt, pages_text=("",), pages=1, pages_without_text=1)

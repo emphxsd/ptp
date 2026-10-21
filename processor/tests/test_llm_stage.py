@@ -38,7 +38,7 @@ class FakeLlm:
     calls: list[tuple[ChatMessage, ...]] = dc_field(default_factory=list)
     max_tokens: list[int] = dc_field(default_factory=list)
 
-    def complete(self, messages, max_tokens):
+    def complete(self, messages, max_tokens, timeout=None):
         self.calls.append(tuple(messages))
         self.max_tokens.append(max_tokens)
         return LlmReply(content=self.content, prompt_tokens=100, completion_tokens=20)

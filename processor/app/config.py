@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 
 from typing import Literal
 
+from app.extraction.ocr import LANGUAGES_PATTERN
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator, model_validator
 
 BYTES_IN_MB = 1024 * 1024
@@ -56,6 +57,23 @@ class Settings(BaseModel):
     # у физлиц GigaChat — один поток генерации
     llm_max_concurrent: int = Field(default=1, gt=0, le=10)
     llm_queue_wait_seconds: float = Field(default=5.0, gt=0, le=60)
+    # OCR сканов и изображений (Tesseract): путь к программе, языки, качество рендеринга и лимиты
+    ocr_enabled: bool = True
+    tesseract_cmd: str = Field(default="tesseract", min_length=1, max_length=500)
+    ocr_languages: str = Field(default="rus+eng", pattern=rf"^{LANGUAGES_PATTERN}$")
+    ocr_dpi: int = Field(default=300, ge=72, le=600)
+    ocr_max_pages: int = Field(default=20, gt=0, le=300)
+    # общий срок на распознавание всех страниц документа
+    ocr_timeout_seconds: float = Field(default=20.0, gt=0, le=300)
+    # защита памяти: больше пикселей на страницу не рендерим и не распознаём (A4 при 300 dpi — 8,7 млн)
+    # Tesseract (leptonica) держит изображение в памяти ~4 байта на пиксель: 25 млн — около 100 МБ на запрос
+    ocr_max_pixels: int = Field(default=25_000_000, ge=100_000, le=200_000_000)
+    # средняя уверенность Tesseract ниже порога — предупреждение и проверка всех полей человеком
+    ocr_min_confidence: float = Field(default=60.0, ge=0, le=100)
+    # общий срок обработки документа (цель — не больше 30 с): OCR и LLM получают оставшееся время,
+    # LLM пропускается, если осталось меньше llm_min_seconds
+    processing_budget_seconds: float = Field(default=30.0, gt=0, le=600)
+    llm_min_seconds: float = Field(default=5.0, gt=0, le=60)
     # одновременных /extract на процесс и сколько ждать свободного места, прежде чем ответить 503
     max_concurrent_extractions: int = Field(default=4, gt=0, le=64)
     queue_wait_seconds: float = Field(default=10.0, gt=0, le=120)
@@ -124,6 +142,15 @@ class Settings(BaseModel):
             "llm_max_output_tokens",
             "llm_max_concurrent",
             "llm_queue_wait_seconds",
+            "tesseract_cmd",
+            "ocr_languages",
+            "ocr_dpi",
+            "ocr_max_pages",
+            "ocr_timeout_seconds",
+            "ocr_max_pixels",
+            "ocr_min_confidence",
+            "processing_budget_seconds",
+            "llm_min_seconds",
         ):
             if (raw := env.get(f"{ENV_PREFIX}{name.upper()}")) is not None:
                 values[name] = raw
@@ -135,7 +162,7 @@ class Settings(BaseModel):
             values["gigachat_ca_bundle"] = ca_bundle
         if environment := env.get(f"{ENV_PREFIX}ENV"):
             values["environment"] = environment.strip().lower()
-        for flag in ("docs_enabled", "ner_enabled", "llm_enabled"):
+        for flag in ("docs_enabled", "ner_enabled", "llm_enabled", "ocr_enabled"):
             if (raw_flag := env.get(f"{ENV_PREFIX}{flag.upper()}")) is not None:
                 values[flag] = raw_flag.strip().lower() in ("1", "true", "yes", "on")
         return cls(**values)

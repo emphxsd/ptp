@@ -1,5 +1,7 @@
 """Схемы API: шаблон извлечения (вход) и результат обработки (выход)."""
 import re
+from datetime import date
+from decimal import Decimal
 from enum import Enum
 from typing import Annotated, Generic, Literal, TypeVar
 
@@ -17,6 +19,7 @@ NerLabel = Literal["PER", "ORG", "LOC"]
 MIN_KEYWORD_CHARS = 2
 # каждое поле с regex — отдельный проход RE2; ограничиваем суммарное время обработки
 MAX_REGEX_FIELDS = 20
+AllowedValue = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=200)]
 
 
 class DataType(str, Enum):
@@ -33,6 +36,41 @@ class DataType(str, Enum):
     ORGANIZATION = "organization"
 
 
+class FieldValidation(BaseModel):
+    """Правила проверки значения. Нарушение не удаляет значение, а помечает поле «требует проверки»."""
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    # для сумм
+    min_value: Decimal | None = Field(default=None, max_digits=20, decimal_places=2)
+    max_value: Decimal | None = Field(default=None, max_digits=20, decimal_places=2)
+    # для дат
+    min_date: date | None = None
+    max_date: date | None = None
+    max_length: int | None = Field(default=None, ge=1, le=10_000)
+    allowed_values: tuple[AllowedValue, ...] | None = Field(default=None, min_length=1, max_length=100)
+    # значение целиком должно совпасть с шаблоном (RE2, как regex_pattern)
+    pattern: str | None = Field(default=None, min_length=1, max_length=300)
+
+    @field_validator("pattern")
+    @classmethod
+    def pattern_must_compile(cls, value: str | None) -> str | None:
+        if value is not None:
+            try:
+                compile_user_regex(value)
+            except UserRegexError as exc:
+                raise ValueError(str(exc)) from None
+        return value
+
+    @model_validator(mode="after")
+    def ranges_are_ordered(self) -> "FieldValidation":
+        if self.min_value is not None and self.max_value is not None and self.min_value > self.max_value:
+            raise ValueError("min_value больше max_value")
+        if self.min_date is not None and self.max_date is not None and self.min_date > self.max_date:
+            raise ValueError("min_date позже max_date")
+        return self
+
+
 class TemplateField(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
@@ -45,6 +83,18 @@ class TemplateField(BaseModel):
     regex_pattern: str | None = Field(default=None, min_length=1, max_length=300)
     ner_label: NerLabel | None = None
     llm_hint: str | None = Field(default=None, max_length=500)
+    validation: FieldValidation | None = None
+
+    @model_validator(mode="after")
+    def validation_matches_type(self) -> "TemplateField":
+        rules = self.validation
+        if rules is None:
+            return self
+        if (rules.min_value is not None or rules.max_value is not None) and self.data_type is not DataType.AMOUNT:
+            raise ValueError("min_value и max_value применимы только к полям типа amount")
+        if (rules.min_date is not None or rules.max_date is not None) and self.data_type is not DataType.DATE:
+            raise ValueError("min_date и max_date применимы только к полям типа date")
+        return self
 
     @field_validator("keywords")
     @classmethod
@@ -104,6 +154,7 @@ class FieldResult(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
     needs_review: bool
     alternatives: tuple[str, ...] = Field(default=(), description="Другие найденные варианты при неоднозначности")
+    issues: tuple[str, ...] = Field(default=(), description="Причины пометки «требует проверки»")
 
 
 class DocumentInfo(BaseModel):
@@ -114,6 +165,8 @@ class DocumentInfo(BaseModel):
     pages_without_text: int
     has_text_layer: bool
     chars: int
+    ocr_pages: int = Field(default=0, description="Сколько страниц распознано OCR")
+    ocr_confidence: float | None = Field(default=None, description="Средняя уверенность OCR, 0–100")
 
 
 class ExtractionResult(BaseModel):
@@ -126,6 +179,9 @@ class ExtractionResult(BaseModel):
     text: str | None = None
     # коды ситуаций, когда результат неполный, но обработка не прервана (например, LLM_UNAVAILABLE)
     warnings: tuple[str, ...] = ()
+    # документ «требует проверки», если хотя бы одно поле требует проверки
+    needs_review: bool = False
+    review_fields: tuple[str, ...] = ()
 
 
 class HealthStatus(BaseModel):
@@ -134,6 +190,8 @@ class HealthStatus(BaseModel):
     ner: Literal["ready", "disabled", "unavailable"]
     # not_configured — ключ провайдера не задан; доступность самого API при старте не проверяется (лимиты)
     llm: Literal["ready", "disabled", "not_configured", "unavailable"]
+    # unavailable — Tesseract не установлен или в нём нет нужных языков; сканы не обрабатываются
+    ocr: Literal["ready", "disabled", "unavailable"]
 
 
 class ApiError(BaseModel):

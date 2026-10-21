@@ -18,6 +18,7 @@ class LlmReply:
 
 
 class LlmClient(Protocol):
-    def complete(self, messages: Sequence[ChatMessage], max_tokens: int) -> LlmReply:
-        """Один запрос к модели. Ошибки — подклассы LlmError."""
+    def complete(self, messages: Sequence[ChatMessage], max_tokens: int, timeout: float | None = None) -> LlmReply:
+        """Один запрос к модели; timeout — не дольше стольких секунд (остаток общего срока документа).
+        Ошибки — подклассы LlmError."""
         ...

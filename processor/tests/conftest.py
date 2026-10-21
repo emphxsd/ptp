@@ -157,7 +157,8 @@ def template_json() -> str:
 
 @pytest.fixture
 def settings() -> Settings:
-    return Settings()
+    # OCR выключен: результат тестов не должен зависеть от того, установлен ли Tesseract на машине
+    return Settings(ocr_enabled=False)
 
 
 @pytest.fixture
@@ -168,7 +169,7 @@ def client(settings: Settings) -> Iterator[TestClient]:
 
 def make_client(**overrides) -> TestClient:
     """Клиент с изменёнными настройками; использовать как контекстный менеджер."""
-    return TestClient(create_app(Settings(**overrides)))
+    return TestClient(create_app(Settings(**{"ocr_enabled": False, **overrides})))
 
 
 def post_extract(client: TestClient, content: bytes, template: str, filename: str = "doc.pdf", headers=None, **form):

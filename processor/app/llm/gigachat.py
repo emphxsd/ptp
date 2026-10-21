@@ -117,12 +117,13 @@ class GigaChatClient:
     def close(self) -> None:
         self._http.close()
 
-    def complete(self, messages: Sequence[ChatMessage], max_tokens: int) -> LlmReply:
-        """timeout — на весь вызов: ожидание потока, токен, повтор и чтение ответа."""
-        deadline = self._monotonic() + self._timeout
+    def complete(self, messages: Sequence[ChatMessage], max_tokens: int, timeout: float | None = None) -> LlmReply:
+        """Срок — на весь вызов: ожидание потока, токен, повтор и чтение ответа; не больше настроенного."""
+        limit = self._timeout if timeout is None else min(self._timeout, timeout)
+        deadline = self._monotonic() + limit
         if self._monotonic() < self._auth_failed_until:
             raise LlmAuthError()
-        if not self._streams.acquire(timeout=min(self._queue_wait, self._timeout)):
+        if not self._streams.acquire(timeout=max(0.0, min(self._queue_wait, limit))):
             raise LlmBusyError()
         try:
             token = self._access_token(deadline)
