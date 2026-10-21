@@ -1,4 +1,5 @@
 """Маршруты API. Обработчики тонкие: разбор входа, вызов конвейера, упаковка в конверт."""
+import asyncio
 import hmac
 
 from fastapi import APIRouter, Depends, File, Form, Request, Response, UploadFile
@@ -6,7 +7,7 @@ from fastapi.concurrency import run_in_threadpool
 from pydantic import ValidationError
 
 from app.config import Settings
-from app.errors import InvalidTemplateError, UnauthorizedError
+from app.errors import InvalidTemplateError, ServiceBusyError, UnauthorizedError
 from app.pipeline import process_document
 from app.schemas import ApiResponse, ExtractionResult, HealthStatus, Template
 
@@ -44,8 +45,9 @@ def parse_template(raw: str, max_chars: int) -> Template:
 
 
 @router.get("/health", response_model=ApiResponse[HealthStatus])
-async def health() -> ApiResponse[HealthStatus]:
-    return ApiResponse.ok(HealthStatus(status="ok"))
+async def health(request: Request) -> ApiResponse[HealthStatus]:
+    ner = request.app.state.ner_status
+    return ApiResponse.ok(HealthStatus(status="degraded" if ner == "unavailable" else "ok", ner=ner))
 
 
 @router.post(
@@ -55,6 +57,7 @@ async def health() -> ApiResponse[HealthStatus]:
     dependencies=[Depends(require_api_token)],
 )
 async def extract(
+    request: Request,
     response: Response,
     file: UploadFile = File(description="Документ: PDF, DOCX, PNG или JPG"),
     template: str = Form(description="Шаблон извлечения в формате JSON"),
@@ -65,5 +68,13 @@ async def extract(
     # проверка шаблона компилирует regex через RE2 — не блокируем event loop
     parsed_template = await run_in_threadpool(parse_template, template, settings.max_template_chars)
     data = await file.read()
-    result = await run_in_threadpool(process_document, data, parsed_template, settings, include_text)
+    slots: asyncio.Semaphore = request.app.state.extract_slots
+    try:
+        await asyncio.wait_for(slots.acquire(), timeout=settings.queue_wait_seconds)
+    except TimeoutError:
+        raise ServiceBusyError("Сервис перегружен, повторите запрос позже") from None
+    try:
+        result = await run_in_threadpool(process_document, data, parsed_template, settings, include_text)
+    finally:
+        slots.release()
     return ApiResponse.ok(result)

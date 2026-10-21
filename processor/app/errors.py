@@ -6,6 +6,7 @@ from typing import ClassVar
 class ProcessingError(Exception):
     code: ClassVar[str] = "PROCESSING_ERROR"
     http_status: ClassVar[int] = 422
+    headers: ClassVar[dict[str, str]] = {}
 
     def __init__(self, message: str):
         super().__init__(message)
@@ -30,6 +31,12 @@ class FileTooLargeError(ProcessingError):
 class UnsupportedFormatError(ProcessingError):
     code = "UNSUPPORTED_FORMAT"
     http_status = 415
+
+
+class ServiceBusyError(ProcessingError):
+    code = "SERVICE_BUSY"
+    http_status = 503
+    headers = {"Retry-After": "5"}
 
 
 class DocumentReadError(ProcessingError):

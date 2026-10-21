@@ -192,7 +192,7 @@ def _near_keywords(field: TemplateField, index: DocumentIndex, matcher: _Matcher
     for keyword in field.keywords:
         found: list[tuple[_Candidate, bool]] = []
         for keyword_end in index.keyword_ends(keyword):
-            window = _window(index.text, keyword_end)
+            window = keyword_window(index.text, keyword_end)
             if window is None:
                 continue
             for candidate in matcher.candidates(index.text, window.start, window.end, MAX_NEAR_CANDIDATES):
@@ -237,7 +237,7 @@ def _keyword_tail(field: TemplateField, index: DocumentIndex) -> RuleMatch | Non
     """Для произвольного текста: всё, что стоит после якоря до конца строки (или следующая строка)."""
     for keyword in field.keywords:
         for keyword_end in index.keyword_ends(keyword):
-            window = _window(index.text, keyword_end)
+            window = keyword_window(index.text, keyword_end)
             if window is None:
                 continue
             start = _SEPARATORS.match(index.text, window.start, window.end).end() if not window.next_line else window.start
@@ -250,9 +250,9 @@ def _keyword_tail(field: TemplateField, index: DocumentIndex) -> RuleMatch | Non
     return None
 
 
-def _window(text: str, keyword_end: int) -> _Window | None:
+def keyword_window(text: str, keyword_end: int, size: int = WINDOW_CHARS) -> _Window | None:
     """Остаток строки после якоря; если он пуст — следующая строка (если это не «метка: …» другого поля)."""
-    limit = min(len(text), keyword_end + WINDOW_CHARS)
+    limit = min(len(text), keyword_end + size)
     newline = text.find("\n", keyword_end, limit)
     line_end = newline if newline >= 0 else limit
     if _SEPARATORS.match(text, keyword_end, line_end).end() < line_end:
@@ -260,7 +260,7 @@ def _window(text: str, keyword_end: int) -> _Window | None:
     if newline < 0:
         return None
     next_start = newline + 1
-    next_limit = min(len(text), next_start + WINDOW_CHARS)
+    next_limit = min(len(text), next_start + size)
     next_newline = text.find("\n", next_start, next_limit)
     next_end = next_newline if next_newline >= 0 else next_limit
     line = text[next_start:next_end].lstrip()

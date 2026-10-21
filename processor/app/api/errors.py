@@ -32,7 +32,7 @@ def register_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(ProcessingError)
     async def processing_error(_: Request, exc: ProcessingError) -> JSONResponse:
         logger.info("Запрос отклонён: %s (%s)", exc.code, exc.http_status)
-        return error_response(exc.http_status, exc.code, exc.message)
+        return error_response(exc.http_status, exc.code, exc.message, headers=exc.headers)
 
     @app.exception_handler(RequestValidationError)
     async def validation_error(_: Request, exc: RequestValidationError) -> JSONResponse:

@@ -127,7 +127,9 @@ class ExtractionResult(BaseModel):
 
 
 class HealthStatus(BaseModel):
-    status: Literal["ok"]
+    # degraded — сервис работает, но NER включён и не загрузился (обработка только правилами)
+    status: Literal["ok", "degraded"]
+    ner: Literal["ready", "disabled", "unavailable"]
 
 
 class ApiError(BaseModel):

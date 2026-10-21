@@ -12,6 +12,8 @@ filterwarnings = [
     # предупреждения сторонних библиотек (SWIG в PyMuPDF, starlette), не нашего кода
     "ignore:builtin type .* has no __module__ attribute:DeprecationWarning",
     "ignore:The anyio.abc.BlockingPortal alias is deprecated:DeprecationWarning",
+    # pymorphy2 (зависимость natasha) импортирует pkg_resources; setuptools закреплён на 80.9.0
+    "ignore:pkg_resources is deprecated as an API:UserWarning",
 ]
 
 [tool.coverage.run]

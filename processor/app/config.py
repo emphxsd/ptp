@@ -31,6 +31,11 @@ class Settings(BaseModel):
     docx_max_table_rows: int = Field(default=5000, gt=0)
     # значения с уверенностью ниже порога помечаются «требует проверки» (и позже уходят в LLM)
     review_threshold: float = Field(default=0.6, gt=0.0, lt=1.0)
+    # этапы каскада можно отключать — для сравнения подходов в экспериментах
+    ner_enabled: bool = True
+    # одновременных /extract на процесс и сколько ждать свободного места, прежде чем ответить 503
+    max_concurrent_extractions: int = Field(default=4, gt=0, le=64)
+    queue_wait_seconds: float = Field(default=10.0, gt=0, le=120)
     # production: токен обязателен, документация API отключена (fail closed)
     environment: Literal["development", "production"] = "development"
     # если задан, /extract требует заголовок Authorization: Bearer <token>
@@ -75,8 +80,9 @@ class Settings(BaseModel):
             values["api_token"] = token
         if environment := env.get(f"{ENV_PREFIX}ENV"):
             values["environment"] = environment.strip().lower()
-        if (docs := env.get(f"{ENV_PREFIX}DOCS_ENABLED")) is not None:
-            values["docs_enabled"] = docs.strip().lower() in ("1", "true", "yes", "on")
+        for flag in ("docs_enabled", "ner_enabled"):
+            if (raw_flag := env.get(f"{ENV_PREFIX}{flag.upper()}")) is not None:
+                values[flag] = raw_flag.strip().lower() in ("1", "true", "yes", "on")
         return cls(**values)
 
 
