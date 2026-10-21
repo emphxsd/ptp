@@ -33,7 +33,8 @@ def _options() -> "re2.Options":
 @lru_cache(maxsize=COMPILED_CACHE_SIZE)
 def compile_user_regex(pattern: str) -> "re2._Regexp":
     """Компилирует шаблон пользователя через RE2 или бросает UserRegexError с понятным текстом.
-    В RE2 \\w и \\b — только латиница; для кириллицы используйте [А-Яа-яЁё] или \\pL."""
+    В RE2 \\w и \\b — только латиница; для кириллицы используйте [А-Яа-яЁё]
+    (\\pL — все буквы Unicode — превышает предел сложности программы)."""
     if _BYTE_ESCAPE in pattern:
         raise UserRegexError("конструкция \\C не поддерживается")
     try:

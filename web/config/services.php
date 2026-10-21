@@ -28,6 +28,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // сервис обработки документов (../processor); токен — PROCESSOR_API_TOKEN из его .env
+    'processor' => [
+        'url' => env('PROCESSOR_URL', 'http://127.0.0.1:8001'),
+        'token' => env('PROCESSOR_API_TOKEN'),
+        'timeout' => (int) env('PROCESSOR_TIMEOUT', 10),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

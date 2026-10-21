@@ -27,6 +27,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 ])]
 class TemplateField extends Model
 {
+    public const NER_LABELS = ['PER', 'ORG', 'LOC'];
+
+    // порядок ключей FieldValidation в сервисе; jsonb в PostgreSQL хранит ключи в своём порядке
+    private const VALIDATION_KEYS = ['min_value', 'max_value', 'min_date', 'max_date', 'max_length', 'allowed_values', 'pattern'];
+
     protected function casts(): array
     {
         return [
@@ -42,5 +47,36 @@ class TemplateField extends Model
     public function template(): BelongsTo
     {
         return $this->belongsTo(Template::class);
+    }
+
+    /**
+     * Поле в формате сервиса обработки: пустые и значения по умолчанию не передаются.
+     *
+     * @return array<string, mixed>
+     */
+    public function toProcessorPayload(): array
+    {
+        return array_filter([
+            'name' => $this->name,
+            'label' => $this->label,
+            'data_type' => $this->data_type->value,
+            'is_required' => $this->is_required ?: null,
+            'keywords' => $this->keywords ?: null,
+            'regex_pattern' => $this->regex_pattern,
+            'ner_label' => $this->ner_label,
+            'llm_hint' => $this->llm_hint,
+            'validation' => $this->validation ? $this->orderedValidation($this->validation) : null,
+        ], fn (mixed $value) => $value !== null);
+    }
+
+    /**
+     * @param  array<string, mixed>  $validation
+     * @return array<string, mixed>
+     */
+    private function orderedValidation(array $validation): array
+    {
+        $known = array_intersect_key(array_flip(self::VALIDATION_KEYS), $validation);
+
+        return array_replace($known, $validation);
     }
 }

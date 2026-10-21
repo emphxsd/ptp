@@ -1,0 +1,35 @@
+{
+  "name": "Контракт с сервисом",
+  "fields": [
+    {
+      "name": "total",
+      "label": "Сумма к оплате",
+      "data_type": "amount",
+      "is_required": true,
+      "keywords": ["Итого к оплате", "Всего*"],
+      "regex_pattern": "(\\d+[.,]\\d{2})",
+      "llm_hint": "Сумма с НДС",
+      "validation": {"min_value": "0", "max_value": "1000000.50"}
+    },
+    {
+      "name": "date",
+      "label": "Дата",
+      "data_type": "date",
+      "keywords": ["Дата"],
+      "validation": {"min_date": "2020-01-01", "max_date": "2030-12-31"}
+    },
+    {
+      "name": "signer",
+      "label": "Подписант",
+      "data_type": "person",
+      "ner_label": "PER",
+      "validation": {"max_length": 150}
+    },
+    {
+      "name": "status",
+      "label": "Статус",
+      "data_type": "string",
+      "validation": {"allowed_values": ["оплачен", "не оплачен"], "pattern": "[а-яё ]+"}
+    }
+  ]
+}

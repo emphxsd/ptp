@@ -46,3 +46,6 @@ processor/evaluation/data/
 processor/evaluation/reports/*
 !processor/evaluation/reports/synthetic/
 !processor/evaluation/reports/holdout/
+
+# локальная настройка запуска dev-сервера (путь к PHP на этой машине)
+.claude/launch.json

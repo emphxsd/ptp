@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Processor\ProcessorClient;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(ProcessorClient::class, fn () => new ProcessorClient(
+            (string) config('services.processor.url'),
+            config('services.processor.token') ?: null,
+            (int) config('services.processor.timeout'),
+        ));
     }
 
     /**

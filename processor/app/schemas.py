@@ -194,6 +194,22 @@ class HealthStatus(BaseModel):
     ocr: Literal["ready", "disabled", "unavailable"]
 
 
+class TemplateIssue(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    field: str = Field(description="Где ошибка: fields.1.regex_pattern, fields.0.validation.pattern или fields")
+    message: str
+
+
+class TemplateCheck(BaseModel):
+    """Результат проверки шаблона без обработки документа (конструктор шаблонов веб-приложения)."""
+
+    model_config = ConfigDict(frozen=True)
+
+    valid: bool
+    issues: tuple[TemplateIssue, ...] = ()
+
+
 class ApiError(BaseModel):
     code: str
     message: str

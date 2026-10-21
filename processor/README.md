@@ -9,10 +9,10 @@ cd processor
 python -m venv .venv
 .venv\Scripts\python -m pip install -r requirements-dev.txt
 copy .env.example .env   # заполнить при необходимости (ключ GigaChat и т. п.)
-.venv\Scripts\python -m uvicorn app.main:app --reload --port 8000 --env-file .env
+.venv\Scripts\python -m uvicorn app.main:app --reload --port 8001 --env-file .env
 ```
 
-Интерактивная документация API: http://127.0.0.1:8000/docs
+Порт 8001: на 8000 работает веб-приложение (`../web`). Интерактивная документация API: http://127.0.0.1:8001/docs
 
 ## Тесты
 
@@ -51,6 +51,12 @@ copy .env.example .env   # заполнить при необходимости 
 Необязательные поля: `regex_pattern`, `ner_label`, `llm_hint`, `validation` (см. «Проверка значений»).
 
 Ответ `data`: `document` (формат, страницы, страницы без текста, наличие текстового слоя, число символов), `fields` (для каждого поля — `value`, `source` = `rule` | `ner` | `llm`, `raw` — фрагмент текста для подсветки, `confidence`, `needs_review`), `llm_used`, `processing_ms`, `text`, `needs_review` и `review_fields` (см. «Проверка значений»), `warnings` — коды ситуаций, когда результат неполный, но обработка не прервана (см. раздел LLM).
+
+### `POST /templates/validate` (multipart/form-data)
+
+Проверка шаблона без документа — той же схемой, что в `/extract`, включая компиляцию регулярных выражений через RE2 (только сервис знает, уложится ли выражение в предел сложности). Веб-приложение вызывает её при сохранении поля с регулярным выражением. Поле формы `template` — шаблон в JSON; токен — как для `/extract`.
+
+Ответ `data`: `{"valid": true, "issues": []}` или `{"valid": false, "issues": [{"field": "fields.1.regex_pattern", "message": "регулярное выражение слишком сложное…"}]}`. Некорректный JSON или слишком большой шаблон — ошибка `INVALID_TEMPLATE` (422).
 
 ### Проверка значений и «требует проверки»
 

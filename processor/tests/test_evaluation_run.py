@@ -88,7 +88,7 @@ def test_csv_cells_keep_ordinary_values():
 def test_markdown_cells_are_escaped():
     from evaluation.report import _md
 
-    assert _md("a|b\nc `x` <script>") == "a\|b c \`x\` &lt;script&gt;"
+    assert _md("a|b\nc `x` <script>") == r"a\|b c \`x\` &lt;script&gt;"
     assert _md(None) == "—"
 
 

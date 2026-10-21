@@ -90,7 +90,8 @@ class DatabaseSchemaTest extends TestCase
 
         $template->user->delete();
 
-        $this->assertSame(0, Template::count());
+        // системные шаблоны (без владельца) остаются
+        $this->assertSame(0, Template::where('is_system', false)->count());
         $this->assertSame(1, AuditLog::count());
     }
 
