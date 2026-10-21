@@ -1,0 +1,142 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="algo" name="Алгоритм извлечения">
+    <mxGraphModel dx="1194" dy="610" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1320" pageHeight="1840" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sStart" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" value="Начало: запрос POST /extract&lt;br&gt;(файл документа + шаблон полей)" vertex="1">
+          <mxGeometry height="50" width="250" x="225" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dLayer" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#fff2cc;" value="Есть текстовый слой?" vertex="1">
+          <mxGeometry height="80" width="220" x="240" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="sText" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#f5f5f5;" value="&lt;b&gt;Извлечение текста&lt;/b&gt;&lt;br&gt;PDF - PyMuPDF, DOCX - python-docx" vertex="1">
+          <mxGeometry height="60" width="300" x="200" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="sOCR" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#f5f5f5;" value="&lt;b&gt;OCR&lt;/b&gt;&lt;br&gt;Tesseract (rus + eng)" vertex="1">
+          <mxGeometry height="60" width="160" x="20" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="sPrep" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#f5f5f5;" value="&lt;b&gt;Предобработка текста&lt;/b&gt;&lt;br&gt;нормализация пробелов, кавычек, дефисов; разбиение на строки" vertex="1">
+          <mxGeometry height="60" width="300" x="200" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="sRules" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#d5e8d4;" value="&lt;b&gt;Поиск по правилам (regex)&lt;/b&gt;&lt;br&gt;шаблоны по типу поля: дата, сумма, ИНН, КПП, БИК, номер, телефон, e-mail; поиск рядом с ключевыми словами поля" vertex="1">
+          <mxGeometry height="80" width="300" x="200" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="sNER" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#d5e8d4;" value="&lt;b&gt;Распознавание именованных сущностей (NER)&lt;/b&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="300" x="200" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="sMatch" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#d5e8d4;" value="&lt;b&gt;Сопоставление с полями шаблона&lt;/b&gt;&lt;br&gt;по типу поля и близости к ключевым словам" vertex="1">
+          <mxGeometry height="80" width="300" x="200" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="dAll" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#fff2cc;" value="Все поля найдены?" vertex="1">
+          <mxGeometry height="100" width="260" x="220" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="sPrompt" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#ffe6cc;" value="&lt;b&gt;Формирование запроса к LLM&lt;/b&gt;&lt;br&gt;только ненайденные поля" vertex="1">
+          <mxGeometry height="80" width="300" x="200" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="sLLM" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#ffe6cc;" value="&lt;b&gt;Запрос к LLM&lt;/b&gt;&lt;br&gt;внешний API, ответ в JSON" vertex="1">
+          <mxGeometry height="60" width="300" x="200" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="dJson" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#fff2cc;" value="Ответ -&lt;br&gt;корректный JSON?" vertex="1">
+          <mxGeometry height="80" width="240" x="230" y="1170" as="geometry" />
+        </mxCell>
+        <mxCell id="sMerge" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#dae8fc;" value="&lt;b&gt;Объединение результатов&lt;/b&gt;&lt;br&gt;приоритет: правила - NER - LLM" vertex="1">
+          <mxGeometry height="60" width="300" x="200" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="sVal" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#dae8fc;" value="&lt;b&gt;Валидация&lt;/b&gt;&lt;br&gt;проверка формата; проверка, что значение есть в тексте; иначе - «требует проверки»" vertex="1">
+          <mxGeometry height="80" width="300" x="200" y="1390" as="geometry" />
+        </mxCell>
+        <mxCell id="sRes" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fillColor=#dae8fc;" value="&lt;b&gt;Формирование результата&lt;/b&gt;&lt;br&gt;значение, источник, уверенность" vertex="1">
+          <mxGeometry height="60" width="300" x="200" y="1510" as="geometry" />
+        </mxCell>
+        <mxCell id="sEnd" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" value="Конец: JSON-ответ&lt;br&gt;веб-приложению Laravel" vertex="1">
+          <mxGeometry height="50" width="250" x="225" y="1610" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" edge="1" parent="1" source="sStart" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="dLayer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" edge="1" parent="1" source="dLayer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;" target="sText" value="да">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" edge="1" parent="1" source="dLayer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=0.5;entryY=0;" target="sOCR" value="нет (скан)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f4" edge="1" parent="1" source="sText" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sPrep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f5" edge="1" parent="1" source="sOCR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" target="sPrep">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f6" edge="1" parent="1" source="sPrep" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sRules">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f7" edge="1" parent="1" source="sRules" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sNER">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f8" edge="1" parent="1" source="sNER" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sMatch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f9" edge="1" parent="1" source="sMatch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="dAll">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f10" edge="1" parent="1" source="dAll" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;" target="sPrompt" value="нет">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f11" edge="1" parent="1" source="dAll" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="sMerge" value="да">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="860" />
+              <mxPoint x="150" y="1320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f12" edge="1" parent="1" source="sPrompt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sLLM">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f13" edge="1" parent="1" source="sLLM" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="dJson">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f14" edge="1" parent="1" source="dJson" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;" target="sMerge" value="да">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f15" edge="1" parent="1" source="dJson" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" target="sLLM" value="нет:&lt;br&gt;повтор">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="1210" />
+              <mxPoint x="530" y="1100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="f16" edge="1" parent="1" source="sMerge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sVal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f17" edge="1" parent="1" source="sVal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sRes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f18" edge="1" parent="1" source="sRes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;" target="sEnd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#f5f5f5;" value="извлечение текста" vertex="1">
+          <mxGeometry height="30" width="150" x="640" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#d5e8d4;" value="правила и NER" vertex="1">
+          <mxGeometry height="30" width="150" x="810" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#ffe6cc;" value="LLM" vertex="1">
+          <mxGeometry height="30" width="150" x="640" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="l4" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#dae8fc;" value="проверка и результат" vertex="1">
+          <mxGeometry height="30" width="150" x="810" y="130" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

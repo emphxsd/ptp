@@ -1,0 +1,42 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="roles" name="Роли пользователей">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1340" pageHeight="440" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="rGuest" value="Гость&lt;br&gt;&lt;span style=&quot;font-weight:normal;font-size:12px&quot;&gt;неавторизованный посетитель&lt;/span&gt;" style="swimlane;collapsible=0;whiteSpace=wrap;html=1;startSize=56;fontFamily=Times New Roman;fontSize=16;fontStyle=1;fillColor=#eeeeee;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="300" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="rGuestT" value="• Просмотр описания сервиса&lt;br&gt;• Регистрация&lt;br&gt;• Вход в систему (авторизация)&lt;br&gt;• Восстановление пароля" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;spacingRight=8;" vertex="1" parent="rGuest">
+          <mxGeometry y="56" width="300" height="244" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rUser" value="Пользователь&lt;br&gt;&lt;span style=&quot;font-weight:normal;font-size:12px&quot;&gt;бухгалтер, HR-специалист, юрист, сотрудник канцелярии, ИП&lt;/span&gt;" style="swimlane;collapsible=0;whiteSpace=wrap;html=1;startSize=56;fontFamily=Times New Roman;fontSize=16;fontStyle=1;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="460" y="40" width="380" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="rUserT" value="• Создание, редактирование и удаление собственных шаблонов&lt;br&gt;• Использование системных шаблонов&lt;br&gt;• Загрузка документов (PDF, DOCX, сканы)&lt;br&gt;• Запуск извлечения данных&lt;br&gt;• Просмотр и исправление извлечённых значений&lt;br&gt;• Экспорт результатов (JSON, XML, Excel)&lt;br&gt;• Передача данных во внешнюю учётную систему&lt;br&gt;• Просмотр истории обработки&lt;br&gt;&lt;br&gt;&lt;i&gt;Доступ только к своим документам, шаблонам и результатам&lt;/i&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;spacingRight=8;" vertex="1" parent="rUser">
+          <mxGeometry y="56" width="380" height="244" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rAdmin" value="Администратор&lt;br&gt;&lt;span style=&quot;font-weight:normal;font-size:12px&quot;&gt;сопровождение сервиса&lt;/span&gt;" style="swimlane;collapsible=0;whiteSpace=wrap;html=1;startSize=56;fontFamily=Times New Roman;fontSize=16;fontStyle=1;fillColor=#d5e8d4;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="960" y="40" width="340" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="rAdminT" value="• Все права пользователя&lt;br&gt;• Управление учётными записями и ролями&lt;br&gt;• Ведение справочника типов документов&lt;br&gt;• Ведение системных шаблонов и схем полей&lt;br&gt;• Настройка параметров обработки (OCR, LLM, ограничения на файлы)&lt;br&gt;• Просмотр журнала действий и статистики обработки" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;spacingRight=8;" vertex="1" parent="rAdmin">
+          <mxGeometry y="56" width="340" height="244" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eAuth" value="регистрация /&lt;br&gt;авторизация" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontFamily=Times New Roman;fontSize=13;labelBackgroundColor=#ffffff;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="rGuest" target="rUser">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="eInherit" value="наследует&lt;br&gt;права" style="endArrow=block;endFill=0;endSize=14;html=1;rounded=0;fontFamily=Times New Roman;fontSize=13;labelBackgroundColor=#ffffff;exitX=0;exitY=0.3;entryX=1;entryY=0.3;" edge="1" parent="1" source="rAdmin" target="rUser">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="legend" value="Права назначаются через роль (таблица roles). Пользователь получает роль «Пользователь» после регистрации; роль «Администратор» назначается вручную." style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="1260" height="40" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

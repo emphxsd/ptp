@@ -1,0 +1,31 @@
+# секреты и окружение
+.env
+.env.*
+!.env.example
+
+# зависимости и сборка
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+build/
+
+# IDE и системные файлы
+.idea/
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
+
+# временные файлы Office и draw.io
+~$*
+*.bkp
+*.dtmp
+
+# реальные документы с персональными данными не коммитим
+data/private/
+uploads/
+storage/app/

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_1" targetNamespace="http://bpmn.io/schema/bpmn">
+<bpmn:collaboration id="Collab_1"><bpmn:participant id="Pool_1" name="Ручная обработка документа (AS IS)" processRef="Process_AsIs"/></bpmn:collaboration>
+<bpmn:process id="Process_AsIs" isExecutable="false">
+<bpmn:laneSet id="LaneSet_1">
+<bpmn:lane id="Lane_1" name="Специалист">
+<bpmn:flowNodeRef>S</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>A1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>A2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>A3</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>A4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>A5</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>G1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>A6</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>E</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="Lane_2" name="Учётная ИС / БД">
+<bpmn:flowNodeRef>A7</bpmn:flowNodeRef>
+</bpmn:lane>
+</bpmn:laneSet>
+<bpmn:startEvent id="S" name="Поступил документ">
+<bpmn:outgoing>Flow_1</bpmn:outgoing>
+</bpmn:startEvent>
+<bpmn:task id="A1" name="Получить документ (бумага, скан, PDF, DOCX)">
+<bpmn:incoming>Flow_1</bpmn:incoming>
+<bpmn:outgoing>Flow_2</bpmn:outgoing>
+<bpmn:property id="Prop_A1" name="__targetRef_placeholder"/>
+<bpmn:dataInputAssociation id="DIA_A1_0"><bpmn:sourceRef>D1</bpmn:sourceRef><bpmn:targetRef>Prop_A1</bpmn:targetRef></bpmn:dataInputAssociation>
+</bpmn:task>
+<bpmn:task id="A2" name="Определить вид документа">
+<bpmn:incoming>Flow_2</bpmn:incoming>
+<bpmn:outgoing>Flow_3</bpmn:outgoing>
+</bpmn:task>
+<bpmn:task id="A3" name="Изучить документ, найти ключевые данные">
+<bpmn:incoming>Flow_3</bpmn:incoming>
+<bpmn:outgoing>Flow_4</bpmn:outgoing>
+<bpmn:property id="Prop_A3" name="__targetRef_placeholder"/>
+<bpmn:dataInputAssociation id="DIA_A3_0"><bpmn:sourceRef>D2</bpmn:sourceRef><bpmn:targetRef>Prop_A3</bpmn:targetRef></bpmn:dataInputAssociation>
+</bpmn:task>
+<bpmn:task id="A4" name="Вручную перенести данные в шаблон / таблицу">
+<bpmn:incoming>Flow_4</bpmn:incoming>
+<bpmn:incoming>Flow_7</bpmn:incoming>
+<bpmn:outgoing>Flow_5</bpmn:outgoing>
+</bpmn:task>
+<bpmn:task id="A5" name="Проверить корректность ввода">
+<bpmn:incoming>Flow_5</bpmn:incoming>
+<bpmn:outgoing>Flow_6</bpmn:outgoing>
+<bpmn:dataOutputAssociation id="DOA_A5_0"><bpmn:targetRef>D3</bpmn:targetRef></bpmn:dataOutputAssociation>
+</bpmn:task>
+<bpmn:exclusiveGateway id="G1" name="Есть ошибки?">
+<bpmn:incoming>Flow_6</bpmn:incoming>
+<bpmn:outgoing>Flow_7</bpmn:outgoing>
+<bpmn:outgoing>Flow_8</bpmn:outgoing>
+</bpmn:exclusiveGateway>
+<bpmn:task id="A6" name="Ввести данные в форму учётной системы">
+<bpmn:incoming>Flow_8</bpmn:incoming>
+<bpmn:outgoing>Flow_9</bpmn:outgoing>
+</bpmn:task>
+<bpmn:task id="A7" name="Сохранить запись в БД">
+<bpmn:incoming>Flow_9</bpmn:incoming>
+<bpmn:outgoing>Flow_10</bpmn:outgoing>
+<bpmn:dataOutputAssociation id="DOA_A7_0"><bpmn:targetRef>DB</bpmn:targetRef></bpmn:dataOutputAssociation>
+</bpmn:task>
+<bpmn:endEvent id="E" name="Данные внесены">
+<bpmn:incoming>Flow_10</bpmn:incoming>
+</bpmn:endEvent>
+<bpmn:dataObjectReference id="D1" name="Исходный документ" dataObjectRef="DO_D1"/><bpmn:dataObject id="DO_D1"/>
+<bpmn:dataObjectReference id="D2" name="Перечень ключевых полей" dataObjectRef="DO_D2"/><bpmn:dataObject id="DO_D2"/>
+<bpmn:dataObjectReference id="D3" name="Таблица с данными" dataObjectRef="DO_D3"/><bpmn:dataObject id="DO_D3"/>
+<bpmn:dataStoreReference id="DB" name="БД учётной системы"/>
+<bpmn:sequenceFlow id="Flow_1" sourceRef="S" targetRef="A1"/>
+<bpmn:sequenceFlow id="Flow_2" sourceRef="A1" targetRef="A2"/>
+<bpmn:sequenceFlow id="Flow_3" sourceRef="A2" targetRef="A3"/>
+<bpmn:sequenceFlow id="Flow_4" sourceRef="A3" targetRef="A4"/>
+<bpmn:sequenceFlow id="Flow_5" sourceRef="A4" targetRef="A5"/>
+<bpmn:sequenceFlow id="Flow_6" sourceRef="A5" targetRef="G1"/>
+<bpmn:sequenceFlow id="Flow_7" name="Да" sourceRef="G1" targetRef="A4"/>
+<bpmn:sequenceFlow id="Flow_8" name="Нет" sourceRef="G1" targetRef="A6"/>
+<bpmn:sequenceFlow id="Flow_9" sourceRef="A6" targetRef="A7"/>
+<bpmn:sequenceFlow id="Flow_10" sourceRef="A7" targetRef="E"/>
+</bpmn:process>
+<bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
+<bpmndi:BPMNShape id="Pool_1_di" bpmnElement="Pool_1" isHorizontal="true"><dc:Bounds x="0" y="0" width="1500" height="430"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_1_di" bpmnElement="Lane_1" isHorizontal="true"><dc:Bounds x="30" y="0" width="1470" height="260"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_2_di" bpmnElement="Lane_2" isHorizontal="true"><dc:Bounds x="30" y="260" width="1470" height="170"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="S_di" bpmnElement="S"><dc:Bounds x="87.0" y="102.0" width="36" height="36"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A1_di" bpmnElement="A1"><dc:Bounds x="155.0" y="88.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A2_di" bpmnElement="A2"><dc:Bounds x="325.0" y="88.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A3_di" bpmnElement="A3"><dc:Bounds x="495.0" y="88.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A4_di" bpmnElement="A4"><dc:Bounds x="665.0" y="88.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A5_di" bpmnElement="A5"><dc:Bounds x="835.0" y="88.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="G1_di" bpmnElement="G1" isMarkerVisible="true"><dc:Bounds x="1030.0" y="95.0" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A6_di" bpmnElement="A6"><dc:Bounds x="1145.0" y="88.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="A7_di" bpmnElement="A7"><dc:Bounds x="1145.0" y="303.0" width="140" height="64"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="E_di" bpmnElement="E"><dc:Bounds x="1402.0" y="102.0" width="36" height="36"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="D1_di" bpmnElement="D1"><dc:Bounds x="207.0" y="192.0" width="36" height="46"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="D2_di" bpmnElement="D2"><dc:Bounds x="547.0" y="192.0" width="36" height="46"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="D3_di" bpmnElement="D3"><dc:Bounds x="887.0" y="192.0" width="36" height="46"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="DB_di" bpmnElement="DB"><dc:Bounds x="1033.0" y="315.0" width="44" height="40"/></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+<di:waypoint x="123.0" y="120"/>
+<di:waypoint x="155.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+<di:waypoint x="295.0" y="120"/>
+<di:waypoint x="325.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+<di:waypoint x="465.0" y="120"/>
+<di:waypoint x="495.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+<di:waypoint x="635.0" y="120"/>
+<di:waypoint x="665.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+<di:waypoint x="805.0" y="120"/>
+<di:waypoint x="835.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+<di:waypoint x="975.0" y="120"/>
+<di:waypoint x="1030.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+<di:waypoint x="1055" y="95.0"/>
+<di:waypoint x="1055" y="35"/>
+<di:waypoint x="735" y="35"/>
+<di:waypoint x="735" y="88.0"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+<di:waypoint x="1080.0" y="120"/>
+<di:waypoint x="1145.0" y="120"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+<di:waypoint x="1215" y="152.0"/>
+<di:waypoint x="1215" y="303.0"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+<di:waypoint x="1285.0" y="335"/>
+<di:waypoint x="1420" y="335"/>
+<di:waypoint x="1420" y="138.0"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DIA_A1_0_di" bpmnElement="DIA_A1_0">
+<di:waypoint x="225" y="192.0"/>
+<di:waypoint x="225" y="152.0"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DIA_A3_0_di" bpmnElement="DIA_A3_0">
+<di:waypoint x="565" y="192.0"/>
+<di:waypoint x="565" y="152.0"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DOA_A5_0_di" bpmnElement="DOA_A5_0">
+<di:waypoint x="905" y="152.0"/>
+<di:waypoint x="905" y="192.0"/>
+</bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DOA_A7_0_di" bpmnElement="DOA_A7_0">
+<di:waypoint x="1145.0" y="335"/>
+<di:waypoint x="1077.0" y="335"/>
+</bpmndi:BPMNEdge>
+</bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>

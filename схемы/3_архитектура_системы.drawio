@@ -1,0 +1,108 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="deploy" name="Физическая архитектура">
+    <mxGraphModel dx="1813" dy="996" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1840" pageHeight="840" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nClient" parent="1" style="verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;spacingRight=14;shape=cube;size=12;direction=south;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;fillColor=#f5f5f5;" value="«устройство»&lt;br&gt;&lt;b&gt;Компьютер пользователя&lt;/b&gt;" vertex="1">
+          <mxGeometry height="150" width="240" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cBrowser" parent="nClient" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;Веб-браузер&lt;/b&gt;&lt;br&gt;интерфейс сервиса" vertex="1">
+          <mxGeometry height="70" width="210" x="15" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="nDB" parent="1" style="verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;spacingRight=14;shape=cube;size=12;direction=south;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;fillColor=#f5f5f5;" value="«сервер»&lt;br&gt;&lt;b&gt;Сервер БД&lt;/b&gt;" vertex="1">
+          <mxGeometry height="160" width="240" x="50" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="cPG" parent="nDB" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;СУБД PostgreSQL&lt;/b&gt;&lt;br&gt;пользователи, шаблоны, результаты" vertex="1">
+          <mxGeometry height="80" width="210" x="5" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nIS" parent="1" style="verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;spacingRight=14;shape=cube;size=12;direction=south;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;fillColor=#f5f5f5;" value="«внешняя система»&lt;br&gt;&lt;b&gt;Учётная ИС организации&lt;/b&gt;" vertex="1">
+          <mxGeometry height="150" width="240" x="40" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="cIS" parent="nIS" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="REST API приёма данных&lt;br&gt;(1С, CRM, HR-система)" vertex="1">
+          <mxGeometry height="70" width="210" x="10" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nWeb" parent="1" style="verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;spacingRight=14;shape=cube;size=12;direction=south;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;fillColor=#f5f5f5;" value="«сервер»&lt;br&gt;&lt;b&gt;Веб-сервер (Linux, Docker)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="560" width="520" x="420" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cLaravel" parent="nWeb" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;Веб-приложение Laravel (PHP)&lt;/b&gt;&lt;br&gt;интерфейс и авторизация, конструктор шаблонов полей,&lt;br&gt;загрузка документов, проверка результатов,&lt;br&gt;экспорт в Excel / JSON" vertex="1">
+          <mxGeometry height="130" width="460" x="30" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="cRedis" parent="nWeb" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;Очередь документов&lt;/b&gt;&lt;br&gt;список документов, ожидающих обработки (Redis)" vertex="1">
+          <mxGeometry height="80" width="210" x="30" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="cWorker" parent="nWeb" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;Фоновый обработчик очереди&lt;/b&gt;&lt;br&gt;берёт документ из очереди, отправляет на обработку, сохраняет результат" vertex="1">
+          <mxGeometry height="80" width="210" x="280" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="cStorage" parent="nWeb" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;Файловое хранилище&lt;/b&gt;&lt;br&gt;исходные документы, файлы экспорта" vertex="1">
+          <mxGeometry height="80" width="460" x="30" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="nProc" parent="1" style="verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;spacingRight=14;shape=cube;size=12;direction=south;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;fillColor=#f5f5f5;" value="«сервер»&lt;br&gt;&lt;b&gt;Сервер обработки (Linux, Docker)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="560" width="440" x="1040" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cFast" parent="nProc" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;verticalAlign=top;spacingTop=8;fillColor=#ffffff;" value="&lt;b&gt;Сервис обработки (Python, FastAPI)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="460" width="400" x="20" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="mText" parent="cFast" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#ffffff;" value="&lt;b&gt;Извлечение текста&lt;/b&gt;&lt;br&gt;PDF, DOCX (PyMuPDF, python-docx)" vertex="1">
+          <mxGeometry height="60" width="350" x="30" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mOCR" parent="cFast" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#ffffff;" value="&lt;b&gt;OCR сканов&lt;/b&gt;&lt;br&gt;Tesseract" vertex="1">
+          <mxGeometry height="60" width="350" x="30" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mNER" parent="cFast" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#ffffff;" value="&lt;b&gt;Правила (regex) + NER&lt;/b&gt;&lt;br&gt;даты, суммы, ИНН, ФИО, организации" vertex="1">
+          <mxGeometry height="60" width="350" x="30" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="mLLM" parent="cFast" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#ffffff;" value="&lt;b&gt;Модуль LLM&lt;/b&gt;&lt;br&gt;только ненайденные поля или поля с низкой уверенностью" vertex="1">
+          <mxGeometry height="60" width="350" x="30" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="mVal" parent="cFast" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=12;fillColor=#ffffff;" value="&lt;b&gt;Валидация&lt;/b&gt;&lt;br&gt;формат значения, наличие в тексте" vertex="1">
+          <mxGeometry height="60" width="350" x="30" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="nOllama" parent="1" style="verticalAlign=top;align=left;spacingTop=10;spacingLeft=10;spacingRight=14;shape=cube;size=12;direction=south;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=14;fillColor=#f5f5f5;" value="«внешний сервис»&lt;br&gt;&lt;b&gt;Облачный LLM API&lt;/b&gt;" vertex="1">
+          <mxGeometry height="160" width="240" x="1560" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="cOllama" parent="nOllama" style="shape=module;jettyWidth=10;jettyHeight=5;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;spacingLeft=12;fillColor=#ffffff;" value="&lt;b&gt;LLM API&lt;/b&gt;&lt;br&gt;(GigaChat, YandexGPT, Deepseek и др.)" vertex="1">
+          <mxGeometry height="80" width="210" x="10" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eBrowser" edge="1" parent="1" source="cBrowser" style="endArrow=open;endSize=10;html=1;rounded=0;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eQueue" edge="1" parent="1" source="cLaravel" style="endArrow=open;endSize=10;html=1;rounded=0;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.228;exitY=1;entryX=0.5;entryY=0;" target="cRedis" value="в очередь">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eWorker" edge="1" parent="1" source="cRedis" style="endArrow=open;endSize=10;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="cWorker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eFast" edge="1" parent="1" source="cWorker" style="endArrow=open;endSize=10;startArrow=open;startSize=10;html=1;rounded=0;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.674;" target="cFast" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ePG" edge="1" parent="1" source="cLaravel" style="endArrow=open;endSize=10;html=1;rounded=0;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="cPG" value="">
+          <mxGeometry relative="1" x="0.1207" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="195" />
+              <mxPoint x="320" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eIS" edge="1" parent="1" source="cLaravel" style="endArrow=open;endSize=10;html=1;rounded=0;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=0;exitY=0.846;entryX=1;entryY=0.5;" target="cIS" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="240" />
+              <mxPoint x="370" y="685" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eOllama" edge="1" parent="1" source="mLLM" style="endArrow=open;endSize=10;html=1;rounded=0;fontFamily=Times New Roman;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" target="cOllama" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1510" y="408" />
+              <mxPoint x="1510" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

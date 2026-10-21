@@ -1,0 +1,404 @@
+<mxfile host="app.diagrams.net" pages="2">
+  <diagram id="idef0-a-0" name="A-0 Контекстная диаграмма">
+    <mxGraphModel dx="989" dy="505" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="730" width="1080" x="20" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;align=left;spacingLeft=6;strokeWidth=1.5;" value="Узел: A-0" vertex="1">
+          <mxGeometry height="40" width="160" x="20" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;align=left;spacingLeft=6;strokeWidth=1.5;" value="Название: Извлечь структурированные данные из документов по шаблонам" vertex="1">
+          <mxGeometry height="40" width="780" x="180" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;align=left;spacingLeft=6;strokeWidth=1.5;" value="Номер: 1" vertex="1">
+          <mxGeometry height="40" width="140" x="960" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="box" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=16;strokeWidth=1.5;" value="Извлечь структурированные данные из документов по шаблонам" vertex="1">
+          <mxGeometry height="170" width="360" x="380" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="boxn" parent="1" style="text;html=1;align=right;verticalAlign=bottom;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" value="A0" vertex="1">
+          <mxGeometry height="22" width="44" x="690" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="i1" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="325" as="sourcePoint" />
+            <mxPoint x="380" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="i1l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=bottom;" value="Исходный документ (PDF, DOCX, скан)" vertex="1">
+          <mxGeometry height="42" width="320" x="40" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="110" as="sourcePoint" />
+            <mxPoint x="450" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c1l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=bottom;" value="Настройки сервиса" vertex="1">
+          <mxGeometry height="58" width="110" x="395" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="110" as="sourcePoint" />
+            <mxPoint x="560" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c2l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=bottom;" value="Справочник схем полей" vertex="1">
+          <mxGeometry height="58" width="110" x="505" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="110" as="sourcePoint" />
+            <mxPoint x="670" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c3l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=bottom;" value="Шаблон извлечения" vertex="1">
+          <mxGeometry height="58" width="110" x="615" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="280" as="sourcePoint" />
+            <mxPoint x="1100" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o1l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=bottom;" value="Сообщение об ошибке" vertex="1">
+          <mxGeometry height="38" width="320" x="760" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="360" as="sourcePoint" />
+            <mxPoint x="1100" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o2l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=bottom;" value="Структурированные данные (JSON, XML, Excel)" vertex="1">
+          <mxGeometry height="40" width="320" x="760" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="550" as="sourcePoint" />
+            <mxPoint x="400" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m1l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" value="Пользователь" vertex="1">
+          <mxGeometry height="40" width="110" x="340" y="553" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="614" y="550" as="sourcePoint" />
+            <mxPoint x="614" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" value="Веб-сервис" vertex="1">
+          <mxGeometry height="40" width="110" x="560" y="553" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="711.5" y="550" as="sourcePoint" />
+            <mxPoint x="711.5" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3l" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" value="Языковая модель (LLM)" vertex="1">
+          <mxGeometry height="40" width="110" x="650" y="553" as="geometry" />
+        </mxCell>
+        <mxCell id="goal" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=top;" value="&lt;b&gt;Цель:&lt;/b&gt; сократить время и число ошибок при переносе данных из документов в учётные системы и таблицы.&lt;br&gt;&lt;b&gt;Точка зрения:&lt;/b&gt; пользователь сервиса (специалист, обрабатывающий документы)." vertex="1">
+          <mxGeometry height="50" width="1040" x="40" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="MqKP30i5o3bg_tu09CkD-2" edge="1" parent="1" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="504" y="550" as="sourcePoint" />
+            <mxPoint x="504" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MqKP30i5o3bg_tu09CkD-3" parent="1" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" value="NLP (NER)" vertex="1">
+          <mxGeometry height="40" width="110" x="450" y="553" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="idef0-a0" name="A0 Декомпозиция">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1754" pageHeight="1240" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="1700" height="1150" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" value="Узел: A0" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;align=left;spacingLeft=6;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1130" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" value="Название: Извлечь структурированные данные из документов по шаблонам" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;align=left;spacingLeft=6;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="220" y="1130" width="1300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" value="Номер: 2" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=13;align=left;spacingLeft=6;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1520" y="1130" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" value="Принять и проверить документ" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="200" y="180" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="A1n" value="A1" style="text;html=1;align=right;verticalAlign=bottom;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="266" width="42" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" value="Извлечь текст документа" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="480" y="340" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="A2n" value="A2" style="text;html=1;align=right;verticalAlign=bottom;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="634" y="426" width="42" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" value="Извлечь поля правилами и NER" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="760" y="500" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="A3n" value="A3" style="text;html=1;align=right;verticalAlign=bottom;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="914" y="586" width="42" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" value="Дополнить ненайденные поля с помощью LLM" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="660" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="A4n" value="A4" style="text;html=1;align=right;verticalAlign=bottom;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1194" y="746" width="42" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" value="Сформировать, проверить и экспортировать результат" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=15;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="820" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="A5n" value="A5" style="text;html=1;align=right;verticalAlign=bottom;fontFamily=Times New Roman;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1474" y="906" width="42" height="22" as="geometry" />
+        </mxCell>
+        <!-- Вход -->
+        <mxCell id="in1" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="235" as="sourcePoint" />
+            <mxPoint x="200" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="in1l" value="Исходный документ (PDF, DOCX, скан)" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="30" y="188" width="160" height="44" as="geometry" />
+        </mxCell>
+        <!-- Управление: настройки сервиса -->
+        <mxCell id="s0" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="80" as="sourcePoint" />
+            <mxPoint x="300" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s0l" value="Настройки сервиса" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="240" y="36" width="120" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="s0b" value="Требования к файлам" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="190" y="130" width="104" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="sbus" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="120" as="sourcePoint" />
+            <mxPoint x="1460" y="820" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1460" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="120" as="sourcePoint" />
+            <mxPoint x="580" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2l" value="Параметры OCR" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="474" y="290" width="100" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1180" y="120" as="sourcePoint" />
+            <mxPoint x="1180" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s4l" value="Правила запроса к LLM" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="1186" y="600" width="110" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="s5l" value="Форматы экспорта" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="1466" y="766" width="110" height="48" as="geometry" />
+        </mxCell>
+        <!-- Управление: справочник схем полей -->
+        <mxCell id="r0" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="80" as="sourcePoint" />
+            <mxPoint x="780" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r0l" value="Справочник схем полей" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="720" y="36" width="120" height="42" as="geometry" />
+        </mxCell>
+        <!-- Управление: шаблон извлечения -->
+        <mxCell id="t0" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="80" as="sourcePoint" />
+            <mxPoint x="900" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t0l" value="Шаблон извлечения" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="845" y="36" width="110" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="tbus" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="150" as="sourcePoint" />
+            <mxPoint x="1380" y="820" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1380" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t4" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1100" y="150" as="sourcePoint" />
+            <mxPoint x="1100" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Связи между функциями -->
+        <mxCell id="a12" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="255" as="sourcePoint" />
+            <mxPoint x="480" y="395" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="440" y="255" />
+              <mxPoint x="440" y="395" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a12l" value="Проверенный файл" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="340" y="300" width="94" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="a23" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="420" as="sourcePoint" />
+            <mxPoint x="760" y="555" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="715" y="420" />
+              <mxPoint x="715" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a23l" value="Текст документа" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="610" y="460" width="100" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="a34" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="960" y="560" as="sourcePoint" />
+            <mxPoint x="1040" y="715" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1000" y="560" />
+              <mxPoint x="1000" y="715" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a34l" value="Текст, найденные значения, ненайденные поля" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="868" y="620" width="126" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="a45" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1240" y="715" as="sourcePoint" />
+            <mxPoint x="1320" y="875" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1280" y="715" />
+              <mxPoint x="1280" y="875" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a45l" value="Полный набор значений полей" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1148" y="780" width="126" height="48" as="geometry" />
+        </mxCell>
+        <!-- Выходы -->
+        <mxCell id="out1" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1520" y="875" as="sourcePoint" />
+            <mxPoint x="1720" y="875" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="out1l" value="Структурированные данные (JSON, XML, Excel)" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="816" width="180" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="err1" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="205" as="sourcePoint" />
+            <mxPoint x="1720" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="err2" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="370" as="sourcePoint" />
+            <mxPoint x="735" y="205" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="735" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="errl" value="Сообщение об ошибке" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=right;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="170" width="180" height="32" as="geometry" />
+        </mxCell>
+        <!-- Механизмы -->
+        <mxCell id="u0" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="1080" as="sourcePoint" />
+            <mxPoint x="230" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u0l" value="Пользователь" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="175" y="1084" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="w0" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="1080" as="sourcePoint" />
+            <mxPoint x="330" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="w0l" value="Веб-сервис" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="285" y="1084" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ubus" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="1040" as="sourcePoint" />
+            <mxPoint x="1380" y="930" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1380" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wbus" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="1010" as="sourcePoint" />
+            <mxPoint x="1460" y="930" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1460" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="w2" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="1010" as="sourcePoint" />
+            <mxPoint x="580" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="w2l" value="Модуль OCR" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="586" y="960" width="100" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="w3" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="1010" as="sourcePoint" />
+            <mxPoint x="860" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="w3l" value="Модуль правил и NER" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=left;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="866" y="960" width="110" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="l0" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;jumpStyle=arc;jumpSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="1080" as="sourcePoint" />
+            <mxPoint x="1140" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l0l" value="Языковая модель (LLM)" style="text;html=1;whiteSpace=wrap;fontFamily=Times New Roman;fontSize=13;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="1084" width="140" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,278 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="erd" name="Схема базы данных">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2120" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="kb" value="База знаний: типы документов, шаблоны и схемы полей" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 4;strokeWidth=1.5;verticalAlign=top;align=right;spacingRight=10;spacingTop=4;fontFamily=Times New Roman;fontSize=14;fontStyle=3;" vertex="1" parent="1">
+          <mxGeometry x="550" y="6" width="1020" height="484" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_roles" value="roles (Роли)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="450" height="102" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_roles_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— уникальный идентификатор роли&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_roles">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_roles_1" value="name: VARCHAR(30) &lt;font color=&quot;#555555&quot;&gt;— название роли (user, admin)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_roles">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_roles_2" value="description: TEXT &lt;font color=&quot;#555555&quot;&gt;— описание прав роли&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_roles">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users" value="users (Пользователи)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="450" height="198" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— уникальный идентификатор пользователя&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; role_id: INT &lt;font color=&quot;#555555&quot;&gt;— роль пользователя&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_2" value="email: VARCHAR(255) &lt;font color=&quot;#555555&quot;&gt;— электронная почта (логин)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_3" value="password_hash: VARCHAR(255) &lt;font color=&quot;#555555&quot;&gt;— хеш пароля&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_4" value="full_name: VARCHAR(150) &lt;font color=&quot;#555555&quot;&gt;— ФИО пользователя&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_5" value="is_active: BOOLEAN &lt;font color=&quot;#555555&quot;&gt;— признак активной учётной записи&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="150" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_users_6" value="created_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата и время регистрации&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_users">
+          <mxGeometry y="174" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_audit" value="audit_log (Журнал действий)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="40" y="470" width="450" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_audit_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор записи журнала&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_audit">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_audit_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; user_id: INT &lt;font color=&quot;#555555&quot;&gt;— пользователь, выполнивший действие&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_audit">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_audit_2" value="action: VARCHAR(100) &lt;font color=&quot;#555555&quot;&gt;— тип действия (вход, загрузка, экспорт и др.)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_audit">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_audit_3" value="details: JSONB &lt;font color=&quot;#555555&quot;&gt;— подробности действия в формате JSON&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_audit">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_audit_4" value="created_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата и время действия&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_audit">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_dtypes" value="document_types (Типы документов)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#d5e8d4;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="570" y="40" width="450" height="102" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_dtypes_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор типа документа&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_dtypes">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_dtypes_1" value="name: VARCHAR(100) &lt;font color=&quot;#555555&quot;&gt;— название типа (счёт, договор, резюме и др.)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_dtypes">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_dtypes_2" value="description: TEXT &lt;font color=&quot;#555555&quot;&gt;— описание типа документа&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_dtypes">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl" value="templates (Шаблоны извлечения)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#d5e8d4;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="570" y="200" width="450" height="222" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор шаблона&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; user_id: INT &lt;font color=&quot;#555555&quot;&gt;— владелец шаблона (NULL — системный шаблон)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_2" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; document_type_id: INT &lt;font color=&quot;#555555&quot;&gt;— тип документа, для которого создан шаблон&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_3" value="name: VARCHAR(150) &lt;font color=&quot;#555555&quot;&gt;— название шаблона&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_4" value="description: TEXT &lt;font color=&quot;#555555&quot;&gt;— описание шаблона&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_5" value="is_system: BOOLEAN &lt;font color=&quot;#555555&quot;&gt;— признак системного (общего) шаблона&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="150" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_6" value="created_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата создания&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="174" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_tpl_7" value="updated_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата последнего изменения&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_tpl">
+          <mxGeometry y="198" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld" value="template_fields (Поля шаблона)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#d5e8d4;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="200" width="450" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор поля&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; template_id: INT &lt;font color=&quot;#555555&quot;&gt;— шаблон, которому принадлежит поле&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_2" value="name: VARCHAR(100) &lt;font color=&quot;#555555&quot;&gt;— системное имя поля (ключ в JSON)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_3" value="label: VARCHAR(150) &lt;font color=&quot;#555555&quot;&gt;— название поля для пользователя&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_4" value="data_type: VARCHAR(30) &lt;font color=&quot;#555555&quot;&gt;— тип значения (строка, дата, сумма, ИНН и др.)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_5" value="is_required: BOOLEAN &lt;font color=&quot;#555555&quot;&gt;— признак обязательного поля&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="150" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_6" value="regex_pattern: TEXT &lt;font color=&quot;#555555&quot;&gt;— регулярное выражение для поиска значения&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="174" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_7" value="ner_label: VARCHAR(30) &lt;font color=&quot;#555555&quot;&gt;— метка сущности NER (PER, ORG, LOC и др.)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="198" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_8" value="llm_hint: TEXT &lt;font color=&quot;#555555&quot;&gt;— подсказка для LLM при поиске поля&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="222" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_fld_9" value="sort_order: INT &lt;font color=&quot;#555555&quot;&gt;— порядок вывода поля&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_fld">
+          <mxGeometry y="246" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc" value="documents (Документы)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="570" y="520" width="450" height="246" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор документа&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; user_id: INT &lt;font color=&quot;#555555&quot;&gt;— пользователь, загрузивший документ&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_2" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; template_id: INT &lt;font color=&quot;#555555&quot;&gt;— шаблон, выбранный для обработки&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_3" value="file_name: VARCHAR(255) &lt;font color=&quot;#555555&quot;&gt;— исходное имя файла&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_4" value="file_format: VARCHAR(10) &lt;font color=&quot;#555555&quot;&gt;— формат файла (pdf, docx, jpg, png)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_5" value="storage_key: VARCHAR(255) &lt;font color=&quot;#555555&quot;&gt;— путь к файлу в файловом хранилище&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="150" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_6" value="has_text_layer: BOOLEAN &lt;font color=&quot;#555555&quot;&gt;— есть ли в файле текстовый слой&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="174" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_7" value="status: VARCHAR(20) &lt;font color=&quot;#555555&quot;&gt;— статус (загружен, в обработке, готов, ошибка)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="198" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_doc_8" value="uploaded_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата и время загрузки&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_doc">
+          <mxGeometry y="222" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res" value="extraction_results (Результаты обработки)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="560" width="450" height="198" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор результата&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; document_id: INT &lt;font color=&quot;#555555&quot;&gt;— обработанный документ&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_2" value="status: VARCHAR(20) &lt;font color=&quot;#555555&quot;&gt;— статус обработки (успешно / ошибка)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_3" value="llm_used: BOOLEAN &lt;font color=&quot;#555555&quot;&gt;— применялась ли LLM для дополнения полей&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_4" value="processing_ms: INT &lt;font color=&quot;#555555&quot;&gt;— время обработки, мс&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_5" value="error_message: TEXT &lt;font color=&quot;#555555&quot;&gt;— текст ошибки (при неуспешной обработке)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="150" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_res_6" value="created_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата и время обработки&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_res">
+          <mxGeometry y="174" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val" value="extracted_values (Значения полей)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1630" y="380" width="450" height="198" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор значения&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; result_id: INT &lt;font color=&quot;#555555&quot;&gt;— результат обработки&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_2" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; field_id: INT &lt;font color=&quot;#555555&quot;&gt;— поле шаблона&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_3" value="value: TEXT &lt;font color=&quot;#555555&quot;&gt;— извлечённое (или исправленное) значение&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_4" value="source: VARCHAR(10) &lt;font color=&quot;#555555&quot;&gt;— источник значения: rule, ner или llm&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_5" value="confidence: REAL &lt;font color=&quot;#555555&quot;&gt;— уверенность извлечения (от 0 до 1)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="150" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_val_6" value="is_corrected: BOOLEAN &lt;font color=&quot;#555555&quot;&gt;— исправлено ли значение пользователем&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_val">
+          <mxGeometry y="174" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_exp" value="exports (Экспорт результатов)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fontFamily=Times New Roman;fontSize=14;fillColor=#dae8fc;swimlaneFillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1630" y="640" width="450" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_exp_0" value="&lt;b&gt;PK&lt;/b&gt;&amp;nbsp; id: SERIAL &lt;font color=&quot;#555555&quot;&gt;— идентификатор экспорта&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_exp">
+          <mxGeometry y="30" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_exp_1" value="&lt;b&gt;FK&lt;/b&gt;&amp;nbsp; result_id: INT &lt;font color=&quot;#555555&quot;&gt;— экспортированный результат&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_exp">
+          <mxGeometry y="54" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_exp_2" value="format: VARCHAR(10) &lt;font color=&quot;#555555&quot;&gt;— формат (json, xml, xlsx, api)&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_exp">
+          <mxGeometry y="78" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_exp_3" value="destination: VARCHAR(255) &lt;font color=&quot;#555555&quot;&gt;— путь к файлу или адрес внешней ИС&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_exp">
+          <mxGeometry y="102" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_exp_4" value="created_at: TIMESTAMP &lt;font color=&quot;#555555&quot;&gt;— дата и время экспорта&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontFamily=Times New Roman;fontSize=13;" vertex="1" parent="t_exp">
+          <mxGeometry y="126" width="450" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="t_users" target="t_roles">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERzeroToOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.45;entryX=1;entryY=0.505;" edge="1" parent="1" source="t_tpl" target="t_users">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="t_tpl" target="t_dtypes">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.37;entryX=1;entryY=0.45;" edge="1" parent="1" source="t_fld" target="t_tpl">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r5" style="html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.488;entryX=1;entryY=0.859;" edge="1" parent="1" source="t_doc" target="t_users">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="640"/>
+              <mxPoint x="530" y="370"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r6" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="t_doc" target="t_tpl">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.404;entryX=1;entryY=0.488;" edge="1" parent="1" source="t_res" target="t_doc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r8" style="html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.808;entryX=1;entryY=0.202;" edge="1" parent="1" source="t_val" target="t_res">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1590" y="540"/>
+              <mxPoint x="1590" y="600"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r9" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.202;entryX=1;entryY=0.815;" edge="1" parent="1" source="t_val" target="t_fld">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r10" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0;exitY=0.4;entryX=1;entryY=0.707;" edge="1" parent="1" source="t_exp" target="t_res">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r11" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;startArrow=ERmany;startFill=0;endArrow=ERmandOne;endFill=0;startSize=10;endSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="t_audit" target="t_users">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
