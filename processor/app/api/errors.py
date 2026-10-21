@@ -1,6 +1,5 @@
 """Обработчики ошибок: любой ответ — в едином конверте; в логи не попадают данные документов."""
 import logging
-import traceback
 from http import HTTPStatus
 
 from fastapi import FastAPI, Request
@@ -46,9 +45,5 @@ def register_error_handlers(app: FastAPI) -> None:
         message = exc.detail if isinstance(exc.detail, str) else HTTPStatus(exc.status_code).phrase
         return error_response(exc.status_code, code, message, headers=dict(exc.headers or {}))
 
-    @app.exception_handler(Exception)
-    async def unexpected_error(_: Request, exc: Exception) -> JSONResponse:
-        # только тип и стек вызовов: текст исключения может содержать данные документа
-        stack = "".join(traceback.format_tb(exc.__traceback__))
-        logger.error("Необработанная ошибка %s\n%s", type(exc).__name__, stack)
-        return error_response(500, "INTERNAL_ERROR", "Внутренняя ошибка сервиса")
+    # непредвиденные исключения обрабатывает UnhandledErrorMiddleware (app/middleware.py):
+    # обработчик Exception в FastAPI всё равно пробрасывает исключение в uvicorn, и тот логирует его текст

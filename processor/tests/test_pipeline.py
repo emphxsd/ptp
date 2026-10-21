@@ -21,6 +21,24 @@ def test_process_document_returns_fields_in_template_order(invoice_pdf):
     assert result.text is None
 
 
+def test_ambiguous_value_needs_review(invoice_pdf):
+    template = Template.model_validate({"fields": [{"name": "total", "label": "Сумма", "data_type": "amount"}]})
+
+    (total,) = process_document(invoice_pdf, template, Settings()).fields
+
+    assert total.value is not None
+    assert total.source == "rule"
+    assert total.needs_review is True
+
+
+def test_review_threshold_is_configurable(invoice_pdf):
+    template = Template.model_validate({"fields": [{"name": "total", "label": "Сумма", "data_type": "amount"}]})
+
+    (total,) = process_document(invoice_pdf, template, Settings(review_threshold=0.3)).fields
+
+    assert total.needs_review is False
+
+
 def test_process_document_can_include_text(invoice_docx):
     result = process_document(invoice_docx, TEMPLATE, Settings(), include_text=True)
 

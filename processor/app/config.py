@@ -4,7 +4,9 @@ import os
 from collections.abc import Mapping
 from functools import lru_cache
 
-from pydantic import BaseModel, ConfigDict, Field
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 BYTES_IN_MB = 1024 * 1024
 ENV_PREFIX = "PROCESSOR_"
@@ -27,9 +29,23 @@ class Settings(BaseModel):
     docx_max_unpacked_bytes: int = Field(default=100 * BYTES_IN_MB, gt=0)
     docx_max_compression_ratio: int = Field(default=100, gt=0)
     docx_max_table_rows: int = Field(default=5000, gt=0)
+    # значения с уверенностью ниже порога помечаются «требует проверки» (и позже уходят в LLM)
+    review_threshold: float = Field(default=0.6, gt=0.0, lt=1.0)
+    # production: токен обязателен, документация API отключена (fail closed)
+    environment: Literal["development", "production"] = "development"
     # если задан, /extract требует заголовок Authorization: Bearer <token>
     api_token: str | None = None
     docs_enabled: bool = True
+
+    @model_validator(mode="after")
+    def production_requires_token(self) -> "Settings":
+        if self.environment == "production" and not self.api_token:
+            raise ValueError(f"в режиме production нужно задать {ENV_PREFIX}API_TOKEN")
+        return self
+
+    @property
+    def docs_available(self) -> bool:
+        return self.docs_enabled and self.environment != "production"
 
     @property
     def max_file_mb(self) -> float:
@@ -45,11 +61,20 @@ class Settings(BaseModel):
         values: dict[str, object] = {}
         if (raw_mb := env.get(f"{ENV_PREFIX}MAX_FILE_MB")) is not None:
             values["max_file_bytes"] = _megabytes_to_bytes(raw_mb)
-        for name in ("min_chars_per_page", "max_pages", "max_text_chars", "max_template_chars", "docx_max_table_rows"):
+        for name in (
+            "min_chars_per_page",
+            "max_pages",
+            "max_text_chars",
+            "max_template_chars",
+            "docx_max_table_rows",
+            "review_threshold",
+        ):
             if (raw := env.get(f"{ENV_PREFIX}{name.upper()}")) is not None:
                 values[name] = raw
         if token := env.get(f"{ENV_PREFIX}API_TOKEN"):
             values["api_token"] = token
+        if environment := env.get(f"{ENV_PREFIX}ENV"):
+            values["environment"] = environment.strip().lower()
         if (docs := env.get(f"{ENV_PREFIX}DOCS_ENABLED")) is not None:
             values["docs_enabled"] = docs.strip().lower() in ("1", "true", "yes", "on")
         return cls(**values)

@@ -43,12 +43,44 @@ def test_extract_response_is_not_cached(client, invoice_pdf, template_json):
     assert response.headers["cache-control"] == "no-store"
 
 
-def test_fields_not_found_yet_required_ones_need_review(client, invoice_pdf, template_json):
-    fields = post_extract(client, invoice_pdf, template_json).json()["data"]["fields"]
+def test_fields_are_found_by_rules(client, invoice_pdf, template_json):
+    data = post_extract(client, invoice_pdf, template_json, include_text="true").json()["data"]
 
-    inn, comment = fields
-    assert inn == {"name": "inn", "value": None, "source": None, "confidence": 0.0, "needs_review": True}
-    assert comment["needs_review"] is False
+    inn, comment = data["fields"]
+    assert inn["value"] == "7707083893"
+    assert inn["source"] == "rule"
+    assert inn["confidence"] == 0.95
+    assert inn["needs_review"] is False
+    assert inn["alternatives"] == []
+    # позиции указывают на фрагмент в возвращённом тексте — по ним интерфейс подсвечивает значение
+    assert data["text"][inn["start"]:inn["end"]] == inn["raw"] == "7707083893"
+    # произвольный текст без якорей правила не угадывают
+    assert comment == {
+        "name": "comment",
+        "value": None,
+        "source": None,
+        "raw": None,
+        "start": None,
+        "end": None,
+        "confidence": 0.0,
+        "needs_review": False,
+        "alternatives": [],
+    }
+
+
+def test_full_invoice_template(client, invoice_pdf):
+    template = (
+        '{"name": "Счёт", "fields": ['
+        '{"name": "number", "label": "Номер", "data_type": "number", "keywords": ["Счёт на оплату"]},'
+        '{"name": "date", "label": "Дата", "data_type": "date", "keywords": ["Счёт на оплату"]},'
+        '{"name": "supplier", "label": "Поставщик", "data_type": "organization", "keywords": ["Поставщик"]},'
+        '{"name": "total", "label": "Сумма", "data_type": "amount", "keywords": ["Итого"]}'
+        "]}"
+    )
+
+    fields = {f["name"]: f["value"] for f in post_extract(client, invoice_pdf, template).json()["data"]["fields"]}
+
+    assert fields == {"number": "15", "date": "2026-03-12", "supplier": 'ООО "Ромашка"', "total": "15000.00"}
 
 
 def test_extract_can_return_text(client, invoice_docx, template_json):

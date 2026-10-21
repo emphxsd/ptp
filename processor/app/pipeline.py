@@ -1,11 +1,12 @@
-"""Конвейер обработки документа. Сейчас: проверка файла и извлечение текста.
-Следующие шаги (правила, NER, LLM, валидация) встраиваются в find_fields."""
+"""Конвейер обработки документа: проверка файла → извлечение текста → поиск полей.
+Поиск полей сейчас — этап правил; NER, LLM и валидация встраиваются в find_fields."""
 import time
 
 from app.config import Settings
 from app.errors import EmptyDocumentError, FileTooLargeError, NoTextLayerError
 from app.extraction.file_types import DocumentFormat, detect_format
 from app.extraction.text import ExtractedText, extract_text
+from app.fields.rules import DocumentIndex, RuleMatch, find_by_rules
 from app.schemas import DocumentInfo, ExtractionResult, FieldResult, Template, TemplateField
 
 
@@ -18,7 +19,7 @@ def process_document(data: bytes, template: Template, settings: Settings, includ
     extracted = extract_text(data, fmt, settings)
     _ensure_has_text(extracted)
 
-    fields = find_fields(extracted, template)
+    fields = find_fields(extracted, template, settings)
     return ExtractionResult(
         document=DocumentInfo(
             format=extracted.format,
@@ -42,10 +43,29 @@ def _ensure_has_text(extracted: ExtractedText) -> None:
     raise NoTextLayerError("В документе нет текстового слоя (скан или изображение); OCR будет добавлен позже")
 
 
-def find_fields(extracted: ExtractedText, template: Template) -> tuple[FieldResult, ...]:
-    """Пока поиск не реализован: все поля не найдены, обязательные требуют проверки."""
-    return tuple(_not_found(field) for field in template.fields)
+def find_fields(extracted: ExtractedText, template: Template, settings: Settings) -> tuple[FieldResult, ...]:
+    """Этап правил. Следующие этапы (NER, LLM) будут обрабатывать только поля,
+    которые не найдены или найдены с уверенностью ниже review_threshold."""
+    text = extracted.text
+    index = DocumentIndex(text)  # позиции якорей и кандидаты считаются один раз на документ
+    return tuple(
+        _to_result(field, find_by_rules(field, text, index), settings.review_threshold) for field in template.fields
+    )
 
 
-def _not_found(field: TemplateField) -> FieldResult:
-    return FieldResult(name=field.name, value=None, source=None, confidence=0.0, needs_review=field.is_required)
+def _to_result(field: TemplateField, match: RuleMatch | None, threshold: float) -> FieldResult:
+    if match is None:
+        return FieldResult(
+            name=field.name, value=None, source=None, raw=None, confidence=0.0, needs_review=field.is_required
+        )
+    return FieldResult(
+        name=field.name,
+        value=match.value,
+        source="rule",
+        raw=match.raw,
+        start=match.start,
+        end=match.end,
+        confidence=match.confidence,
+        needs_review=match.confidence < threshold,
+        alternatives=match.alternatives,
+    )

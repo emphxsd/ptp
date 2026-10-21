@@ -4,10 +4,14 @@ Starlette сохраняет загружаемые части во времен
 поэтому проверка размера внутри эндпоинта не защищает диск и время. Здесь запрос
 отклоняется по Content-Length сразу, а при chunked-передаче — как только принято больше лимита."""
 import json
+import logging
+import traceback
 
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from app.schemas import ApiResponse
+
+logger = logging.getLogger("processor")
 
 
 class _BodyTooLarge(Exception):
@@ -67,13 +71,51 @@ class BodySizeLimitMiddleware:
         return 0
 
 
+class UnhandledErrorMiddleware:
+    """Последний рубеж: непредвиденное исключение → 500 в едином конверте.
+
+    Исключение не пробрасывается дальше: иначе ServerErrorMiddleware Starlette передаст его
+    uvicorn, а тот запишет в лог текст исключения — он может содержать данные документа (ПДн).
+    В лог пишутся только тип исключения и стек вызовов."""
+
+    def __init__(self, app: ASGIApp):
+        self.app = app
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+        response_started = False
+
+        async def tracking_send(message: Message) -> None:
+            nonlocal response_started
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+
+        try:
+            await self.app(scope, receive, tracking_send)
+        except Exception as exc:
+            # кадры без строк исходного кода: в них тоже могут оказаться данные
+            stack = "\n".join(
+                f"  {frame.filename}:{frame.lineno} in {frame.name}" for frame in traceback.extract_tb(exc.__traceback__)
+            )
+            logger.error("Необработанная ошибка %s\n%s", type(exc).__name__, stack)
+            if not response_started:
+                await _send_json(send, 500, "INTERNAL_ERROR", "Внутренняя ошибка сервиса")
+
+
 async def _send_too_large(send: Send) -> None:
-    body = ApiResponse.fail("FILE_TOO_LARGE", "Запрос слишком большой").model_dump()
+    await _send_json(send, 413, "FILE_TOO_LARGE", "Запрос слишком большой")
+
+
+async def _send_json(send: Send, status: int, code: str, message: str) -> None:
+    body = ApiResponse.fail(code, message).model_dump()
     payload = json.dumps(body, ensure_ascii=False).encode("utf-8")
     await send(
         {
             "type": "http.response.start",
-            "status": 413,
+            "status": status,
             "headers": [
                 (b"content-type", b"application/json; charset=utf-8"),
                 (b"content-length", str(len(payload)).encode()),

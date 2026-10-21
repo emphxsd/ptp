@@ -62,7 +62,8 @@ async def extract(
     settings: Settings = Depends(get_app_settings),
 ) -> ApiResponse[ExtractionResult]:
     response.headers["Cache-Control"] = "no-store"
-    parsed_template = parse_template(template, settings.max_template_chars)
+    # проверка шаблона компилирует regex через RE2 — не блокируем event loop
+    parsed_template = await run_in_threadpool(parse_template, template, settings.max_template_chars)
     data = await file.read()
     result = await run_in_threadpool(process_document, data, parsed_template, settings, include_text)
     return ApiResponse.ok(result)

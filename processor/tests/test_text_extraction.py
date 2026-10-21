@@ -35,7 +35,7 @@ def test_pdf_text_is_extracted_from_all_pages(invoice_pdf):
     assert result.pages == 2
     assert result.has_text_layer is True
     assert result.pages_without_text == 0
-    assert "ИНН 7701234567" in result.text
+    assert "ИНН 7707083893" in result.text
     assert 'ООО "Ромашка"' in result.text  # текст уже нормализован
     assert "условия оплаты" in result.text
 

@@ -6,6 +6,7 @@ from typing import Annotated, Generic, Literal, TypeVar
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator, model_validator
 
 from app.extraction.file_types import DocumentFormat
+from app.fields.user_regex import UserRegexError, compile_user_regex
 
 T = TypeVar("T")
 
@@ -13,6 +14,9 @@ _CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
 
 Keyword = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)]
 NerLabel = Literal["PER", "ORG", "LOC"]
+MIN_KEYWORD_CHARS = 2
+# каждое поле с regex — отдельный проход RE2; ограничиваем суммарное время обработки
+MAX_REGEX_FIELDS = 20
 
 
 class DataType(str, Enum):
@@ -37,10 +41,20 @@ class TemplateField(BaseModel):
     data_type: DataType = DataType.STRING
     is_required: bool = False
     keywords: tuple[Keyword, ...] = Field(default=(), max_length=20, description="Слова-якоря рядом со значением")
-    # выполнение пользовательских регулярных выражений (с защитой от ReDoS) появится на шаге правил
+    # выполняется через RE2 (линейное время, без ReDoS); группа 1, если есть, — само значение
     regex_pattern: str | None = Field(default=None, min_length=1, max_length=300)
     ner_label: NerLabel | None = None
     llm_hint: str | None = Field(default=None, max_length=500)
+
+    @field_validator("keywords")
+    @classmethod
+    def keywords_must_be_meaningful(cls, keywords: tuple[str, ...]) -> tuple[str, ...]:
+        # «*» в конце — поиск по началу слова (поставщик* → поставщиком); якорь — от 2 символов с буквой/цифрой
+        for keyword in keywords:
+            core = keyword[:-1] if keyword.endswith("*") else keyword
+            if len(core) < MIN_KEYWORD_CHARS or "*" in core or not any(ch.isalnum() for ch in core):
+                raise ValueError(f"слово-якорь должно содержать не меньше {MIN_KEYWORD_CHARS} символов и букву или цифру")
+        return keywords
 
     @field_validator("label", "llm_hint")
     @classmethod
@@ -54,9 +68,9 @@ class TemplateField(BaseModel):
     def regex_must_compile(cls, value: str | None) -> str | None:
         if value is not None:
             try:
-                re.compile(value)
-            except re.error as exc:
-                raise ValueError(f"некорректное регулярное выражение: {exc}") from None
+                compile_user_regex(value)
+            except UserRegexError as exc:
+                raise ValueError(str(exc)) from None
         return value
 
 
@@ -73,6 +87,8 @@ class Template(BaseModel):
         duplicates = sorted({n for n in names if names.count(n) > 1})
         if duplicates:
             raise ValueError(f"повторяются имена полей: {', '.join(duplicates)}")
+        if sum(1 for f in fields if f.regex_pattern) > MAX_REGEX_FIELDS:
+            raise ValueError(f"не больше {MAX_REGEX_FIELDS} полей с регулярным выражением")
         return fields
 
 
@@ -80,10 +96,14 @@ class FieldResult(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     name: str
-    value: str | None
+    value: str | None = Field(description="Значение в нормализованном виде (дата — ГГГГ-ММ-ДД, сумма — 15000.00)")
     source: Literal["rule", "ner", "llm"] | None
+    raw: str | None = Field(description="Фрагмент текста документа, из которого взято значение (для подсветки)")
+    start: int | None = Field(default=None, description="Позиция raw в извлечённом тексте (начало)")
+    end: int | None = Field(default=None, description="Позиция raw в извлечённом тексте (конец, не включая)")
     confidence: float = Field(ge=0.0, le=1.0)
     needs_review: bool
+    alternatives: tuple[str, ...] = Field(default=(), description="Другие найденные варианты при неоднозначности")
 
 
 class DocumentInfo(BaseModel):
