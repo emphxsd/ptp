@@ -1,6 +1,10 @@
 """Интеграционный тест с настоящим Tesseract: пропускается, если программа или русский язык не установлены."""
+import os
+from pathlib import Path
+
 import pymupdf
 import pytest
+from dotenv import dotenv_values
 
 from app.config import Settings
 from app.extraction.ocr import TesseractEngine, check_tesseract
@@ -8,7 +12,14 @@ from app.pipeline import process_document
 from app.schemas import Template
 from tests.conftest import make_pdf
 
-SETTINGS = Settings.from_env()
+def _local_settings() -> Settings:
+    """Путь к Tesseract — из окружения или из processor/.env (как при запуске сервиса с --env-file)."""
+    env_file = Path(__file__).resolve().parents[1] / ".env"
+    values = {k: v for k, v in dotenv_values(env_file).items() if v is not None} if env_file.exists() else {}
+    return Settings.from_env({**values, **os.environ})
+
+
+SETTINGS = _local_settings()
 pytestmark = pytest.mark.skipif(
     not check_tesseract(SETTINGS.tesseract_cmd, SETTINGS.ocr_languages),
     reason="Tesseract с языками rus+eng не установлен",
