@@ -21,7 +21,7 @@
                             <td class="px-4 py-2">{{ $user->email }}</td>
                             <td class="px-4 py-2">{{ $user->role->name->label() }}</td>
                             <td class="px-4 py-2">{{ $user->is_active ? __('Активен') : __('Заблокирован') }}</td>
-                            <td class="px-4 py-2">{{ $user->created_at?->format('d.m.Y H:i') }}</td>
+                            <td class="px-4 py-2">{{ $user->created_at?->timezone(config('app.display_timezone'))->format('d.m.Y H:i') }}</td>
                         </tr>
                     @endforeach
                 </tbody>

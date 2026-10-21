@@ -33,6 +33,8 @@ return [
         'url' => env('PROCESSOR_URL', 'http://127.0.0.1:8001'),
         'token' => env('PROCESSOR_API_TOKEN'),
         'timeout' => (int) env('PROCESSOR_TIMEOUT', 10),
+        // обработка документа: бюджет сервиса 30 с плюс очередь и OCR сканов
+        'extract_timeout' => (int) env('PROCESSOR_EXTRACT_TIMEOUT', 120),
     ],
 
     'slack' => [

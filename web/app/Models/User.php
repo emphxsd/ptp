@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -45,6 +46,11 @@ class User extends Authenticatable
         // новый пользователь (регистрация, консоль) получает роль «пользователь»
         static::creating(function (self $user): void {
             $user->role_id ??= Role::idFor(RoleName::User);
+        });
+
+        // записи документов удаляет каскад в БД, а файлы — здесь (папка пользователя на диске документов)
+        static::deleted(function (self $user): void {
+            Storage::disk(Document::DISK)->deleteDirectory((string) $user->id);
         });
     }
 

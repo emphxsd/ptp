@@ -15,6 +15,9 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="document-arrow-up" :href="route('documents.index')" :current="request()->routeIs('documents.*')" wire:navigate>
+                        {{ __('Документы') }}
+                    </flux:sidebar.item>
                     <flux:sidebar.item icon="document-text" :href="route('templates.index')" :current="request()->routeIs('templates.*')" wire:navigate>
                         {{ __('Шаблоны') }}
                     </flux:sidebar.item>

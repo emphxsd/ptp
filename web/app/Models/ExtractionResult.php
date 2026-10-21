@@ -18,10 +18,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property bool $needs_review
  * @property list<string>|null $warnings
  * @property int $ocr_pages
+ * @property float|null $ocr_confidence
+ * @property string|null $text
  */
 #[Fillable([
     'document_id', 'status', 'llm_used', 'processing_ms', 'error_code', 'error_message', 'needs_review', 'warnings',
-    'ocr_pages',
+    'ocr_pages', 'ocr_confidence', 'text',
 ])]
 class ExtractionResult extends Model
 {
@@ -33,6 +35,7 @@ class ExtractionResult extends Model
             'warnings' => 'array',
             'processing_ms' => 'integer',
             'ocr_pages' => 'integer',
+            'ocr_confidence' => 'float',
         ];
     }
 

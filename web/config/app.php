@@ -67,6 +67,9 @@ return [
 
     'timezone' => 'UTC',
 
+    // в БД время хранится в UTC, пользователю показывается в этом поясе
+    'display_timezone' => env('APP_DISPLAY_TIMEZONE', 'Europe/Moscow'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

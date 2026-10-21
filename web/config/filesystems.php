@@ -38,6 +38,15 @@ return [
             'report' => false,
         ],
 
+        // загруженные документы: только через приложение (проверка владельца), без раздачи по ссылке
+        'documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/documents'),
+            'serve' => false,
+            'throw' => true,
+            'report' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
