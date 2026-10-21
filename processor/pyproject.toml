@@ -1,0 +1,23 @@
+[project]
+name = "doc-processor"
+version = "0.1.0"
+description = "Сервис обработки документов: извлечение текста, правила, NER, LLM"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q -p no:cacheprovider"
+filterwarnings = [
+    # предупреждения сторонних библиотек (SWIG в PyMuPDF, starlette), не нашего кода
+    "ignore:builtin type .* has no __module__ attribute:DeprecationWarning",
+    "ignore:The anyio.abc.BlockingPortal alias is deprecated:DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

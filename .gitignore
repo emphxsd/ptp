@@ -29,3 +29,8 @@ Thumbs.db
 data/private/
 uploads/
 storage/app/
+
+# отчёты тестов
+.coverage
+htmlcov/
+.pytest_cache/
