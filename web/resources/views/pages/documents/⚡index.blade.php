@@ -261,7 +261,7 @@ new #[Title('Документы')] class extends Component {
                 @forelse ($this->documents as $document)
                     <tr wire:key="document-{{ $document->id }}" class="border-t border-neutral-200 align-top dark:border-neutral-700">
                         <td class="px-4 py-2">
-                            <div class="font-medium break-all">{{ $document->file_name }}</div>
+                            <a href="{{ route('documents.show', $document) }}" wire:navigate class="font-medium break-all hover:underline">{{ $document->file_name }}</a>
                             <div class="text-xs text-zinc-500">{{ strtoupper($document->file_format) }}, {{ Number::fileSize($document->size_bytes, 1) }}</div>
                         </td>
                         <td class="px-4 py-2">{{ $document->template?->name ?? 'шаблон удалён' }}</td>

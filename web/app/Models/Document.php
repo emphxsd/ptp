@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DocumentStatus;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,6 @@ use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Storage;
  * @property bool $use_llm
  * @property int|null $pages
  * @property DocumentStatus $status
- * @property Carbon $uploaded_at
+ * @property CarbonInterface $uploaded_at
  */
 // владелец, статус и место хранения задаёт код загрузки и обработки, а не данные формы
 #[Fillable(['template_id', 'file_name', 'file_format', 'size_bytes', 'sha256', 'has_text_layer'])]
@@ -44,6 +44,11 @@ class Document extends Model
 
     protected static function booted(): void
     {
+        // значение по умолчанию в БД модель увидела бы только после перечитывания записи
+        static::creating(function (self $document): void {
+            $document->uploaded_at ??= now();
+        });
+
         // файл удаляется вместе с записью — после фиксации транзакции, чтобы откат не оставил запись без файла;
         // при удалении пользователя — вся его папка (User::booted)
         static::deleted(function (self $document): void {
