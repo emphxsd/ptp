@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Processor\ProcessorClient;
 use Carbon\CarbonImmutable;
+use Illuminate\Foundation\Console\ServeCommand;
 use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,12 @@ class AppServiceProvider extends ServiceProvider
         config(['livewire.temporary_file_upload.rules' => [
             'required', 'file', 'max:'.((int) config('documents.max_file_mb') * 1024),
         ]]);
+
+        // `php artisan serve` передаёт серверу только перечисленные переменные; без TEMP/TMP
+        // PHP под Windows кладёт загрузки в C:\Windows\Temp, куда писать нельзя
+        ServeCommand::$passthroughVariables = array_values(array_unique(
+            [...ServeCommand::$passthroughVariables, 'TEMP', 'TMP', 'TMPDIR'],
+        ));
     }
 
     /**
