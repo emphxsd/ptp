@@ -15,6 +15,9 @@ return [
     // документы с персональными данными не хранятся бессрочно (152-ФЗ): старше срока удаляются вместе с файлами
     'retention_days' => (int) env('DOCUMENTS_RETENTION_DAYS', 365),
 
+    // выгрузка выборки за один раз (CSV/JSON собирается в памяти запроса)
+    'max_export_documents' => (int) env('DOCUMENTS_MAX_EXPORT', 1000),
+
     // false — фрагменты документов не отправляются во внешнюю LLM ни при каких условиях
     'llm_enabled' => (bool) env('DOCUMENTS_LLM_ENABLED', true),
 

@@ -67,6 +67,10 @@ return [
 
     'timezone' => 'UTC',
 
+    // адреса обратного прокси (nginx, Docker) через запятую или «*»: тогда в журнал и лимиты попадает IP клиента.
+    // Пусто — X-Forwarded-For не учитывается, подделать адрес через заголовок нельзя (применяется в AppServiceProvider)
+    'trusted_proxies' => env('TRUSTED_PROXIES', ''),
+
     // в БД время хранится в UTC, пользователю показывается в этом поясе
     'display_timezone' => env('APP_DISPLAY_TIMEZONE', 'Europe/Moscow'),
 

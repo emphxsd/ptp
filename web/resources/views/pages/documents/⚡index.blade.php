@@ -5,6 +5,7 @@ use App\Jobs\ProcessDocument;
 use App\Models\AuditLog;
 use App\Models\Document;
 use App\Models\Template;
+use App\Support\DocumentFilters;
 use App\Support\DocumentFormat;
 use App\Support\FileName;
 use Flux\Flux;
@@ -17,6 +18,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -37,6 +39,59 @@ new #[Title('Документы')] class extends Component {
     // фрагменты документа уходят во внешнюю LLM (GigaChat) только с явного согласия пользователя
     public bool $use_llm = false;
 
+    // фильтры истории — в адресной строке, ими же пользуется выгрузка выборки (DocumentFilters)
+    #[Url(except: '')]
+    public string $search = '';
+
+    // строка, а не int: в адресной строке может оказаться что угодно — неподходящее DocumentFilters отбросит
+    #[Url(except: '')]
+    public string $template = '';
+
+    #[Url(except: '')]
+    public string $status = '';
+
+    #[Url(except: false)]
+    public bool $review = false;
+
+    #[Url(except: '')]
+    public string $from = '';
+
+    #[Url(except: '')]
+    public string $to = '';
+
+    public function updated(string $property): void
+    {
+        if (in_array($property, ['search', 'template', 'status', 'review', 'from', 'to'], true)) {
+            $this->resetPage();
+        }
+    }
+
+    #[Computed]
+    public function filters(): DocumentFilters
+    {
+        return DocumentFilters::fromInput(Auth::user(), [
+            'search' => $this->search, 'template' => $this->template, 'status' => $this->status,
+            'review' => $this->review, 'from' => $this->from, 'to' => $this->to,
+        ]);
+    }
+
+    /** Сколько обработанных документов попадёт в выгрузку с текущими фильтрами. */
+    #[Computed]
+    public function exportCount(): int
+    {
+        return $this->filters->apply(Auth::user()->documents()->getQuery())->where('status', DocumentStatus::Done)->count();
+    }
+
+    /** Шаблоны для фильтра — те, которыми пользователь обрабатывал документы (в том числе ставшие пустыми). */
+    #[Computed]
+    public function filterTemplates(): Collection
+    {
+        return Template::visibleTo(Auth::user())
+            ->whereHas('documents', fn ($q) => $q->where('user_id', Auth::id()))
+            ->orderByDesc('is_system')->orderBy('name')
+            ->get(['id', 'name', 'is_system']);
+    }
+
     /** Шаблоны, которыми можно обработать документ: системные и свои, в которых есть поля. */
     #[Computed]
     public function templates(): Collection
@@ -52,7 +107,7 @@ new #[Title('Документы')] class extends Component {
     #[Computed]
     public function documents(): LengthAwarePaginator
     {
-        return Auth::user()->documents()
+        return $this->filters->apply(Auth::user()->documents()->getQuery())
             ->with(['template:id,name', 'latestResult:id,extraction_results.document_id,status,needs_review,error_message'])
             ->orderByDesc('uploaded_at')
             ->orderByDesc('id')
@@ -246,6 +301,47 @@ new #[Title('Документы')] class extends Component {
         </div>
     </form>
 
+    <div class="flex flex-col gap-3">
+        <flux:heading size="lg">История</flux:heading>
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+            <flux:input wire:model.live.debounce.400ms="search" icon="magnifying-glass" placeholder="Имя файла" class="lg:col-span-2" />
+            <flux:select wire:model.live="template">
+                <flux:select.option value="">Все шаблоны</flux:select.option>
+                @foreach ($this->filterTemplates as $option)
+                    <flux:select.option :value="$option->id">{{ $option->name }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:select wire:model.live="status">
+                <flux:select.option value="">Все статусы</flux:select.option>
+                @foreach (DocumentStatus::cases() as $case)
+                    <flux:select.option :value="$case->value">{{ $case->label() }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            <flux:input wire:model.live="from" type="date" aria-label="Загружен с" />
+            <flux:input wire:model.live="to" type="date" aria-label="Загружен по" />
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <flux:checkbox wire:model.live="review" label="Только требующие проверки" />
+            <div class="flex flex-wrap items-center gap-2">
+                @if ($this->exportCount > config('documents.max_export_documents'))
+                    <flux:text class="text-sm">
+                        Слишком много документов для выгрузки ({{ $this->exportCount }}, максимум {{ config('documents.max_export_documents') }}) — уточните фильтр.
+                    </flux:text>
+                @else
+                <flux:text class="text-sm">Выгрузить обработанные ({{ $this->exportCount }}):</flux:text>
+                @if ($this->filters->template !== null)
+                    <flux:button size="sm" icon="table-cells" :href="route('documents.export-selection', ['format' => 'csv', ...$this->filters->toQuery()])">CSV (Excel)</flux:button>
+                @else
+                    <flux:tooltip content="Для CSV выберите шаблон: столбцы — его поля">
+                        <flux:button size="sm" icon="table-cells" disabled>CSV (Excel)</flux:button>
+                    </flux:tooltip>
+                @endif
+                <flux:button size="sm" icon="code-bracket" :href="route('documents.export-selection', ['format' => 'json', ...$this->filters->toQuery()])">JSON</flux:button>
+                @endif
+            </div>
+        </div>
+    </div>
+
     <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
         <table class="min-w-full text-sm">
             <thead class="bg-zinc-50 text-left dark:bg-zinc-900">
@@ -294,7 +390,9 @@ new #[Title('Документы')] class extends Component {
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-6 text-center text-zinc-500">Документов пока нет.</td>
+                        <td colspan="5" class="px-4 py-6 text-center text-zinc-500">
+                            {{ $this->filters->isEmpty() ? 'Документов пока нет.' : 'Документов не найдено — измените фильтр.' }}
+                        </td>
                     </tr>
                 @endforelse
             </tbody>

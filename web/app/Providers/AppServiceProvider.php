@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Processor\ProcessorClient;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +41,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        $proxies = trim((string) config('app.trusted_proxies'));
+        if ($proxies !== '') {
+            TrustProxies::at($proxies === '*' ? '*' : array_map(trim(...), explode(',', $proxies)));
+        }
 
         // временная загрузка Livewire по умолчанию ограничена 12 МБ — поднимаем до предела документов
         config(['livewire.temporary_file_upload.rules' => [

@@ -46,6 +46,14 @@ new #[Title('Результат обработки')] class extends Component {
         return $this->document->latestResult()->first();
     }
 
+    /** Все обработки документа, новые сверху: повторы после ошибок и их причины. */
+    #[Computed]
+    public function attempts(): Collection
+    {
+        return $this->document->results()->orderByDesc('id')
+            ->get(['id', 'document_id', 'status', 'error_message', 'processing_ms', 'needs_review', 'created_at']);
+    }
+
     /** @return Collection<int, ExtractedValue> */
     #[Computed]
     public function values(): Collection
@@ -279,7 +287,11 @@ new #[Title('Результат обработки')] class extends Component {
                 @endif
             </flux:text>
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
+            @if ($document->status === DocumentStatus::Done)
+                <flux:button icon="table-cells" :href="route('documents.export', [$document, 'csv'])">CSV</flux:button>
+                <flux:button icon="code-bracket" :href="route('documents.export', [$document, 'json'])">JSON</flux:button>
+            @endif
             <flux:button icon="arrow-down-tray" :href="route('documents.file', $document)">Исходный файл</flux:button>
             <flux:button icon="arrow-left" :href="route('documents.index')" wire:navigate>К документам</flux:button>
         </div>
@@ -402,6 +414,27 @@ new #[Title('Результат обработки')] class extends Component {
                 @endif
             </div>
         </div>
+    @endif
+
+    @if ($this->attempts->count() > 1)
+        <details class="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+            <summary class="cursor-pointer font-medium">История обработки ({{ $this->attempts->count() }})</summary>
+            <ul class="mt-3 flex flex-col gap-2 text-sm">
+                @foreach ($this->attempts as $attempt)
+                    <li wire:key="attempt-{{ $attempt->id }}" class="flex flex-wrap gap-x-3">
+                        <span class="text-zinc-500">{{ $attempt->created_at?->timezone(config('app.display_timezone'))->format('d.m.Y H:i') }}</span>
+                        @if ($attempt->status === 'failed')
+                            <span class="text-red-600 dark:text-red-400">ошибка: {{ $attempt->error_message }}</span>
+                        @else
+                            <span>обработан{{ $attempt->processing_ms !== null ? ' за '.Number::format($attempt->processing_ms / 1000, 1, locale: 'ru').' с' : '' }}</span>
+                        @endif
+                        @if ($loop->first)
+                            <span class="text-zinc-500">(показан выше)</span>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+        </details>
     @endif
 
     <flux:modal name="value-form" class="w-full md:max-w-lg">
