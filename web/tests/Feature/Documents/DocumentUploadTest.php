@@ -74,7 +74,7 @@ class DocumentUploadTest extends TestCase
                 $this->pdf('счёт №1.pdf'),
                 UploadedFile::fake()->createWithContent('скан.png', "\x89PNG\r\n\x1a\n".str_repeat("\0", 16)),
             ])
-            ->call('upload')
+            ->call('process')
             ->assertHasNoErrors();
 
         $documents = Document::where('user_id', $user->id)->orderBy('id')->get();
@@ -107,7 +107,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs($user)->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', [UploadedFile::fake()->createWithContent('вирус.pdf', "MZ\x90\0 not a pdf")])
-            ->call('upload')
+            ->call('process')
             ->assertHasErrors('files.0');
 
         $this->assertSame(0, Document::count());
@@ -119,7 +119,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs(User::factory()->create())->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', [UploadedFile::fake()->createWithContent('документ.txt', self::PDF)])
-            ->call('upload')
+            ->call('process')
             ->assertHasErrors('files.0');
 
         $this->assertSame(0, Document::count());
@@ -134,7 +134,7 @@ class DocumentUploadTest extends TestCase
             ->set('template_id', $this->system()->id)
             ->set('files', [$tooLarge])
             ->assertHasErrors('files.0')
-            ->call('upload')
+            ->call('process')
             ->assertHasErrors('files');
 
         $this->assertSame(0, Document::count());
@@ -147,7 +147,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs(User::factory()->create())->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', $files)
-            ->call('upload')
+            ->call('process')
             ->assertHasErrors('files');
 
         $this->assertSame(0, Document::count());
@@ -166,7 +166,7 @@ class DocumentUploadTest extends TestCase
             Livewire::actingAs($user)->test('pages::documents.index')
                 ->set('template_id', $templateId)
                 ->set('files', [$this->pdf()])
-                ->call('upload')
+                ->call('process')
                 ->assertHasErrors('template_id');
         }
 
@@ -183,7 +183,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs($user)->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', [$this->pdf()])
-            ->call('upload');
+            ->call('process');
 
         $this->assertSame(0, Document::count());
     }
@@ -196,7 +196,7 @@ class DocumentUploadTest extends TestCase
             ->assertSet('use_llm', false)
             ->set('template_id', $this->system()->id)
             ->set('files', [$this->pdf()])
-            ->call('upload')
+            ->call('process')
             ->assertHasNoErrors();
 
         $document = Document::where('user_id', $user->id)->firstOrFail();
@@ -212,7 +212,7 @@ class DocumentUploadTest extends TestCase
             ->set('template_id', $this->system()->id)
             ->set('use_llm', true)
             ->set('files', [$this->pdf()])
-            ->call('upload');
+            ->call('process');
 
         $this->assertTrue(Document::where('user_id', $user->id)->firstOrFail()->use_llm);
         $this->assertTrue(AuditLog::where('action', 'document_uploaded')->firstOrFail()->details['use_llm']);
@@ -228,7 +228,7 @@ class DocumentUploadTest extends TestCase
             ->set('template_id', $this->system()->id)
             ->set('use_llm', true)
             ->set('files', [$this->pdf()])
-            ->call('upload');
+            ->call('process');
 
         $this->assertFalse(Document::where('user_id', $user->id)->firstOrFail()->use_llm);
     }
@@ -243,7 +243,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs($user)->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', [$this->pdf('1.pdf'), $this->pdf('2.pdf')])
-            ->call('upload');
+            ->call('process');
 
         $this->assertSame(0, Document::count());
     }
@@ -254,8 +254,8 @@ class DocumentUploadTest extends TestCase
         $user = User::factory()->create();
 
         $page = Livewire::actingAs($user)->test('pages::documents.index')->set('template_id', $this->system()->id);
-        $page->set('files', [$this->pdf('1.pdf')])->call('upload')->assertHasNoErrors();
-        $page->set('files', [$this->pdf('2.pdf'), $this->pdf('3.pdf')])->call('upload')->assertHasErrors('files');
+        $page->set('files', [$this->pdf('1.pdf')])->call('process')->assertHasNoErrors();
+        $page->set('files', [$this->pdf('2.pdf'), $this->pdf('3.pdf')])->call('process')->assertHasErrors('files');
 
         $this->assertSame(1, Document::count());
     }
@@ -273,7 +273,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs($user)->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', [$this->pdf()])
-            ->call('upload')
+            ->call('process')
             ->assertHasErrors('files');
 
         $this->assertSame(1, Document::count());
@@ -286,7 +286,7 @@ class DocumentUploadTest extends TestCase
         Livewire::actingAs($user)->test('pages::documents.index')
             ->set('template_id', $this->system()->id)
             ->set('files', [$this->pdf("..\\..\\evil\u{202E}fdp.exe\x07\u{200B}\u{FEFF}\u{2028}.pdf")])
-            ->call('upload')
+            ->call('process')
             ->assertHasNoErrors();
 
         $name = Document::where('user_id', $user->id)->value('file_name');

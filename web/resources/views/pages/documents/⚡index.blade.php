@@ -123,7 +123,8 @@ new #[Title('Документы')] class extends Component {
             ->exists();
     }
 
-    public function upload(): void
+    // не upload: в браузере $wire.upload — встроенная загрузка файлов Livewire
+    public function process(): void
     {
         $user = Auth::user();
         $limiter = 'document-uploads:'.$user->id;
@@ -271,7 +272,7 @@ new #[Title('Документы')] class extends Component {
         <flux:text class="mt-1">Загрузите документы и выберите шаблон: сервис найдёт в них значения полей.</flux:text>
     </div>
 
-    <form wire:submit="upload" class="flex max-w-2xl flex-col gap-5 rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
+    <form wire:submit="process" class="flex max-w-2xl flex-col gap-5 rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
         <flux:select wire:model="template_id" label="Шаблон" placeholder="Выберите шаблон">
             @foreach ($this->templates as $template)
                 <flux:select.option :value="$template->id">
@@ -295,7 +296,7 @@ new #[Title('Документы')] class extends Component {
         @endif
 
         <div>
-            <flux:button variant="primary" type="submit" icon="arrow-up-tray" wire:loading.attr="disabled" wire:target="files,upload">
+            <flux:button variant="primary" type="submit" icon="arrow-up-tray" wire:loading.attr="disabled" wire:target="files,process">
                 Обработать
             </flux:button>
         </div>
