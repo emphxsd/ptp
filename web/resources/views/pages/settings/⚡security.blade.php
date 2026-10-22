@@ -11,7 +11,7 @@ use Laravel\Fortify\Fortify;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Security settings')] class extends Component {
+new #[Title('Настройки безопасности')] class extends Component {
     use PasswordValidationRules;
 
     public string $current_password = '';

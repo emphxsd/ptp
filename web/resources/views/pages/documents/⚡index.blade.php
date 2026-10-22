@@ -358,7 +358,7 @@ new #[Title('Документы')] class extends Component {
                     <tr wire:key="document-{{ $document->id }}" class="border-t border-neutral-200 align-top dark:border-neutral-700">
                         <td class="px-4 py-2">
                             <a href="{{ route('documents.show', $document) }}" wire:navigate class="font-medium break-all hover:underline">{{ $document->file_name }}</a>
-                            <div class="text-xs text-zinc-500">{{ strtoupper($document->file_format) }}, {{ Number::fileSize($document->size_bytes, 1) }}</div>
+                            <div class="text-xs text-zinc-500">{{ strtoupper($document->file_format) }}, {{ App\Support\Format::fileSize($document->size_bytes) }}</div>
                         </td>
                         <td class="px-4 py-2">{{ $document->template?->name ?? 'шаблон удалён' }}</td>
                         <td class="px-4 py-2 whitespace-nowrap">{{ $document->uploaded_at->timezone(config('app.display_timezone'))->format('d.m.Y H:i') }}</td>

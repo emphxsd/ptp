@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::livewire('dashboard', 'pages::dashboard')->name('dashboard');
 
     // документы пользователя: загрузка, статусы обработки (каждое действие ищет документ среди своих)
     Route::livewire('documents', 'pages::documents.index')->name('documents.index');
