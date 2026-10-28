@@ -36,10 +36,11 @@ class OllamaClient:
         keep_alive: str = DEFAULT_KEEP_ALIVE,
         max_concurrent: int = 1,
         queue_wait: float = 5.0,
+        local_hosts: tuple[str, ...] = (),
         transport: httpx.BaseTransport | None = None,
         monotonic: Callable[[], float] = time.monotonic,
     ):
-        self._url = require_local_or_https(url)
+        self._url = require_local_or_https(url, local_hosts)
         self._model = model
         self._timeout = timeout
         self._num_ctx = num_ctx

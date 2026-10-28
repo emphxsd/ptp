@@ -17,6 +17,7 @@ def build_llm_client(settings: Settings) -> LlmClient | None:
             keep_alive=settings.ollama_keep_alive,
             max_concurrent=settings.llm_max_concurrent,
             queue_wait=settings.llm_queue_wait_seconds,
+            local_hosts=settings.ollama_local_hosts,
         )
     if settings.gigachat_auth_key is None:
         return None

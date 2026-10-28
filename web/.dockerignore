@@ -1,0 +1,20 @@
+# секреты и всё, что собирается внутри образа или живёт в томах
+.env
+.env.*
+!.env.example
+node_modules/
+vendor/
+public/build/
+public/hot
+public/storage
+storage/app/private/*
+storage/app/public/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+bootstrap/cache/*.php
+database/*.sqlite
+tests/
+.phpunit.cache/
+.phpunit.result.cache

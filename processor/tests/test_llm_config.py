@@ -146,6 +146,21 @@ def test_ollama_settings_read_from_env():
     assert settings.ollama_keep_alive == "1h"
 
 
+def test_ollama_in_docker_compose_is_local():
+    settings = Settings.from_env(
+        {
+            "PROCESSOR_LLM_PROVIDER": "ollama",
+            "PROCESSOR_OLLAMA_URL": "http://ollama:11434",
+            "PROCESSOR_OLLAMA_LOCAL_HOSTS": " ollama , ",
+        }
+    )
+
+    assert settings.ollama_local_hosts == ("ollama",)
+    assert settings.llm_is_local is True
+    with pytest.raises(ValidationError):
+        Settings(llm_provider="ollama", ollama_url="http://ollama:11434")
+
+
 def test_ollama_needs_no_key():
     settings = Settings(llm_provider="ollama")
 

@@ -1,0 +1,142 @@
+# Весь сервис одной командой: start.bat (создаёт .env с паролями и запускает `docker compose up -d --build`).
+# Сайт — http://localhost:8000; база, сервис обработки и LLM наружу не открыты.
+name: docextract
+
+x-web-env: &web-env
+  APP_NAME: "Извлечение данных"
+  APP_ENV: production
+  APP_DEBUG: "false"
+  APP_KEY: ${APP_KEY:?запустите start.bat — он создаст .env}
+  APP_URL: http://localhost:${WEB_PORT:-8000}
+  APP_LOCALE: ru
+  APP_FALLBACK_LOCALE: en
+  APP_DISPLAY_TIMEZONE: Europe/Moscow
+  LOG_CHANNEL: stderr
+  LOG_LEVEL: warning
+  DB_CONNECTION: pgsql
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_DATABASE: docextract
+  DB_USERNAME: docextract
+  DB_PASSWORD: ${DB_PASSWORD:?запустите start.bat — он создаст .env}
+  SESSION_DRIVER: database
+  # сайт открывается по http://localhost — cookie без флага Secure, иначе вход не сработает
+  SESSION_SECURE_COOKIE: "false"
+  CACHE_STORE: database
+  QUEUE_CONNECTION: database
+  DB_QUEUE_RETRY_AFTER: "240"
+  PROCESSOR_URL: http://processor:8001
+  PROCESSOR_API_TOKEN: ${PROCESSOR_API_TOKEN:?запустите start.bat — он создаст .env}
+  # OCR и LLM на слабом процессоре — дольше; задача очереди ждёт до 180 с
+  PROCESSOR_EXTRACT_TIMEOUT: "150"
+  DOCUMENTS_LLM_ENABLED: ${LLM_ENABLED:-false}
+  DOCUMENTS_LLM_EXTERNAL: "false"
+
+x-web: &web
+  build: ./web
+  image: docextract-web
+  restart: unless-stopped
+  environment: *web-env
+  volumes:
+    - web-storage:/var/www/storage/app
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: docextract
+      POSTGRES_USER: docextract
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?запустите start.bat — он создаст .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docextract -d docextract"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  processor:
+    build: ./processor
+    image: docextract-processor
+    restart: unless-stopped
+    environment:
+      PROCESSOR_ENV: production
+      PROCESSOR_API_TOKEN: ${PROCESSOR_API_TOKEN:?запустите start.bat — он создаст .env}
+      PROCESSOR_TESSERACT_CMD: tesseract
+      PROCESSOR_OCR_LANGUAGES: rus+eng
+      PROCESSOR_MAX_CONCURRENT_EXTRACTIONS: "2"
+      # слабый процессор: больше времени на OCR и LLM
+      PROCESSOR_OCR_TIMEOUT_SECONDS: "60"
+      PROCESSOR_PROCESSING_BUDGET_SECONDS: "120"
+      PROCESSOR_LLM_ENABLED: ${LLM_ENABLED:-false}
+      PROCESSOR_LLM_PROVIDER: ollama
+      PROCESSOR_OLLAMA_URL: http://ollama:11434
+      # контейнер ollama — на этом же компьютере: http к нему разрешён, документ не покидает компьютер
+      PROCESSOR_OLLAMA_LOCAL_HOSTS: ollama
+      PROCESSOR_OLLAMA_MODEL: ${LLM_MODEL:-qwen2.5:3b}
+      PROCESSOR_LLM_TIMEOUT_SECONDS: "60"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=5)"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 30s
+
+  web:
+    <<: *web
+    ports:
+      # только этот компьютер: документы с персональными данными не открываются в локальную сеть
+      - "127.0.0.1:${WEB_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      processor:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1:8000/up') === false ? 1 : 0);"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 20s
+
+  queue:
+    <<: *web
+    command: ["php", "artisan", "queue:work", "--sleep=2", "--max-time=3600"]
+    depends_on:
+      web:
+        condition: service_healthy
+
+  scheduler:
+    <<: *web
+    # удаление документов старше срока хранения и брошенных временных загрузок (routes/console.php)
+    command: ["php", "artisan", "schedule:work"]
+    depends_on:
+      web:
+        condition: service_healthy
+
+  # локальная LLM — только с LLM_ENABLED=true в .env (start.bat включает профиль llm)
+  ollama:
+    image: ollama/ollama
+    profiles: ["llm"]
+    restart: unless-stopped
+    environment:
+      OLLAMA_KEEP_ALIVE: 30m
+    volumes:
+      - ollama-models:/root/.ollama
+
+  # модель качается один раз (~2 ГБ для qwen2.5:3b) и хранится в томе ollama-models
+  ollama-pull:
+    image: ollama/ollama
+    profiles: ["llm"]
+    depends_on: [ollama]
+    environment:
+      OLLAMA_HOST: ollama:11434
+      MODEL: ${LLM_MODEL:-qwen2.5:3b}
+    entrypoint: ["sh", "-c", "sleep 5 && ollama pull \"$$MODEL\""]
+    restart: "no"
+
+volumes:
+  postgres-data:
+  web-storage:
+  ollama-models:

@@ -175,3 +175,15 @@ def test_remote_plain_http_and_credentials_rejected(url):
 )
 def test_loopback_detection(url, local):
     assert is_loopback_url(url) is local
+
+
+def test_docker_service_name_allowed_only_when_listed():
+    # в Docker Compose Ollama — соседний контейнер на том же компьютере: имя сервиса задаётся явно
+    with pytest.raises(ValueError):
+        require_local_or_https("http://ollama:11434")
+
+    assert require_local_or_https("http://ollama:11434", local_hosts=("ollama",)) == "http://ollama:11434"
+    assert is_loopback_url("http://ollama:11434", local_hosts=("ollama",)) is True
+    assert is_loopback_url("http://ollama.evil.test:11434", local_hosts=("ollama",)) is False
+    with pytest.raises(ValueError):
+        require_local_or_https("http://192.168.1.10:11434", local_hosts=("ollama",))

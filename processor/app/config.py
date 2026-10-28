@@ -19,6 +19,7 @@ MULTIPART_OVERHEAD_BYTES = 64 * 1024
 UTF8_MAX_BYTES_PER_CHAR = 4
 # ключ авторизации GigaChat — Base64; иное — ошибка копирования (и сбой кодирования заголовка)
 _AUTH_KEY = re.compile(r"^[A-Za-z0-9+/=_-]{8,4096}$")
+_HOST_NAME = re.compile(r"^[a-z0-9][a-z0-9.-]{0,62}$")
 
 
 class Settings(BaseModel):
@@ -48,6 +49,8 @@ class Settings(BaseModel):
     ollama_model: str = Field(default="qwen2.5:7b", pattern=r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$")
     ollama_num_ctx: int = Field(default=8192, ge=2048, le=131_072)
     ollama_keep_alive: str = Field(default="30m", pattern=r"^(-1|\d{1,6}[smh]?)$")
+    # имена хостов на этом же компьютере, к которым можно по http (сервис ollama в Docker Compose)
+    ollama_local_hosts: tuple[str, ...] = ()
     # ключ авторизации GigaChat (Base64 от Client ID:Client Secret) — только из окружения, в логи не попадает
     gigachat_auth_key: SecretStr | None = None
     gigachat_scope: Literal["GIGACHAT_API_PERS", "GIGACHAT_API_B2B", "GIGACHAT_API_CORP"] = "GIGACHAT_API_PERS"
@@ -107,8 +110,21 @@ class Settings(BaseModel):
 
     @field_validator("ollama_url")
     @classmethod
-    def ollama_local_or_https(cls, url: str) -> str:
-        return require_local_or_https(url)
+    def ollama_url_without_slash(cls, url: str) -> str:
+        return url.rstrip("/")
+
+    @field_validator("ollama_local_hosts")
+    @classmethod
+    def local_host_names(cls, hosts: tuple[str, ...]) -> tuple[str, ...]:
+        for host in hosts:
+            if not _HOST_NAME.match(host):
+                raise ValueError(f"имя хоста Ollama {host!r}: латиница, цифры, точка и дефис")
+        return hosts
+
+    @model_validator(mode="after")
+    def ollama_local_or_https(self) -> "Settings":
+        require_local_or_https(self.ollama_url, self.ollama_local_hosts)
+        return self
 
     @model_validator(mode="after")
     def production_requires_token(self) -> "Settings":
@@ -127,7 +143,7 @@ class Settings(BaseModel):
     @property
     def llm_is_local(self) -> bool:
         """Документ не покидает компьютер: Ollama на этом же компьютере."""
-        return self.llm_provider == "ollama" and is_loopback_url(self.ollama_url)
+        return self.llm_provider == "ollama" and is_loopback_url(self.ollama_url, self.ollama_local_hosts)
 
     @property
     def docs_available(self) -> bool:
@@ -186,6 +202,8 @@ class Settings(BaseModel):
             values["gigachat_auth_key"] = auth_key
         if ca_bundle := env.get(f"{ENV_PREFIX}GIGACHAT_CA_BUNDLE", "").strip():
             values["gigachat_ca_bundle"] = ca_bundle
+        if (local_hosts := env.get(f"{ENV_PREFIX}OLLAMA_LOCAL_HOSTS")) is not None:
+            values["ollama_local_hosts"] = tuple(h.strip().lower() for h in local_hosts.split(",") if h.strip())
         if environment := env.get(f"{ENV_PREFIX}ENV"):
             values["environment"] = environment.strip().lower()
         for flag in ("docs_enabled", "ner_enabled", "llm_enabled", "ocr_enabled"):

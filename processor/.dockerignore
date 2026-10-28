@@ -1,0 +1,13 @@
+# в образ попадают только requirements.txt и app/
+.env
+.env.*
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+evaluation/
+certs/

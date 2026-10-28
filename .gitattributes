@@ -1,0 +1,6 @@
+# скрипты для Linux-контейнеров — только с LF, иначе «/bin/sh^M: not found» после клонирования на Windows
+*.sh text eol=lf
+Dockerfile text eol=lf
+# скрипты Windows — с CRLF
+*.bat text eol=crlf
+*.ps1 text eol=crlf
