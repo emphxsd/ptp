@@ -154,11 +154,9 @@ class TemplateConstructorTest extends TestCase
     public function test_user_creates_own_template_and_cannot_make_it_system(): void
     {
         $user = User::factory()->create();
-        $type = DocumentType::firstOrFail();
 
         Livewire::actingAs($user)->test('pages::templates.create')
             ->set('form.name', 'Счета поставщиков')
-            ->set('form.document_type_id', $type->id)
             ->set('form.description', 'Для бухгалтерии')
             ->set('is_system', true)
             ->call('save')
@@ -176,7 +174,6 @@ class TemplateConstructorTest extends TestCase
 
         Livewire::actingAs($admin)->test('pages::templates.create')
             ->set('form.name', 'Накладная')
-            ->set('form.document_type_id', DocumentType::firstOrFail()->id)
             ->set('is_system', true)
             ->call('save')
             ->assertHasNoErrors();
@@ -187,13 +184,44 @@ class TemplateConstructorTest extends TestCase
         $this->assertTrue(AuditLog::where('action', 'system_template_changed')->where('user_id', $admin->id)->exists());
     }
 
-    public function test_template_requires_name_and_existing_document_type(): void
+    public function test_template_requires_only_a_name(): void
     {
-        Livewire::actingAs(User::factory()->create())->test('pages::templates.create')
+        $user = User::factory()->create();
+
+        // сервис работает с любыми документами: тип документа не спрашивается
+        $this->actingAs($user)->get(route('templates.create'))->assertOk()->assertDontSee('Тип документа');
+        Livewire::actingAs($user)->test('pages::templates.create')
             ->set('form.name', '')
-            ->set('form.document_type_id', 999999)
             ->call('save')
-            ->assertHasErrors(['form.name', 'form.document_type_id']);
+            ->assertHasErrors(['form.name']);
+        Livewire::actingAs($user)->test('pages::templates.create')
+            ->set('form.name', 'Любые документы')
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $this->assertNull(Template::where('name', 'Любые документы')->firstOrFail()->document_type_id);
+    }
+
+    public function test_editing_system_template_keeps_its_document_type(): void
+    {
+        $system = Template::where('is_system', true)->firstOrFail();
+        $type = $system->document_type_id;
+
+        Livewire::actingAs(User::factory()->admin()->create())->test('pages::templates.edit', ['template' => $system])
+            ->set('form.name', 'Счёт (изменён)')
+            ->call('saveTemplate')
+            ->assertHasNoErrors();
+
+        $this->assertSame($type, $system->fresh()->document_type_id);
+    }
+
+    public function test_template_without_document_type_is_listed(): void
+    {
+        $user = User::factory()->create();
+        $template = new Template(['name' => 'Без типа']);
+        $template->user()->associate($user)->save();
+
+        $this->actingAs($user)->get(route('templates.index'))->assertOk()->assertSee('Без типа');
     }
 
     public function test_edit_access_is_limited_to_owner_and_admin_for_system_templates(): void
@@ -402,7 +430,7 @@ class TemplateConstructorTest extends TestCase
         $this->assertSame(0, $template->fields()->count());
     }
 
-    public function test_field_name_must_be_unique_within_template(): void
+    public function test_explicit_field_name_must_be_unique_within_template(): void
     {
         $user = User::factory()->create();
         $template = $this->ownTemplate($user);
@@ -412,6 +440,134 @@ class TemplateConstructorTest extends TestCase
             ->set('field.label', 'Ещё сумма')
             ->call('saveField')
             ->assertHasErrors('field.name');
+    }
+
+    public function test_field_needs_only_a_label(): void
+    {
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->assertSet('field.data_type', 'auto')
+            ->set('field.label', 'ИНН поставщика')
+            ->call('saveField')
+            ->assertHasNoErrors();
+
+        $field = $template->fields()->firstOrFail();
+        $this->assertSame('inn_postavschika', $field->name);
+        $this->assertSame(DataType::Inn, $field->data_type);
+    }
+
+    public function test_generated_name_does_not_clash_with_existing_field(): void
+    {
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+        $this->addField($template, ['name' => 'summa', 'label' => 'Сумма']);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->set('field.label', 'Сумма')
+            ->call('saveField')
+            ->assertHasNoErrors();
+
+        $this->assertSame(['summa', 'summa_2'], $template->fields()->pluck('name')->all());
+    }
+
+    public function test_field_without_label_shows_only_label_error(): void
+    {
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->call('saveField')
+            ->assertHasErrors(['field.label'])
+            ->assertHasNoErrors(['field.data_type', 'field.name']);
+
+        $this->assertSame(0, $template->fields()->count());
+    }
+
+    public function test_type_and_name_are_guessed_again_after_failed_save(): void
+    {
+        // после ошибки пользователь меняет название — тип и имя должны угадываться по новому, а не остаться от старого
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->set('field.label', 'Дата договора')
+            ->set('field.keywords', '*')
+            ->call('saveField')
+            ->assertHasErrors('field.keywords')
+            ->assertSet('field.data_type', 'auto')
+            ->assertSet('field.name', '')
+            ->set('field.label', 'Сумма договора')
+            ->set('field.keywords', '')
+            ->call('saveField')
+            ->assertHasNoErrors();
+
+        $field = $template->fields()->firstOrFail();
+        $this->assertSame(DataType::Amount, $field->data_type);
+        $this->assertSame('summa_dogovora', $field->name);
+    }
+
+    public function test_errors_from_advanced_section_are_shown_in_main_view(): void
+    {
+        // системное имя и регулярное выражение — в свёрнутом разделе: ошибку видно и без него
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->set('field.label', 'Сумма')
+            ->set('field.name', 'Плохое имя')
+            ->call('saveField')
+            ->assertHasErrors('field.name')
+            ->assertSee('Исправьте в разделе «Для опытных пользователей»');
+    }
+
+    public function test_chosen_data_type_overrides_the_guess(): void
+    {
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->set('field.label', 'Сумма прописью')
+            ->set('field.data_type', 'string')
+            ->call('saveField')
+            ->assertHasNoErrors();
+
+        $this->assertSame(DataType::String, $template->fields()->firstOrFail()->data_type);
+    }
+
+    public function test_renaming_field_keeps_its_system_name(): void
+    {
+        // имя — столбец в выгрузке CSV/JSON: переименование поля не должно его менять
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+        $field = $this->addField($template);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('editField', $field->id)
+            ->assertSet('field.data_type', 'amount')
+            ->set('field.label', 'Итого с НДС')
+            ->call('saveField')
+            ->assertHasNoErrors();
+
+        $this->assertSame('total', $field->fresh()->name);
+    }
+
+    public function test_field_form_hides_technical_settings_from_main_view(): void
+    {
+        $user = User::factory()->create();
+        $template = $this->ownTemplate($user);
+
+        Livewire::actingAs($user)->test('pages::templates.edit', ['template' => $template])
+            ->call('newField')
+            ->assertSee('Определить по названию')
+            ->assertSee('Для опытных пользователей');
     }
 
     public function test_existing_field_is_edited(): void
@@ -623,7 +779,6 @@ class TemplateConstructorTest extends TestCase
 
         Livewire::actingAs($user)->test('pages::templates.create')
             ->set('form.name', 'Лишний')
-            ->set('form.document_type_id', DocumentType::firstOrFail()->id)
             ->call('save')
             ->assertHasErrors('form.name');
     }

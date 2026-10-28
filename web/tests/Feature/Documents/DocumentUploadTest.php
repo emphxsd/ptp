@@ -233,6 +233,20 @@ class DocumentUploadTest extends TestCase
         $this->assertFalse(Document::where('user_id', $user->id)->firstOrFail()->use_llm);
     }
 
+    public function test_template_placeholder_is_selectable_so_first_template_is_not_shown_as_chosen(): void
+    {
+        // неактивную подсказку браузер подменяет первым шаблоном: на экране «Акт», а не выбран никакой,
+        // и повторный выбор «Акта» не доходит до сервера
+        Livewire::actingAs(User::factory()->create())->test('pages::documents.index')
+            ->assertDontSeeHtml('class="placeholder"')
+            ->assertSeeHtml('value=""')
+            ->set('template_id', '')
+            ->assertSet('template_id', null)
+            ->set('files', [$this->pdf()])
+            ->call('process')
+            ->assertHasErrors(['template_id' => 'Выберите шаблон.']);
+    }
+
     public function test_local_llm_option_says_document_stays_on_server(): void
     {
         config(['documents.llm_external' => false]);

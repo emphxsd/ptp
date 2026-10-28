@@ -101,7 +101,7 @@ new #[Title('Шаблоны')] class extends Component {
                                 <div class="text-zinc-500 dark:text-zinc-400">{{ $template->description }}</div>
                             @endif
                         </td>
-                        <td class="px-4 py-2">{{ $template->documentType->name }}</td>
+                        <td class="px-4 py-2">{{ $template->documentType?->name ?? 'Любой' }}</td>
                         <td class="px-4 py-2">
                             @if ($template->fields_count > 0)
                                 {{ $template->fields_count }}

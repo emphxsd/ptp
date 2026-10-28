@@ -1,16 +1,13 @@
 <?php
 
 use App\Livewire\Forms\TemplateForm;
-use App\Models\DocumentType;
 use App\Models\Template;
 use App\Models\User;
 use App\Support\TemplateChangeGuard;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -19,13 +16,6 @@ new #[Title('Новый шаблон')] class extends Component {
 
     // учитывается только для администратора
     public bool $is_system = false;
-
-    /** @return Collection<int, DocumentType> */
-    #[Computed]
-    public function documentTypes(): Collection
-    {
-        return DocumentType::orderBy('id')->get();
-    }
 
     public function save(): void
     {
@@ -66,12 +56,6 @@ new #[Title('Новый шаблон')] class extends Component {
 
     <form wire:submit="save" class="flex flex-col gap-6">
         <flux:input wire:model="form.name" label="Название" placeholder="Например, «Счета поставщиков»" required autofocus />
-
-        <flux:select wire:model="form.document_type_id" label="Тип документа" placeholder="Выберите тип" required>
-            @foreach ($this->documentTypes as $type)
-                <flux:select.option :value="$type->id">{{ $type->name }}</flux:select.option>
-            @endforeach
-        </flux:select>
 
         <flux:textarea wire:model="form.description" label="Описание" rows="2" />
 

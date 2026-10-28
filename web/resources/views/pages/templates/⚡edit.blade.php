@@ -3,7 +3,6 @@
 use App\Enums\DataType;
 use App\Livewire\Forms\TemplateFieldForm;
 use App\Livewire\Forms\TemplateForm;
-use App\Models\DocumentType;
 use App\Models\Template;
 use App\Models\TemplateField;
 use App\Models\User;
@@ -38,13 +37,6 @@ new #[Title('Шаблон')] class extends Component {
     public function fields(): Collection
     {
         return $this->template->fields()->get();
-    }
-
-    /** @return Collection<int, DocumentType> */
-    #[Computed]
-    public function documentTypes(): Collection
-    {
-        return DocumentType::orderBy('id')->get();
     }
 
     public function saveTemplate(): void
@@ -103,8 +95,10 @@ new #[Title('Шаблон')] class extends Component {
                 $this->template->touch();
             });
         } catch (UniqueConstraintViolationException) {
-            // имя заняли параллельным запросом после проверки формы
-            $this->addError('field.name', 'Такое имя уже есть в шаблоне.');
+            // имя заняли параллельным запросом после проверки формы; составленное из названия — составится заново
+            $this->field->name === ''
+                ? $this->addError('field.label', 'Не удалось подобрать системное имя — нажмите «Сохранить поле» ещё раз.')
+                : $this->addError('field.name', 'Такое имя уже есть в шаблоне.');
 
             return;
         }
@@ -170,11 +164,6 @@ new #[Title('Шаблон')] class extends Component {
 
     <form wire:submit="saveTemplate" class="flex max-w-2xl flex-col gap-4">
         <flux:input wire:model="form.name" label="Название" required />
-        <flux:select wire:model="form.document_type_id" label="Тип документа" required>
-            @foreach ($this->documentTypes as $type)
-                <flux:select.option :value="$type->id">{{ $type->name }}</flux:select.option>
-            @endforeach
-        </flux:select>
         <flux:textarea wire:model="form.description" label="Описание" rows="2" />
         <div>
             <flux:button type="submit">Сохранить</flux:button>
@@ -232,10 +221,12 @@ new #[Title('Шаблон')] class extends Component {
         <form wire:submit="saveField" class="flex flex-col gap-5">
             <flux:heading size="lg">{{ $field->id ? 'Изменить поле' : 'Новое поле' }}</flux:heading>
 
+            <flux:input wire:model="field.label" label="Что нужно найти" placeholder="Например: Сумма к оплате, ИНН поставщика, Дата договора" required
+                description="Название поля — по нему сервис поймёт, что искать" />
+
             <div class="grid gap-4 md:grid-cols-2">
-                <flux:input wire:model="field.label" label="Название поля" placeholder="Сумма к оплате" required />
-                <flux:input wire:model="field.name" label="Системное имя" description="Латиница, цифры и _, например total" class:input="font-mono" required />
-                <flux:select wire:model.live="field.data_type" label="Тип данных">
+                <flux:select wire:model.live="field.data_type" label="Что это за значение">
+                    <flux:select.option value="{{ TemplateFieldForm::AUTO_TYPE }}">Определить по названию</flux:select.option>
                     @foreach (DataType::cases() as $type)
                         <flux:select.option :value="$type->value">{{ $type->label() }}</flux:select.option>
                     @endforeach
@@ -245,14 +236,21 @@ new #[Title('Шаблон')] class extends Component {
                 </div>
             </div>
 
-            <flux:textarea wire:model="field.keywords" label="Слова-якоря" rows="3"
-                description="По одному на строку: подписи, рядом с которыми стоит значение («Итого к оплате»). «*» в конце — любое окончание: поставщик*" />
+            <flux:textarea wire:model="field.keywords" label="Слова рядом со значением (необязательно)" rows="3"
+                description="Подписи из документа, рядом с которыми стоит значение, по одной на строку: «Итого к оплате». «*» в конце — любое окончание: поставщик*" />
 
-            <flux:input wire:model="field.llm_hint" label="Подсказка для LLM" description="Если правила не нашли значение, модель получит эту подсказку" />
+            <flux:input wire:model="field.llm_hint" label="Подсказка для LLM (необязательно)" description="Если правила не нашли значение, модель получит эту подсказку" />
 
+            {{-- раздел свёрнут: ошибки его полей показываются и здесь, иначе пользователь их не увидит --}}
+            @foreach (['field.name' => 'Системное имя', 'field.regex_pattern' => 'Регулярное выражение', 'field.ner_label' => 'Сущность NER'] as $key => $title)
+                @error($key)
+                    <flux:text class="text-red-600 dark:text-red-400">{{ $title }}: {{ $message }} Исправьте в разделе «Для опытных пользователей».</flux:text>
+                @enderror
+            @endforeach
             <details wire:ignore.self class="rounded-lg border border-neutral-200 p-4 dark:border-neutral-700">
-                <summary class="cursor-pointer font-medium">Дополнительно: регулярное выражение и NER</summary>
+                <summary class="cursor-pointer font-medium">Для опытных пользователей: системное имя, регулярное выражение, NER</summary>
                 <div class="mt-4 grid gap-4 md:grid-cols-2">
+                    <flux:input wire:model="field.name" label="Системное имя" description="Столбец в выгрузке. Если пусто — составится из названия" class:input="font-mono" />
                     <flux:input wire:model="field.regex_pattern" label="Регулярное выражение" description="RE2; группа 1 — само значение. \w и \b — только латиница; для кириллицы: [А-Яа-яЁё]" class:input="font-mono" />
                     <flux:select wire:model="field.ner_label" label="Сущность NER">
                         <flux:select.option value="">Не использовать</flux:select.option>

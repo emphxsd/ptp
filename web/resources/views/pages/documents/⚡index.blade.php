@@ -273,7 +273,10 @@ new #[Title('Документы')] class extends Component {
     </div>
 
     <form wire:submit="process" class="flex max-w-2xl flex-col gap-5 rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
-        <flux:select wire:model="template_id" label="Шаблон" placeholder="Выберите шаблон">
+        {{-- подсказка — обычный пункт, а не placeholder: неактивную браузер подменяет первым шаблоном,
+             на экране «Акт», а выбран никакой, и повторный выбор «Акта» не доходит до сервера --}}
+        <flux:select wire:model="template_id" label="Шаблон">
+            <flux:select.option value="">Выберите шаблон</flux:select.option>
             @foreach ($this->templates as $template)
                 <flux:select.option :value="$template->id">
                     {{ $template->name }}{{ $template->is_system ? ' (системный)' : '' }}

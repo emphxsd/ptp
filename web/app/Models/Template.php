@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 /**
  * @property int $id
  * @property int|null $user_id
- * @property int $document_type_id
+ * @property int|null $document_type_id
  * @property string $name
  * @property string|null $description
  * @property bool $is_system

@@ -8,6 +8,7 @@ use App\Models\TemplateField;
 use App\Rules\UserRegex;
 use App\Services\Processor\ProcessorClient;
 use App\Services\Processor\ProcessorUnavailableException;
+use App\Support\FieldDefaults;
 use Closure;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -56,15 +57,19 @@ class TemplateFieldForm extends Form
         'pattern' => 'validation.pattern',
     ];
 
+    // тип не выбран — определяется по названию поля (FieldDefaults::guessType)
+    public const AUTO_TYPE = 'auto';
+
     // null — новое поле; задаётся только на сервере (editField), клиент изменить не может
     #[Locked]
     public ?int $id = null;
 
+    // пусто — составляется из названия (FieldDefaults::systemName); у существующего поля не меняется
     public string $name = '';
 
     public string $label = '';
 
-    public string $data_type = 'string';
+    public string $data_type = self::AUTO_TYPE;
 
     public bool $is_required = false;
 
@@ -121,7 +126,20 @@ class TemplateFieldForm extends Form
     public function validatedFor(Template $template): array
     {
         $this->normalize();
+        // угаданные имя и тип не остаются в форме: после ошибки пользователь может сменить название,
+        // и угадывать нужно заново по новому
+        [$name, $type] = [$this->name, $this->data_type];
+        $this->fillDefaults($template);
+        try {
+            return $this->validatedAttributes($template);
+        } finally {
+            [$this->name, $this->data_type] = [$name, $type];
+        }
+    }
 
+    /** @return array<string, mixed> */
+    private function validatedAttributes(Template $template): array
+    {
         $data = $this->validate($this->rulesFor($template), [
             'name.regex' => 'Только строчные латинские буквы, цифры и «_», первая — буква (например, total_sum).',
             'min_value.regex' => 'Введите сумму, например 1500 или 1500,50.',
@@ -220,6 +238,21 @@ class TemplateFieldForm extends Form
         }
     }
 
+    /** Обычному пользователю достаточно названия: имя и тип поля определяются по нему. */
+    private function fillDefaults(Template $template): void
+    {
+        if ($this->label === '') {
+            return; // «Название обязательно» — ошибка валидации, имя и тип угадывать не по чему
+        }
+        if ($this->data_type === self::AUTO_TYPE) {
+            $this->data_type = FieldDefaults::guessType($this->label)->value;
+        }
+        if ($this->name === '') {
+            $taken = $template->fields()->when($this->id !== null, fn ($query) => $query->whereKeyNot($this->id))->pluck('name')->all();
+            $this->name = FieldDefaults::systemName($this->label, $taken);
+        }
+    }
+
     private function normalize(): void
     {
         $this->name = trim($this->name);
@@ -255,12 +288,14 @@ class TemplateFieldForm extends Form
         $allowedMax = self::MAX_ALLOWED_VALUES * (self::MAX_ALLOWED_VALUE_LENGTH + 2);
 
         return [
-            'name' => [
+            // без названия имя не составить — ошибка одна: «Название обязательно»
+            'name' => $this->label === '' ? [] : [
                 'required', 'string', 'regex:'.self::NAME,
                 Rule::unique('template_fields', 'name')->where('template_id', $template->id)->ignore($this->id),
             ],
             'label' => ['required', 'string', 'max:150', 'not_regex:'.self::SINGLE_LINE],
-            'data_type' => ['required', Rule::enum(DataType::class)],
+            // «auto» остаётся только без названия — тогда ошибка одна: «Название обязательно»
+            'data_type' => ['required', Rule::in([...array_column(DataType::cases(), 'value'), self::AUTO_TYPE])],
             'is_required' => ['boolean'],
             'keywords' => ['nullable', 'string', 'max:'.$keywordsMax, $this->keywordsRule()],
             'regex_pattern' => ['nullable', 'string', 'max:'.UserRegex::MAX_LENGTH, new UserRegex],
