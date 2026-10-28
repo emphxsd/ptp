@@ -1,12 +1,10 @@
 """Клиент GigaChat API (Сбер): OAuth-токен по ключу авторизации и запрос chat/completions.
 Синхронный — вызывается из потока обработки документа (run_in_threadpool)."""
-import json
 import ssl
 import threading
 import time
 import uuid
 from collections.abc import Callable, Sequence
-from dataclasses import dataclass
 from urllib.parse import urlsplit
 
 import certifi
@@ -14,15 +12,8 @@ import httpx
 
 from app import __version__
 from app.llm.client import ChatMessage, LlmReply
-from app.llm.errors import (
-    LlmAuthError,
-    LlmBadResponseError,
-    LlmBusyError,
-    LlmQuotaError,
-    LlmRefusedError,
-    LlmRequestRejectedError,
-    LlmUnavailableError,
-)
+from app.llm.errors import LlmAuthError, LlmBadResponseError, LlmBusyError, LlmRefusedError
+from app.llm.http import HttpResult, non_negative_int, parse_json, raise_for_status, send
 
 DEFAULT_OAUTH_URL = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth"
 DEFAULT_API_URL = "https://api.giga.chat/v1"
@@ -32,12 +23,9 @@ SCOPES = ("GIGACHAT_API_PERS", "GIGACHAT_API_B2B", "GIGACHAT_API_CORP")
 TOKEN_REFRESH_MARGIN_SECONDS = 60
 # expires_at в документации встречается и в миллисекундах, и в секундах
 MILLISECONDS_THRESHOLD = 10**11
-CONNECT_TIMEOUT_SECONDS = 5.0
 # извлечение должно быть детерминированным; GigaChat требует temperature > 0
 TEMPERATURE = 0.1
 MAX_REPLY_CHARS = 200_000
-# ответ читается потоком и обрывается, если он больше лимита или не уложился в общий срок
-MAX_RESPONSE_BYTES = 1024 * 1024
 # после отказа в ключе не повторяем вход на каждом документе (риск блокировки ключа)
 AUTH_FAILURE_COOLDOWN_SECONDS = 60.0
 USER_AGENT = f"doc-processor/{__version__}"
@@ -58,12 +46,6 @@ def require_https(url: str) -> str:
     if parts.scheme != "https" or not parts.hostname or parts.username is not None or parts.password is not None:
         raise ValueError("адрес GigaChat должен иметь вид https://хост/путь")
     return url.rstrip("/")
-
-
-@dataclass(frozen=True)
-class _HttpResult:
-    status: int
-    body: bytes
 
 
 class GigaChatClient:
@@ -134,7 +116,7 @@ class GigaChatClient:
         finally:
             self._streams.release()
 
-    def _post_chat(self, messages: Sequence[ChatMessage], max_tokens: int, token: str, deadline: float) -> _HttpResult:
+    def _post_chat(self, messages: Sequence[ChatMessage], max_tokens: int, token: str, deadline: float) -> HttpResult:
         body = {
             "model": self._model,
             "messages": [{"role": m.role, "content": m.content} for m in messages],
@@ -165,63 +147,21 @@ class GigaChatClient:
             data={"scope": self._scope},
             headers={"Authorization": f"Basic {self._auth_key}", "RqUID": str(uuid.uuid4())},
         )
-        _raise_for_status(response)
-        payload = _json(response)
+        raise_for_status(response)
+        payload = parse_json(response)
         token, expires_at = payload.get("access_token"), payload.get("expires_at")
         if not isinstance(token, str) or not token or not isinstance(expires_at, (int, float)):
             raise LlmBadResponseError()
         expires = expires_at / 1000 if expires_at > MILLISECONDS_THRESHOLD else float(expires_at)
         return token, expires
 
-    def _send(self, method: str, url: str, deadline: float, **kwargs: object) -> _HttpResult:
-        remaining = deadline - self._monotonic()
-        if remaining <= 0:
-            raise LlmUnavailableError()
-        timeout = httpx.Timeout(remaining, connect=min(CONNECT_TIMEOUT_SECONDS, remaining))
-        try:
-            with self._http.stream(method, url, timeout=timeout, **kwargs) as response:
-                body = bytearray()
-                for chunk in response.iter_bytes():
-                    body += chunk
-                    if len(body) > MAX_RESPONSE_BYTES:
-                        raise LlmBadResponseError()
-                    if self._monotonic() > deadline:  # сервер отдаёт ответ по капле
-                        raise LlmUnavailableError()
-                return _HttpResult(response.status_code, bytes(body))
-        except (httpx.HTTPError, RuntimeError, UnicodeError):
-            # текст исключения может содержать адрес и заголовки — наружу только код ошибки;
-            # RuntimeError — клиент закрыт при остановке сервиса
-            raise LlmUnavailableError() from None
+    def _send(self, method: str, url: str, deadline: float, **kwargs: object) -> HttpResult:
+        return send(self._http, method, url, deadline, self._monotonic, **kwargs)
 
 
-def _raise_for_status(response: _HttpResult) -> None:
-    status = response.status
-    if status < 400:
-        return
-    if status in (401, 403):
-        raise LlmAuthError()
-    if status == 402:
-        raise LlmQuotaError()
-    if status == 429:
-        raise LlmBusyError()
-    if status >= 500:
-        raise LlmUnavailableError()
-    raise LlmRequestRejectedError()
-
-
-def _json(response: _HttpResult) -> dict:
-    try:
-        payload = json.loads(response.body)
-    except (ValueError, RecursionError):
-        raise LlmBadResponseError() from None
-    if not isinstance(payload, dict):
-        raise LlmBadResponseError()
-    return payload
-
-
-def _parse_chat(response: _HttpResult) -> LlmReply:
-    _raise_for_status(response)
-    payload = _json(response)
+def _parse_chat(response: HttpResult) -> LlmReply:
+    raise_for_status(response)
+    payload = parse_json(response)
     choices = payload.get("choices")
     if not isinstance(choices, list) or not choices or not isinstance(choices[0], dict):
         raise LlmBadResponseError()
@@ -235,10 +175,6 @@ def _parse_chat(response: _HttpResult) -> LlmReply:
     usage = payload.get("usage") if isinstance(payload.get("usage"), dict) else {}
     return LlmReply(
         content=content,
-        prompt_tokens=_int(usage.get("prompt_tokens")),
-        completion_tokens=_int(usage.get("completion_tokens")),
+        prompt_tokens=non_negative_int(usage.get("prompt_tokens")),
+        completion_tokens=non_negative_int(usage.get("completion_tokens")),
     )
-
-
-def _int(value: object) -> int:
-    return value if isinstance(value, int) and value >= 0 else 0

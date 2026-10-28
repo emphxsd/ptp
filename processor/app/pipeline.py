@@ -43,7 +43,9 @@ def process_document(
     recognizer: EntityRecognizer | None = None,
     llm: LlmClient | None = None,
     ocr: OcrEngine | None = None,
+    llm_blocked: bool = False,
 ) -> ExtractionResult:
+    """llm_blocked — запрос требовал локальную LLM, а настроена облачная: этап пропущен, код — в warnings."""
     started = time.perf_counter()
     if len(data) > settings.max_file_bytes:
         raise FileTooLargeError(f"Файл больше {settings.max_file_mb:g} МБ")
@@ -67,7 +69,7 @@ def process_document(
         recognizer = _load_recognizer()
     index = DocumentIndex(extracted.text)
     found = _cascade(index, template, settings, recognizer)
-    llm_used, llm_warnings = False, ()
+    llm_used, llm_warnings = False, ("LLM_SKIPPED_NOT_LOCAL",) if llm_blocked else ()
     if llm is not None and settings.llm_enabled:
         found, llm_used, llm_warnings = _refine_with_llm(found, index, settings, llm, remaining())
     threshold = settings.review_threshold

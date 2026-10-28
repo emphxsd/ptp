@@ -172,6 +172,27 @@ class ProcessDocumentTest extends TestCase
         });
     }
 
+    public function test_local_llm_promise_is_enforced_by_the_service(): void
+    {
+        // флажок обещает «никуда не передаётся» — сервис должен отказаться от облачной LLM, если настроен на неё
+        config(['documents.llm_external' => false]);
+        $this->fakeExtract(Http::response(['success' => true, 'data' => $this->extractData(), 'error' => null]));
+
+        $this->process($this->document(useLlm: true));
+
+        Http::assertSent(fn (Request $request): bool => collect($request->data())->firstWhere('name', 'llm_local_only')['contents'] === 'true');
+    }
+
+    public function test_external_llm_promise_allows_cloud_when_configured(): void
+    {
+        config(['documents.llm_external' => true]);
+        $this->fakeExtract(Http::response(['success' => true, 'data' => $this->extractData(), 'error' => null]));
+
+        $this->process($this->document(useLlm: true));
+
+        Http::assertSent(fn (Request $request): bool => collect($request->data())->firstWhere('name', 'llm_local_only')['contents'] === 'false');
+    }
+
     public function test_repeated_delivery_of_finished_document_is_ignored(): void
     {
         $this->fakeExtract(Http::response(['success' => true, 'data' => $this->extractData(), 'error' => null]));

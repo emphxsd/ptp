@@ -43,6 +43,8 @@ class ProcessorClient
                     'template' => json_encode($template, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
                     'include_text' => 'true',
                     'use_llm' => $useLlm ? 'true' : 'false',
+                    // интерфейс обещал «документ никуда не передаётся» — сервис не отдаст его облачной LLM
+                    'llm_local_only' => config('documents.llm_external') ? 'false' : 'true',
                 ]);
         } catch (ConnectionException) {
             throw new ProcessorUnavailableException('Сервис обработки недоступен.');

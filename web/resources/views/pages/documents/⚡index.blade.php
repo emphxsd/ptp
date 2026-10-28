@@ -36,7 +36,7 @@ new #[Title('Документы')] class extends Component {
     /** @var array<int, TemporaryUploadedFile> */
     public array $files = [];
 
-    // фрагменты документа уходят во внешнюю LLM (GigaChat) только с явного согласия пользователя
+    // LLM — только по явному выбору пользователя (облачная получает фрагменты документа, локальная медленнее)
     public bool $use_llm = false;
 
     // фильтры истории — в адресной строке, ими же пользуется выгрузка выборки (DocumentFilters)
@@ -290,9 +290,12 @@ new #[Title('Документы')] class extends Component {
             <div wire:loading wire:target="files" class="mt-1 text-sm text-zinc-500">Файлы загружаются…</div>
         </div>
 
-        @if (config('documents.llm_enabled'))
+        @if (config('documents.llm_enabled') && config('documents.llm_external'))
             <flux:checkbox wire:model="use_llm" label="Использовать LLM (GigaChat) для полей, которые не нашли правила"
                 description="Фрагменты документа будут отправлены во внешний сервис. Не включайте для документов с персональными данными без согласия на их обработку." />
+        @elseif (config('documents.llm_enabled'))
+            <flux:checkbox wire:model="use_llm" label="Использовать LLM для полей, которые не нашли правила"
+                description="Документ обрабатывается локальной моделью на этом сервере и никуда не передаётся. Обработка займёт на несколько секунд дольше." />
         @endif
 
         <div>

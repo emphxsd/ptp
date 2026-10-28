@@ -117,10 +117,15 @@ async def extract(
     template: str = Form(description="Шаблон извлечения в формате JSON"),
     include_text: bool = Form(False, description="Вернуть извлечённый текст"),
     # строка, а не bool: отсутствующее bool-поле формы FastAPI считает false (как чекбокс HTML)
-    use_llm: Literal["true", "false"] = Form("true", description="Разрешить отправку фрагментов документа во внешнюю LLM"),
+    use_llm: Literal["true", "false"] = Form("true", description="Разрешить отправку фрагментов документа в LLM"),
+    llm_local_only: Literal["true", "false"] = Form(
+        "false", description="Только локальная LLM: если настроена облачная, этап LLM пропускается"
+    ),
     settings: Settings = Depends(get_app_settings),
 ) -> ApiResponse[ExtractionResult]:
     response.headers["Cache-Control"] = "no-store"
+    # веб пообещал пользователю «документ никуда не передаётся» — облачной LLM документ не отдаём
+    llm_blocked = use_llm == "true" and llm_local_only == "true" and not settings.llm_is_local
     # проверка шаблона компилирует regex через RE2 — не блокируем event loop
     parsed_template = await run_in_threadpool(parse_template, template, settings.max_template_chars)
     data = await file.read()
@@ -136,8 +141,9 @@ async def extract(
             parsed_template,
             settings,
             include_text,
-            llm=request.app.state.llm_client if use_llm == "true" else None,
+            llm=request.app.state.llm_client if use_llm == "true" and not llm_blocked else None,
             ocr=request.app.state.ocr_engine,
+            llm_blocked=llm_blocked,
         )
     finally:
         slots.release()

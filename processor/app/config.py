@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 from typing import Literal
 
 from app.extraction.ocr import LANGUAGES_PATTERN
+from app.llm.urls import is_loopback_url, require_local_or_https
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator, model_validator
 
 BYTES_IN_MB = 1024 * 1024
@@ -38,9 +39,15 @@ class Settings(BaseModel):
     review_threshold: float = Field(default=0.6, gt=0.0, lt=1.0)
     # этапы каскада можно отключать — для сравнения подходов в экспериментах
     ner_enabled: bool = True
-    # этап LLM: включается, если задан ключ провайдера; llm_enabled=false — отключить для экспериментов
+    # этап LLM: ollama — локальная модель (документ не покидает сервер), gigachat — облако, нужен ключ;
+    # llm_enabled=false — отключить для экспериментов
     llm_enabled: bool = True
-    llm_provider: Literal["gigachat"] = "gigachat"
+    llm_provider: Literal["gigachat", "ollama"] = "gigachat"
+    # Ollama: по http — только этот компьютер; num_ctx — окно модели в токенах (весь отправляемый текст)
+    ollama_url: str = "http://127.0.0.1:11434"
+    ollama_model: str = Field(default="qwen2.5:7b", pattern=r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$")
+    ollama_num_ctx: int = Field(default=8192, ge=2048, le=131_072)
+    ollama_keep_alive: str = Field(default="30m", pattern=r"^(-1|\d{1,6}[smh]?)$")
     # ключ авторизации GigaChat (Base64 от Client ID:Client Secret) — только из окружения, в логи не попадает
     gigachat_auth_key: SecretStr | None = None
     gigachat_scope: Literal["GIGACHAT_API_PERS", "GIGACHAT_API_B2B", "GIGACHAT_API_CORP"] = "GIGACHAT_API_PERS"
@@ -98,6 +105,11 @@ class Settings(BaseModel):
             raise ValueError("адрес GigaChat должен иметь вид https://хост/путь")
         return url
 
+    @field_validator("ollama_url")
+    @classmethod
+    def ollama_local_or_https(cls, url: str) -> str:
+        return require_local_or_https(url)
+
     @model_validator(mode="after")
     def production_requires_token(self) -> "Settings":
         if self.environment == "production" and not self.api_token:
@@ -106,7 +118,16 @@ class Settings(BaseModel):
 
     @property
     def llm_configured(self) -> bool:
-        return self.llm_enabled and self.gigachat_auth_key is not None and bool(self.gigachat_auth_key.get_secret_value())
+        if not self.llm_enabled:
+            return False
+        if self.llm_provider == "ollama":
+            return True
+        return self.gigachat_auth_key is not None and bool(self.gigachat_auth_key.get_secret_value())
+
+    @property
+    def llm_is_local(self) -> bool:
+        """Документ не покидает компьютер: Ollama на этом же компьютере."""
+        return self.llm_provider == "ollama" and is_loopback_url(self.ollama_url)
 
     @property
     def docs_available(self) -> bool:
@@ -133,6 +154,11 @@ class Settings(BaseModel):
             "max_template_chars",
             "docx_max_table_rows",
             "review_threshold",
+            "llm_provider",
+            "ollama_url",
+            "ollama_model",
+            "ollama_num_ctx",
+            "ollama_keep_alive",
             "gigachat_scope",
             "gigachat_model",
             "gigachat_oauth_url",

@@ -1,6 +1,7 @@
 """Сборка приложения. Запуск: uvicorn app.main:app --reload"""
 import asyncio
 import logging
+import threading
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -11,6 +12,7 @@ from app import __version__
 from app.extraction.ocr import TesseractEngine, check_tesseract, resolve_command
 from app.fields.ner import get_recognizer
 from app.llm.factory import build_llm_client
+from app.llm.ollama import OllamaClient
 from app.api.errors import register_error_handlers
 from app.api.routes import router
 from app.config import Settings, get_settings
@@ -81,7 +83,8 @@ def _start_ocr(app: FastAPI, settings: Settings) -> None:
 
 
 def _start_llm(app: FastAPI, settings: Settings) -> None:
-    """Клиент LLM создаётся при старте; API провайдера не вызывается (лимиты и токены)."""
+    """Клиент LLM создаётся при старте. Облачный API не вызывается (лимиты и токены);
+    локальная модель загружается в память в фоне, не задерживая старт."""
     app.state.llm_client = None
     if not settings.llm_enabled:
         app.state.llm_status = "disabled"
@@ -93,6 +96,8 @@ def _start_llm(app: FastAPI, settings: Settings) -> None:
         logging.getLogger("processor").warning("LLM-клиент не создан: %s", type(exc).__name__)
         return
     app.state.llm_status = "ready" if app.state.llm_client is not None else "not_configured"
+    if isinstance(app.state.llm_client, OllamaClient):
+        threading.Thread(target=app.state.llm_client.preload, name="ollama-preload", daemon=True).start()
 
 
 app = create_app()

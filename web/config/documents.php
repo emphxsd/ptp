@@ -18,8 +18,12 @@ return [
     // выгрузка выборки за один раз (CSV/JSON собирается в памяти запроса)
     'max_export_documents' => (int) env('DOCUMENTS_MAX_EXPORT', 1000),
 
-    // false — фрагменты документов не отправляются во внешнюю LLM ни при каких условиях
+    // false — флажок LLM скрыт, документы обрабатываются только правилами и NER
     'llm_enabled' => (bool) env('DOCUMENTS_LLM_ENABLED', true),
+
+    // где работает LLM: false — локальная модель (Ollama), документ не покидает сервер;
+    // true — облачная (GigaChat), фрагменты уходят во внешний сервис. Должно совпадать с PROCESSOR_LLM_PROVIDER
+    'llm_external' => (bool) env('DOCUMENTS_LLM_EXTERNAL', false),
 
     // расширения, которые принимает форма; формат всё равно определяется по содержимому файла
     'extensions' => ['pdf', 'docx', 'png', 'jpg', 'jpeg'],

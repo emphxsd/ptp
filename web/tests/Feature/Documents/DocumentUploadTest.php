@@ -233,6 +233,26 @@ class DocumentUploadTest extends TestCase
         $this->assertFalse(Document::where('user_id', $user->id)->firstOrFail()->use_llm);
     }
 
+    public function test_local_llm_option_says_document_stays_on_server(): void
+    {
+        config(['documents.llm_external' => false]);
+
+        Livewire::actingAs(User::factory()->create())->test('pages::documents.index')
+            ->assertSee('локальной моделью')
+            ->assertSee('никуда не передаётся')
+            ->assertDontSee('внешний сервис');
+    }
+
+    public function test_external_llm_option_warns_about_personal_data(): void
+    {
+        config(['documents.llm_external' => true]);
+
+        Livewire::actingAs(User::factory()->create())->test('pages::documents.index')
+            ->assertSee('внешний сервис')
+            ->assertSee('без согласия на их обработку')
+            ->assertDontSee('локальной моделью');
+    }
+
     public function test_batch_that_exceeds_remaining_rate_limit_is_rejected_entirely(): void
     {
         $user = User::factory()->create();
