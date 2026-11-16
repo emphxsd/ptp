@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Storage;
  * @property bool|null $has_text_layer
  * @property bool $use_llm
  * @property int|null $pages
+ * @property int|null $duplicate_of_id
+ * @property string|null $duplicate_reason
  * @property DocumentStatus $status
  * @property CarbonInterface $uploaded_at
  */
@@ -88,6 +90,16 @@ class Document extends Model
     public function template(): BelongsTo
     {
         return $this->belongsTo(Template::class);
+    }
+
+    /**
+     * Ранее загруженный документ, повтором которого похож этот (DuplicateDetector).
+     *
+     * @return BelongsTo<Document, $this>
+     */
+    public function duplicateOf(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'duplicate_of_id');
     }
 
     /** @return HasMany<ExtractionResult, $this> */

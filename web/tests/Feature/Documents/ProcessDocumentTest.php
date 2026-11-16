@@ -114,6 +114,24 @@ class ProcessDocumentTest extends TestCase
         (new ProcessDocument($document))->handle(app(ProcessorClient::class));
     }
 
+    public function test_processed_invoice_matching_an_earlier_one_is_marked_as_duplicate(): void
+    {
+        $data = $this->extractData();
+        $data['fields'][] = [
+            'name' => 'number', 'value' => '15', 'source' => 'rule', 'raw' => '15', 'start' => 17, 'end' => 19,
+            'confidence' => 0.9, 'needs_review' => false, 'alternatives' => [], 'issues' => [],
+        ];
+        $this->fakeExtract(Http::response(['success' => true, 'data' => $data, 'error' => null]));
+        $original = $this->document();
+        $this->process($original);
+        $copy = $this->document();
+
+        $this->process($copy);
+
+        $this->assertNull($original->fresh()->duplicate_of_id);
+        $this->assertSame($original->id, $copy->fresh()->duplicate_of_id);
+    }
+
     public function test_successful_extraction_is_saved_with_values_and_text(): void
     {
         $this->fakeExtract(Http::response(['success' => true, 'data' => $this->extractData(), 'error' => null]));

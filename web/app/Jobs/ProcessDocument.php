@@ -9,6 +9,7 @@ use App\Services\Processor\Extraction;
 use App\Services\Processor\ProcessorClient;
 use App\Services\Processor\ProcessorRejectedException;
 use App\Services\Processor\ProcessorUnavailableException;
+use App\Support\DuplicateDetector;
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -173,6 +174,12 @@ class ProcessDocument implements ShouldBeUnique, ShouldQueue
                 'pages' => $extraction->pages,
             ])->save();
         });
+
+        // тот же счёт уже обрабатывали — пометка «возможный дубликат» (защита от повторной оплаты)
+        $document = Document::find($this->document->id);
+        if ($document !== null) {
+            app(DuplicateDetector::class)->refreshContent($document);
+        }
     }
 
     private function markFailed(string $code, string $message): void

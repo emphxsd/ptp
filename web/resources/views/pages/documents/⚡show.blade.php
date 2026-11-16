@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\ExtractedValue;
 use App\Models\ExtractionResult;
 use App\Models\TemplateField;
+use App\Support\DuplicateDetector;
 use App\Support\ReviewCodes;
 use App\Support\TextHighlighter;
 use App\Support\ValueNormalizer;
@@ -240,6 +241,9 @@ new #[Title('Результат обработки')] class extends Component {
             ]);
         });
         unset($this->values, $this->highlighted);
+
+        // исправили номер или сумму — счёт мог совпасть с ранее загруженным (или перестать совпадать)
+        app(DuplicateDetector::class)->refreshContent($this->document->refresh());
     }
 
     // значение ищется только среди значений последнего результата этого документа, и только обработанного
@@ -296,6 +300,18 @@ new #[Title('Результат обработки')] class extends Component {
             <flux:button icon="arrow-left" :href="route('documents.index')" wire:navigate>К документам</flux:button>
         </div>
     </div>
+
+    @if ($original = $document->duplicateOf)
+        <flux:callout variant="danger" icon="document-duplicate">
+            <flux:callout.heading>Возможный дубликат</flux:callout.heading>
+            <flux:callout.text>
+                {{ $document->duplicate_reason === DuplicateDetector::SAME_FILE ? 'Этот же файл' : 'Счёт с тем же номером и суммой' }}
+                уже загружали {{ $original->uploaded_at->timezone(config('app.display_timezone'))->format('d.m.Y') }}:
+                <flux:link :href="route('documents.show', $original)" wire:navigate>{{ $original->file_name }}</flux:link>.
+                Проверьте, не оплачен ли он повторно.
+            </flux:callout.text>
+        </flux:callout>
+    @endif
 
     @if ($document->status !== DocumentStatus::Done)
         <flux:callout :variant="$document->status === DocumentStatus::Failed ? 'danger' : 'secondary'" icon="information-circle">

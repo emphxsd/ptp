@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\Template;
 use App\Support\DocumentFilters;
 use App\Support\DocumentFormat;
+use App\Support\DuplicateDetector;
 use App\Support\FileName;
 use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -145,8 +146,9 @@ new #[Title('Документы')] class extends Component {
         $this->checkQuota();
 
         $useLlm = $this->use_llm && config('documents.llm_enabled');
+        $duplicates = 0;
         foreach ($this->files as $file) {
-            $this->store($file, $useLlm);
+            $duplicates += (int) $this->store($file, $useLlm);
             RateLimiter::hit($limiter);
         }
 
@@ -154,7 +156,9 @@ new #[Title('Документы')] class extends Component {
         $this->reset('files');
         $this->resetPage();
         unset($this->documents, $this->hasActive);
-        Flux::toast(variant: 'success', text: "Отправлено на обработку: {$count}.");
+        $duplicates === 0
+            ? Flux::toast(variant: 'success', text: "Отправлено на обработку: {$count}.")
+            : Flux::toast(variant: 'warning', text: "Отправлено на обработку: {$count}. Эти файлы уже загружали раньше: {$duplicates} — отмечены как возможные дубликаты.");
     }
 
     public function retry(int $id): void
@@ -190,7 +194,8 @@ new #[Title('Документы')] class extends Component {
         Flux::toast(variant: 'success', text: 'Документ удалён.');
     }
 
-    private function store(TemporaryUploadedFile $file, bool $useLlm): void
+    /** @return bool тот же файл уже загружали — документ отмечен как возможный дубликат */
+    private function store(TemporaryUploadedFile $file, bool $useLlm): bool
     {
         $user = Auth::user();
         $format = (string) DocumentFormat::detect($file->getRealPath(), $file->getClientOriginalName());
@@ -201,11 +206,17 @@ new #[Title('Документы')] class extends Component {
             'size_bytes' => $file->getSize(),
             'sha256' => hash_file('sha256', $file->getRealPath()),
         ]);
+        $original = app(DuplicateDetector::class)->sameFile($user->id, $document->sha256);
 
         // имя на диске не зависит от имени, которое дал пользователь
         $key = (string) $file->storeAs((string) $user->id, Str::uuid().'.'.$format, Document::DISK);
         try {
-            $document->forceFill(['storage_key' => $key, 'use_llm' => $useLlm])->user()->associate($user)->save();
+            $document->forceFill([
+                'storage_key' => $key,
+                'use_llm' => $useLlm,
+                'duplicate_of_id' => $original?->id,
+                'duplicate_reason' => $original === null ? null : DuplicateDetector::SAME_FILE,
+            ])->user()->associate($user)->save();
             AuditLog::record('document_uploaded', $user, ['document_id' => $document->id, 'use_llm' => $useLlm]);
             ProcessDocument::dispatch($document);
         } catch (Throwable $exception) {
@@ -217,6 +228,8 @@ new #[Title('Документы')] class extends Component {
             // временная копия (livewire-tmp) больше не нужна
             $file->delete();
         }
+
+        return $original !== null;
     }
 
     /** Квоты пользователя: число документов и объём файлов. */
@@ -378,6 +391,9 @@ new #[Title('Документы')] class extends Component {
                                 };
                             @endphp
                             <flux:badge size="sm" :color="$color">{{ $document->status->label() }}</flux:badge>
+                            @if ($document->duplicate_of_id)
+                                <flux:badge size="sm" color="red" title="Такой документ уже загружали — проверьте, не оплачен ли он повторно">дубликат</flux:badge>
+                            @endif
                             @if ($document->status === DocumentStatus::Done && $document->latestResult?->needs_review)
                                 <flux:badge size="sm" color="amber">требует проверки</flux:badge>
                             @endif
