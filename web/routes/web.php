@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('throttle:10,1')->name('documents.export');
 
     // доступ к конкретному шаблону проверяет TemplatePolicy внутри страниц
+    Route::livewire('search', 'pages::search')->name('search');
     Route::livewire('templates', 'pages::templates.index')->name('templates.index');
     Route::livewire('templates/create', 'pages::templates.create')->name('templates.create');
     Route::livewire('templates/example', 'pages::templates.example')->name('templates.example');
