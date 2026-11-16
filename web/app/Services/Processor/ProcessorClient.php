@@ -130,6 +130,35 @@ class ProcessorClient
         return is_int($data['template_id']) ? $data['template_id'] : null;
     }
 
+    /**
+     * Текст документа без извлечения полей (сканы — через OCR): шаблон по примеру.
+     *
+     * @param  StreamInterface  $file  поток содержимого файла (клиент закрывает его после отправки)
+     *
+     * @throws ProcessorRejectedException документ отклонён (формат, повреждён, защищён паролем)
+     * @throws ProcessorUnavailableException
+     */
+    public function text(StreamInterface $file, string $fileName): string
+    {
+        try {
+            $response = $this->request()->timeout($this->extractTimeoutSeconds)->attach('file', $file, $fileName)->post('/text');
+        } catch (ConnectionException) {
+            throw new ProcessorUnavailableException('Сервис обработки недоступен.');
+        }
+
+        if ($response->successful() && is_string($response->json('data.text'))) {
+            return $response->json('data.text');
+        }
+        $code = $response->json('error.code');
+        $message = $response->json('error.message');
+        if ($response->clientError() && ! in_array($response->status(), self::RETRYABLE_STATUSES, true)
+            && is_string($code) && is_string($message) && $response->status() !== 401) {
+            throw new ProcessorRejectedException(mb_substr($code, 0, 50), mb_substr($message, 0, 1000));
+        }
+        Log::warning('Сервис обработки не вернул текст документа', ['status' => $response->status()]);
+        throw new ProcessorUnavailableException('Сервис обработки временно недоступен.');
+    }
+
     private function request(): PendingRequest
     {
         // без переходов по перенаправлениям: иначе файл и токен ушли бы по адресу из ответа

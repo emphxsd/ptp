@@ -36,6 +36,12 @@ final class AnchorLearner
         return null;
     }
 
+    /** Подпись слева от позиции в тексте (позиция — в символах): шаблон по примеру, выделение мышью. */
+    public static function labelAt(string $text, int $offset): ?string
+    {
+        return self::labelBefore(mb_substr($text, 0, $offset));
+    }
+
     /** Добавить подпись в слова-якоря поля; возвращает добавленную подпись или null. */
     public static function learn(TemplateField $field, string $text, string $value): ?string
     {

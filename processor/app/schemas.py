@@ -240,6 +240,17 @@ class ClassifyResult(BaseModel):
     scores: tuple[CandidateScore, ...]
 
 
+class DocumentText(BaseModel):
+    """Текст документа без извлечения полей — для создания шаблона по примеру."""
+
+    model_config = ConfigDict(frozen=True)
+
+    text: str
+    # у DOCX страниц нет — null
+    pages: int | None
+    ocr_pages: int = 0
+
+
 class ApiError(BaseModel):
     code: str
     message: str

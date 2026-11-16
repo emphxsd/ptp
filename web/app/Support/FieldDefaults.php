@@ -66,6 +66,24 @@ final class FieldDefaults
         return DataType::String;
     }
 
+    /** Тип по самому значению (шаблон по примеру: выделенный фрагмент документа). */
+    public static function guessTypeFromValue(string $value): DataType
+    {
+        $value = trim($value);
+
+        return match (true) {
+            (bool) preg_match('/^\d{10}(\d{2})?$/D', $value) => DataType::Inn,
+            (bool) preg_match('/^\d{1,2}[.\/-]\d{1,2}[.\/-]\d{2,4}$/D', $value) => DataType::Date,
+            (bool) preg_match('/^[\w.+-]+@[\w-]+(\.[\w-]+)+$/uD', $value) => DataType::Email,
+            (bool) preg_match('/^\+?[78][\s(-]*\d{3}[\s)-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}$/D', $value) => DataType::Phone,
+            // сумма — число с копейками, рублями или разрядами через пробел (а не просто номер)
+            preg_match('/^\d{1,3}([\s\x{00A0}]?\d{3})*([.,]\d{2})?(\s*(руб\.?|₽|р\.))?$/uD', $value) === 1
+                && preg_match('/[.,]\d{2}$|руб|₽|р\.|\d[\s\x{00A0}]\d/u', $value) === 1 => DataType::Amount,
+            (bool) preg_match('/^(ООО|АО|ПАО|ЗАО|ОАО|ИП|НКО|ГУП|МУП|ФГУП)(\s|$)/u', $value) => DataType::Organization,
+            default => DataType::String,
+        };
+    }
+
     private static function truncate(string $name, int $length): string
     {
         return rtrim(substr($name, 0, $length), '_');

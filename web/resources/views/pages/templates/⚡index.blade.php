@@ -76,9 +76,14 @@ new #[Title('Шаблоны')] class extends Component {
             <flux:heading size="xl">Шаблоны</flux:heading>
             <flux:text class="mt-1">Какие поля извлекать из документа. Системный шаблон можно скопировать и настроить под себя.</flux:text>
         </div>
-        <flux:button variant="primary" icon="plus" :href="route('templates.create')" wire:navigate>
-            Новый шаблон
-        </flux:button>
+        <div class="flex flex-wrap gap-2">
+            <flux:button icon="cursor-arrow-rays" :href="route('templates.example')" wire:navigate>
+                Создать по примеру
+            </flux:button>
+            <flux:button variant="primary" icon="plus" :href="route('templates.create')" wire:navigate>
+                Новый шаблон
+            </flux:button>
+        </div>
     </div>
 
     <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">

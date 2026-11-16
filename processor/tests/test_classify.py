@@ -100,6 +100,22 @@ def test_classify_endpoint_rejects_bad_templates(client):
         assert response.status_code in (400, 422), bad
 
 
+def test_text_endpoint_returns_document_text(client):
+    # шаблон по примеру: пользователь выделяет значения в тексте документа
+    response = client.post("/text", files={"file": ("doc.docx", make_docx(INVOICE_TEXT.split("\n")), "application/octet-stream")})
+
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert "Итого к оплате: 15 000,00" in data["text"]
+    assert data["ocr_pages"] == 0
+
+
+def test_text_endpoint_rejects_unknown_format(client):
+    response = client.post("/text", files={"file": ("x.bin", b"not a document", "application/octet-stream")})
+
+    assert response.status_code == 415
+
+
 def test_classify_endpoint_requires_token_when_configured():
     from fastapi.testclient import TestClient
 

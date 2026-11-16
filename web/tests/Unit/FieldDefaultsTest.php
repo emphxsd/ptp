@@ -85,4 +85,26 @@ class FieldDefaultsTest extends TestCase
     {
         $this->assertSame($expected, FieldDefaults::guessType($label));
     }
+
+    /** @return array<string, array{string, DataType}> */
+    public static function values(): array
+    {
+        return [
+            'ИНН 10 цифр' => ['7707083893', DataType::Inn],
+            'ИНН 12 цифр' => ['500100732259', DataType::Inn],
+            'дата' => ['01.03.2025', DataType::Date],
+            'сумма с копейками' => ['15 000,00', DataType::Amount],
+            'сумма с рублями' => ['1 250 руб.', DataType::Amount],
+            'телефон' => ['+7 (999) 123-45-67', DataType::Phone],
+            'e-mail' => ['info@romashka.ru', DataType::Email],
+            'организация' => ['ООО «Ромашка»', DataType::Organization],
+            'просто текст' => ['Москва', DataType::String],
+        ];
+    }
+
+    #[DataProvider('values')]
+    public function test_data_type_is_guessed_from_value(string $value, DataType $expected): void
+    {
+        $this->assertSame($expected, FieldDefaults::guessTypeFromValue($value));
+    }
 }

@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // доступ к конкретному шаблону проверяет TemplatePolicy внутри страниц
     Route::livewire('templates', 'pages::templates.index')->name('templates.index');
     Route::livewire('templates/create', 'pages::templates.create')->name('templates.create');
+    Route::livewire('templates/example', 'pages::templates.example')->name('templates.example');
     Route::livewire('templates/{template}/edit', 'pages::templates.edit')->name('templates.edit');
 });
 

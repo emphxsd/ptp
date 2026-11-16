@@ -9,7 +9,7 @@ from app.extraction.ocr import OcrEngine
 from app.extraction.ocr_stage import apply_ocr
 from app.extraction.text import extract_text
 from app.fields.rules import DocumentIndex
-from app.schemas import CandidateScore, ClassifyCandidate, ClassifyResult
+from app.schemas import CandidateScore, ClassifyCandidate, ClassifyResult, DocumentText
 
 # доля найденных фраз шаблона, ниже которой шаблон не предлагается
 MIN_SCORE = 0.3
@@ -50,10 +50,16 @@ def classify_document(
     data: bytes, candidates: Sequence[ClassifyCandidate], settings: Settings, ocr: OcrEngine | None
 ) -> ClassifyResult:
     """Текст документа (у скана — первые страницы через OCR) и определение шаблона; без текста — без предложения."""
+    return classify(document_text(data, settings, ocr, max_ocr_pages=OCR_PAGES).text, candidates)
+
+
+def document_text(data: bytes, settings: Settings, ocr: OcrEngine | None, max_ocr_pages: int | None = None) -> DocumentText:
+    """Текст документа без извлечения полей: из PDF и DOCX напрямую, страницы-сканы — через OCR."""
     extracted = extract_text(data, detect_format(data), settings)
     if extracted.pages_without_text and ocr is not None and settings.ocr_enabled:
-        extracted, _ = apply_ocr(data, extracted, settings.model_copy(update={"ocr_max_pages": OCR_PAGES}), ocr)
-    return classify(extracted.text, candidates)
+        limited = settings if max_ocr_pages is None else settings.model_copy(update={"ocr_max_pages": max_ocr_pages})
+        extracted, _ = apply_ocr(data, extracted, limited, ocr)
+    return DocumentText(text=extracted.text, pages=extracted.pages, ocr_pages=len(extracted.ocr_page_indexes))
 
 
 def _score(index: DocumentIndex, title: DocumentIndex, candidate: ClassifyCandidate) -> float:

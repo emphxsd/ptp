@@ -1,13 +1,14 @@
 """Маршруты API. Обработчики тонкие: разбор входа, вызов конвейера, упаковка в конверт."""
 import asyncio
 import hmac
-from typing import Literal
+from collections.abc import Callable
+from typing import Literal, TypeVar
 
 from fastapi import APIRouter, Depends, File, Form, Request, Response, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from pydantic import TypeAdapter, ValidationError
 
-from app.classify import classify_document
+from app.classify import classify_document, document_text
 from app.config import Settings
 from app.errors import FileTooLargeError, InvalidTemplateError, ServiceBusyError, UnauthorizedError
 from app.pipeline import process_document
@@ -15,6 +16,7 @@ from app.schemas import (
     ApiResponse,
     ClassifyCandidate,
     ClassifyResult,
+    DocumentText,
     ExtractionResult,
     HealthStatus,
     Template,
@@ -23,6 +25,7 @@ from app.schemas import (
 )
 
 router = APIRouter()
+T = TypeVar("T")
 
 ERROR_RESPONSES = {status: {"model": ApiResponse[None]} for status in (400, 401, 413, 415, 422, 500)}
 
@@ -146,19 +149,48 @@ async def classify(
     """Какой шаблон подходит к документу: веб-приложение предлагает его сразу после выбора файла."""
     response.headers["Cache-Control"] = "no-store"
     candidates = parse_candidates(templates, settings.max_template_chars)
+    data = await _read_limited(file, settings)
+    result = await _in_slot(request, settings, classify_document, data, candidates, settings, request.app.state.ocr_engine)
+    return ApiResponse.ok(result)
+
+
+@router.post(
+    "/text",
+    response_model=ApiResponse[DocumentText],
+    responses=ERROR_RESPONSES,
+    dependencies=[Depends(require_api_token)],
+)
+async def text(
+    request: Request,
+    response: Response,
+    file: UploadFile = File(description="Документ: PDF, DOCX, PNG или JPG"),
+    settings: Settings = Depends(get_app_settings),
+) -> ApiResponse[DocumentText]:
+    """Текст документа без извлечения полей: шаблон по примеру — пользователь выделяет в нём значения."""
+    response.headers["Cache-Control"] = "no-store"
+    data = await _read_limited(file, settings)
+    result = await _in_slot(request, settings, document_text, data, settings, request.app.state.ocr_engine)
+    return ApiResponse.ok(result)
+
+
+async def _read_limited(file: UploadFile, settings: Settings) -> bytes:
     data = await file.read()
     if len(data) > settings.max_file_bytes:
         raise FileTooLargeError(f"Файл больше {settings.max_file_mb:g} МБ")
+    return data
+
+
+async def _in_slot(request: Request, settings: Settings, func: Callable[..., T], *args: object) -> T:
+    """Тяжёлая обработка — в пуле потоков и не больше max_concurrent_extractions одновременно."""
     slots: asyncio.Semaphore = request.app.state.extract_slots
     try:
         await asyncio.wait_for(slots.acquire(), timeout=settings.queue_wait_seconds)
     except TimeoutError:
         raise ServiceBusyError("Сервис перегружен, повторите запрос позже") from None
     try:
-        result = await run_in_threadpool(classify_document, data, candidates, settings, request.app.state.ocr_engine)
+        return await run_in_threadpool(func, *args)
     finally:
         slots.release()
-    return ApiResponse.ok(result)
 
 
 @router.post(
