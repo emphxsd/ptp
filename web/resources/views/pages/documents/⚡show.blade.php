@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\ExtractedValue;
 use App\Models\ExtractionResult;
 use App\Models\TemplateField;
+use App\Support\AnchorLearner;
 use App\Support\DuplicateDetector;
 use App\Support\ReviewCodes;
 use App\Support\TextHighlighter;
@@ -112,10 +113,36 @@ new #[Title('Результат обработки')] class extends Component {
             return;
         }
 
+        $changed = $value->value !== $normalized;
         $this->correct($value, $normalized);
         $this->editingId = null;
         Flux::modal('value-form')->close();
-        Flux::toast(variant: 'success', text: 'Значение сохранено.');
+
+        $learned = $changed ? $this->learnAnchor($value, $normalized) : null;
+        Flux::toast(variant: 'success', text: $learned === null
+            ? 'Значение сохранено.'
+            : "Значение сохранено. Подпись «{$learned}» добавлена в шаблон — в следующих таких документах поле найдётся само.");
+    }
+
+    /**
+     * Обучение на исправлениях: подпись рядом с верным значением — в слова-якоря поля. Только для своих шаблонов:
+     * системные общие для всех, их меняет администратор в конструкторе.
+     */
+    protected function learnAnchor(ExtractedValue $value, string $correct): ?string
+    {
+        $field = $this->fields->get($value->field_id);
+        $template = $field?->template;
+        $text = (string) $this->result?->text;
+        if ($field === null || $template === null || $template->is_system || $template->user_id !== Auth::id() || $text === '') {
+            return null;
+        }
+
+        $learned = AnchorLearner::learn($field, $text, $correct);
+        if ($learned !== null) {
+            $template->touch();
+        }
+
+        return $learned;
     }
 
     /** Значение верное — снять пометку «требует проверки» без изменения. */
