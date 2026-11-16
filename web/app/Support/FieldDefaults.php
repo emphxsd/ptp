@@ -29,7 +29,7 @@ final class FieldDefaults
         'email' => '/e-?mail|электронн\w*\s+почт|эл\.\s*почт/u',
         'phone' => '/телефон|\bтел\.|мобильн/u',
         'date' => '/\bдат[аеуы]?\b/u',
-        'amount' => '/сумм|стоимост|\bцен[аыу]?\b|итог|\bндс\b|\bаванс|\bруб/u',
+        'amount' => '/сумм|стоимост|\bцен[аыу]?\b|итог|\bндс\b|\bаванс|\bруб|\bк\s+оплате/u',
         'number' => '/номер|№/u',
         'person' => '/\bфио\b|ф\.\s*и\.\s*о|фамили|подписант|руководител|директор|кандидат|сотрудник|представител|ответственн/u',
         'organization' => '/организаци|поставщик|покупател|заказчик|исполнител|подрядчик|контрагент|компани|работодател|\bбанк/u',
@@ -66,6 +66,12 @@ final class FieldDefaults
         return DataType::String;
     }
 
+    // «12 мая 2024 года», «"07" января 2025 г.»: месяц словом и обязательно год
+    private const TEXT_DATE = '/^[«"]?\d{1,2}[»"]?\s+(январ|феврал|март|апрел|ма[йя]|июн|июл|август|сентябр|октябр|ноябр|декабр)\p{L}*\s+\d{4}(\s*(г\.?|года?))?$/uD';
+
+    // «563 415-00»: копейки через дефис — только при разрядах через пробел, иначе это номер вида «2024-65»
+    private const DASH_KOPECKS = '/^\d{1,3}([\s\x{00A0}]\d{3})+-\d{2}(\s*(руб\.?|₽|р\.))?$/uD';
+
     /** Тип по самому значению (шаблон по примеру: выделенный фрагмент документа). */
     public static function guessTypeFromValue(string $value): DataType
     {
@@ -74,6 +80,8 @@ final class FieldDefaults
         return match (true) {
             (bool) preg_match('/^\d{10}(\d{2})?$/D', $value) => DataType::Inn,
             (bool) preg_match('/^\d{1,2}[.\/-]\d{1,2}[.\/-]\d{2,4}$/D', $value) => DataType::Date,
+            (bool) preg_match(self::TEXT_DATE, mb_strtolower($value)) => DataType::Date,
+            (bool) preg_match(self::DASH_KOPECKS, $value) => DataType::Amount,
             (bool) preg_match('/^[\w.+-]+@[\w-]+(\.[\w-]+)+$/uD', $value) => DataType::Email,
             (bool) preg_match('/^\+?[78][\s(-]*\d{3}[\s)-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}$/D', $value) => DataType::Phone,
             // сумма — число с копейками, рублями или разрядами через пробел (а не просто номер)

@@ -77,6 +77,7 @@ class FieldDefaultsTest extends TestCase
             'адрес' => ['Адрес доставки', DataType::String],
             'условия оплаты — не сумма' => ['Условия оплаты', DataType::String],
             'регистр и ё' => ['ИТОГО К ОПЛАТЕ', DataType::Amount],
+            'всего к оплате' => ['Всего к оплате', DataType::Amount],
         ];
     }
 
@@ -99,6 +100,12 @@ class FieldDefaultsTest extends TestCase
             'e-mail' => ['info@romashka.ru', DataType::Email],
             'организация' => ['ООО «Ромашка»', DataType::Organization],
             'просто текст' => ['Москва', DataType::String],
+            'дата с названием месяца' => ['12 мая 2024 года', DataType::Date],
+            'дата в кавычках' => ['«07» января 2025 г.', DataType::Date],
+            'дата без «года»' => ['1 марта 2025', DataType::Date],
+            'сумма с копейками через дефис' => ['563 415-00', DataType::Amount],
+            'номер с дефисом — не сумма' => ['2024-65', DataType::String],
+            'месяц без года — не дата' => ['12 мая', DataType::String],
         ];
     }
 
