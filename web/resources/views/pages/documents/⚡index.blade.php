@@ -7,7 +7,10 @@ use App\Models\Document;
 use App\Models\Template;
 use App\Support\DocumentFilters;
 use App\Support\DocumentFormat;
+use App\Services\Processor\ProcessorClient;
+use App\Services\Processor\ProcessorUnavailableException;
 use App\Support\DuplicateDetector;
+use GuzzleHttp\Psr7\Utils;
 use App\Support\FileName;
 use Flux\Flux;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -33,6 +37,10 @@ new #[Title('Документы')] class extends Component {
     private const BYTES_IN_MB = 1024 * 1024;
 
     public ?int $template_id = null;
+
+    // подсказка «похоже на …» после автоопределения типа документа; задаётся только на сервере
+    #[Locked]
+    public ?string $suggestion = null;
 
     /** @var array<int, TemporaryUploadedFile> */
     public array $files = [];
@@ -64,6 +72,41 @@ new #[Title('Документы')] class extends Component {
     {
         if (in_array($property, ['search', 'template', 'status', 'review', 'from', 'to'], true)) {
             $this->resetPage();
+        }
+        if ($property === 'template_id') {
+            $this->suggestion = null; // пользователь выбрал шаблон сам
+        }
+        if (str_starts_with($property, 'files') && $this->template_id === null) {
+            $this->suggestTemplate();
+        }
+    }
+
+    /** Автоопределение типа документа по первому выбранному файлу: шаблон выбирается сам, его можно изменить. */
+    protected function suggestTemplate(): void
+    {
+        $file = $this->files[0] ?? null;
+        $format = $file instanceof TemporaryUploadedFile
+            ? DocumentFormat::detect($file->getRealPath(), $file->getClientOriginalName())
+            : null;
+        $templates = $this->templates->load('fields');
+        if ($format === null || $templates->isEmpty()) {
+            return;
+        }
+
+        try {
+            $stream = Utils::streamFor(fopen($file->getRealPath(), 'rb'));
+            $id = app(ProcessorClient::class)->classify(
+                $stream, 'document.'.$format, array_values($templates->map(fn (Template $t) => $t->toClassifyCandidate())->all()),
+            );
+        } catch (ProcessorUnavailableException) {
+            return; // без подсказки: шаблон выберет пользователь
+        }
+
+        // только среди шаблонов, доступных пользователю
+        $template = $templates->firstWhere('id', $id);
+        if ($template !== null) {
+            $this->template_id = $template->id;
+            $this->suggestion = "Похоже на «{$template->name}» — шаблон выбран автоматически, его можно изменить.";
         }
     }
 
@@ -288,14 +331,21 @@ new #[Title('Документы')] class extends Component {
     <form wire:submit="process" class="flex max-w-2xl flex-col gap-5 rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
         {{-- подсказка — обычный пункт, а не placeholder: неактивную браузер подменяет первым шаблоном,
              на экране «Акт», а выбран никакой, и повторный выбор «Акта» не доходит до сервера --}}
-        <flux:select wire:model="template_id" label="Шаблон">
-            <flux:select.option value="">Выберите шаблон</flux:select.option>
-            @foreach ($this->templates as $template)
-                <flux:select.option :value="$template->id">
-                    {{ $template->name }}{{ $template->is_system ? ' (системный)' : '' }}
-                </flux:select.option>
-            @endforeach
-        </flux:select>
+        <div>
+            <flux:select wire:model.live="template_id" label="Шаблон" description="Можно сначала выбрать файл — подходящий шаблон подберётся сам">
+                <flux:select.option value="">Выберите шаблон</flux:select.option>
+                @foreach ($this->templates as $template)
+                    <flux:select.option :value="$template->id">
+                        {{ $template->name }}{{ $template->is_system ? ' (системный)' : '' }}
+                    </flux:select.option>
+                @endforeach
+            </flux:select>
+            @if ($suggestion)
+                <flux:text class="mt-2 flex items-center gap-1 text-sky-700 dark:text-sky-400">
+                    <flux:icon.sparkles variant="micro" /> {{ $suggestion }}
+                </flux:text>
+            @endif
+        </div>
 
         <div>
             <flux:input type="file" wire:model="files" multiple accept=".pdf,.docx,.png,.jpg,.jpeg"

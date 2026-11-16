@@ -26,6 +26,11 @@ class Template extends Model
     // те же ограничения, что в схеме шаблона сервиса обработки (processor/app/schemas.py)
     public const MAX_FIELDS = 100;
 
+    // пределы схемы /classify сервиса обработки (ClassifyCandidate)
+    private const MAX_CLASSIFY_PHRASES = 200;
+
+    private const MAX_CLASSIFY_PHRASE = 100;
+
     public const MAX_REGEX_FIELDS = 20;
 
     public const MAX_PER_USER = 100;
@@ -90,6 +95,23 @@ class Template extends Model
             'name' => $this->name,
             'fields' => array_values($this->fields->map(fn (TemplateField $field) => $field->toProcessorPayload())->all()),
         ];
+    }
+
+    /**
+     * Шаблон для определения типа документа (/classify): название и фразы, по которым его узнать, —
+     * слова-якоря полей, а у полей без них — название поля.
+     *
+     * @return array{id: int, name: string, phrases: list<string>}
+     */
+    public function toClassifyCandidate(): array
+    {
+        $phrases = $this->fields->flatMap(fn (TemplateField $field) => $field->keywords ?: [$field->label])
+            ->map(fn (string $phrase) => mb_substr(trim($phrase), 0, self::MAX_CLASSIFY_PHRASE))
+            ->filter(fn (string $phrase) => mb_strlen(rtrim($phrase, '*')) >= 2)
+            ->unique()
+            ->take(self::MAX_CLASSIFY_PHRASES);
+
+        return ['id' => $this->id, 'name' => $this->name, 'phrases' => array_values($phrases->all())];
     }
 
     /** Личная копия шаблона (например, системного) — её пользователь может менять под свои документы. */

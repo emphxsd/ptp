@@ -210,6 +210,36 @@ class TemplateCheck(BaseModel):
     issues: tuple[TemplateIssue, ...] = ()
 
 
+ClassifyPhrase = Annotated[str, StringConstraints(strip_whitespace=True, min_length=2, max_length=100)]
+
+
+class ClassifyCandidate(BaseModel):
+    """Шаблон-кандидат для определения типа документа: название и подписи/слова-якоря его полей."""
+
+    model_config = ConfigDict(frozen=True)
+
+    id: int = Field(ge=1, description="Идентификатор шаблона в веб-приложении (возвращается как есть)")
+    name: str = Field(min_length=1, max_length=150)
+    phrases: tuple[ClassifyPhrase, ...] = Field(default=(), max_length=200)
+
+
+class CandidateScore(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    id: int
+    score: float
+
+
+class ClassifyResult(BaseModel):
+    """Подходящий шаблон или null, если уверенного победителя нет; scores — по убыванию."""
+
+    model_config = ConfigDict(frozen=True)
+
+    template_id: int | None
+    confidence: float
+    scores: tuple[CandidateScore, ...]
+
+
 class ApiError(BaseModel):
     code: str
     message: str

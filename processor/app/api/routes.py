@@ -5,12 +5,22 @@ from typing import Literal
 
 from fastapi import APIRouter, Depends, File, Form, Request, Response, UploadFile
 from fastapi.concurrency import run_in_threadpool
-from pydantic import ValidationError
+from pydantic import TypeAdapter, ValidationError
 
+from app.classify import classify_document
 from app.config import Settings
-from app.errors import InvalidTemplateError, ServiceBusyError, UnauthorizedError
+from app.errors import FileTooLargeError, InvalidTemplateError, ServiceBusyError, UnauthorizedError
 from app.pipeline import process_document
-from app.schemas import ApiResponse, ExtractionResult, HealthStatus, Template, TemplateCheck, TemplateIssue
+from app.schemas import (
+    ApiResponse,
+    ClassifyCandidate,
+    ClassifyResult,
+    ExtractionResult,
+    HealthStatus,
+    Template,
+    TemplateCheck,
+    TemplateIssue,
+)
 
 router = APIRouter()
 
@@ -101,6 +111,53 @@ async def validate_template(
     response.headers["Cache-Control"] = "no-store"
     # компиляция regex через RE2 — не блокируем event loop
     result = await run_in_threadpool(check_template, template, settings.max_template_chars)
+    return ApiResponse.ok(result)
+
+
+MAX_CLASSIFY_CANDIDATES = 100
+_CANDIDATES = TypeAdapter(list[ClassifyCandidate])
+
+
+def parse_candidates(raw: str, max_chars: int) -> list[ClassifyCandidate]:
+    if len(raw) > max_chars:
+        raise InvalidTemplateError("Список шаблонов слишком большой")
+    try:
+        candidates = _CANDIDATES.validate_json(raw)
+    except (ValidationError, ValueError, RecursionError):
+        raise InvalidTemplateError("Некорректный список шаблонов") from None
+    if not 1 <= len(candidates) <= MAX_CLASSIFY_CANDIDATES:
+        raise InvalidTemplateError(f"Нужно от 1 до {MAX_CLASSIFY_CANDIDATES} шаблонов")
+    return candidates
+
+
+@router.post(
+    "/classify",
+    response_model=ApiResponse[ClassifyResult],
+    responses=ERROR_RESPONSES,
+    dependencies=[Depends(require_api_token)],
+)
+async def classify(
+    request: Request,
+    response: Response,
+    file: UploadFile = File(description="Документ: PDF, DOCX, PNG или JPG"),
+    templates: str = Form(description="JSON-список шаблонов: id, name, phrases (подписи и слова-якоря полей)"),
+    settings: Settings = Depends(get_app_settings),
+) -> ApiResponse[ClassifyResult]:
+    """Какой шаблон подходит к документу: веб-приложение предлагает его сразу после выбора файла."""
+    response.headers["Cache-Control"] = "no-store"
+    candidates = parse_candidates(templates, settings.max_template_chars)
+    data = await file.read()
+    if len(data) > settings.max_file_bytes:
+        raise FileTooLargeError(f"Файл больше {settings.max_file_mb:g} МБ")
+    slots: asyncio.Semaphore = request.app.state.extract_slots
+    try:
+        await asyncio.wait_for(slots.acquire(), timeout=settings.queue_wait_seconds)
+    except TimeoutError:
+        raise ServiceBusyError("Сервис перегружен, повторите запрос позже") from None
+    try:
+        result = await run_in_threadpool(classify_document, data, candidates, settings, request.app.state.ocr_engine)
+    finally:
+        slots.release()
     return ApiResponse.ok(result)
 
 

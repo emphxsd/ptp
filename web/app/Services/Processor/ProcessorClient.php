@@ -103,6 +103,33 @@ class ProcessorClient
         return $issues;
     }
 
+    /**
+     * Какой из шаблонов подходит к документу (по подписям и словам-якорям полей); null — уверенного победителя нет.
+     *
+     * @param  StreamInterface  $file  поток содержимого файла (клиент закрывает его после отправки)
+     * @param  list<array{id: int, name: string, phrases: list<string>}>  $candidates
+     *
+     * @throws ProcessorUnavailableException
+     */
+    public function classify(StreamInterface $file, string $fileName, array $candidates): ?int
+    {
+        try {
+            $response = $this->request()->attach('file', $file, $fileName)->post('/classify', [
+                'templates' => json_encode($candidates, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
+            ]);
+        } catch (ConnectionException) {
+            throw new ProcessorUnavailableException('Сервис обработки недоступен.');
+        }
+
+        $data = $response->successful() ? $response->json('data') : null;
+        if (! is_array($data) || ! array_key_exists('template_id', $data)) {
+            Log::warning('Сервис обработки не определил тип документа', ['status' => $response->status()]);
+            throw new ProcessorUnavailableException('Сервис обработки недоступен.');
+        }
+
+        return is_int($data['template_id']) ? $data['template_id'] : null;
+    }
+
     private function request(): PendingRequest
     {
         // без переходов по перенаправлениям: иначе файл и токен ушли бы по адресу из ответа
